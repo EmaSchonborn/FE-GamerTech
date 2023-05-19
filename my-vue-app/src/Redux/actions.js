@@ -1,6 +1,7 @@
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const CREATE_USER = "CREATE_USER";
+export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 
 
 
@@ -30,6 +31,23 @@ export function createUser(payload) {
       console.log(error.message);
     }
   }};
+
+  
+export function getProductById(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech.onrender.com/product/${id}`
+      );
+      return dispatch({
+        type: GET_PRODUCT_BY_ID,
+        payload: json.data,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}
  
 
 

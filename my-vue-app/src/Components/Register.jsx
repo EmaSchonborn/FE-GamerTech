@@ -1,13 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link} from "react-router-dom";
+import {Link} from "react-router-dom"
 import { createUser } from "../Redux/actions.js";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
   let dispatch = useDispatch();
-//   let history = useHistory();
+  // let history = useHistory();
   const [error, setError] = useState({});
   function validate(input) {
     let errors = {};
@@ -27,16 +27,12 @@ export default function CreateUser() {
     if (!input.email) {
       errors.email = "You have to select a email!.";
     }
-    if (!input.phone) {
-      errors.phone = "You have to select a phone number!.";
-    }
     return errors;
   }
 
   const [input, setInput] = useState({
     name: "",
     email: "",
-    phone: "",
     password: "",
   });
 
@@ -57,18 +53,17 @@ export default function CreateUser() {
     e.preventDefault();
     const data = { ...input };
     dispatch(createUser(data));
-
+    console.log(data)
     setInput({
       name: "",
       email: "",
-      phone: "",
       password: "",
       
     });
 
-    if (data.name && data.email && data.phone && data.password) {
+    if (data.name && data.email && data.password) {
       alert("Register successfull!");
-    //   history.push("/");
+      // history.push("/");
     } else {
       alert("You most to complete the info");
     }
@@ -110,18 +105,6 @@ export default function CreateUser() {
                 {error.email && <p>{error.email}</p>}
               </div>
               <br></br>
-              <div >
-                <label>Phone: </label>
-                <input
-                  type="number"
-                  name="phone"
-                  value={input.phone}
-                  onChange={(e) => handleInput(e)}
-                  className="bg-white text-black ml-9 rounded-md"
-                />
-                {error.phone && <p>{error.phone}</p>}
-              </div>
-              <br></br>
               <div>
                 <label >Password: </label>
                 <input
@@ -139,11 +122,7 @@ export default function CreateUser() {
             </div>
           </div>
           <div >
-            <Link to="/login">
-              <button className="flex-none rounded-md bg-black px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                Ingresar
-              </button>
-            </Link>
+            
 
             {!error.name && !error.email && !error.phone && !error.password ? (
               <button
@@ -153,6 +132,11 @@ export default function CreateUser() {
                 Crear Usuario
               </button>
             ) : null}
+           <Link to="/login">
+              <button className="flex-none rounded-md bg-black px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                Ingresar
+              </button>
+            </Link>
           </div>
         </div>
       </form>

@@ -1,5 +1,6 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx"
+import ProductDetail from "./Components/ProductDetail.jsx";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
     <Route path="/register" element={<Register />} />
     <Route path="/" element={<h1>Landing</h1>} />
       <Route path="/home" element={<h1>Home</h1>} />
-      <Route path="/product/:id" element={<h1>Detalles del producto</h1>} />
+      <Route path="/product/:id" element={<ProductDetail />} />
 
       {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
       <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
