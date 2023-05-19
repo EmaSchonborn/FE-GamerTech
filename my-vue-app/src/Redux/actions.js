@@ -2,6 +2,7 @@ import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
+export const GET_PRODUCTS = "GET_PRODUCTS";
 
 
 
@@ -12,6 +13,17 @@ export function getUsers() {
     dispatch({
       type: GET_USERS,
       payload: users,
+    });
+  };
+};
+
+export function getProducts() {
+  return async function (dispatch) {
+    const apiData = await axios.get("https://api-conntech.onrender.com/product");
+    const products = apiData.data;
+    dispatch({
+      type: GET_PRODUCTS,
+      payload: products,
     });
   };
 };

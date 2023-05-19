@@ -1,6 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
+import Home from "./Components/Home.jsx";
 
 function App() {
   return (
@@ -8,7 +9,7 @@ function App() {
     <Routes>
     <Route path="/register" element={<Register />} />
     <Route path="/" element={<h1>Landing</h1>} />
-      <Route path="/home" element={<h1>Home</h1>} />
+      <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
 
       {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
