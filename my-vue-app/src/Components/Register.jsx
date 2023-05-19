@@ -84,10 +84,10 @@ export default function CreateUser() {
           <h1 className="font-bold text-2xl text-white text-center">
             Crear cuenta
           </h1>
-          <div className={style.divtextimg}>
-            <div className={style.divtext}>
-              <div className={style.diverror}>
-                <label className={style.label}>Name: </label>
+          <div >
+            <div>
+              <div >
+                <label>Name: </label>
                 <input
                   type="text"
                   name="name"
@@ -95,11 +95,11 @@ export default function CreateUser() {
                   onChange={(e) => handleInput(e)}
                   className="bg-white text-black ml-10 rounded-md"
                 />
-                {error.name && <p className={style.error}>{error.name}</p>}
+                {error.name && <p>{error.name}</p>}
               </div>
               <br></br>
-              <div className={style.diverror}>
-                <label className={style.label}>Email: </label>
+              <div>
+                <label >Email: </label>
                 <input
                   type="email"
                   name="email"
@@ -107,11 +107,11 @@ export default function CreateUser() {
                   onChange={(e) => handleInput(e)}
                   className="bg-white text-black ml-11 rounded-md"
                 />
-                {error.email && <p className={style.error}>{error.email}</p>}
+                {error.email && <p>{error.email}</p>}
               </div>
               <br></br>
-              <div className={style.diverror}>
-                <label className={style.label}>Phone: </label>
+              <div >
+                <label>Phone: </label>
                 <input
                   type="number"
                   name="phone"
@@ -119,11 +119,11 @@ export default function CreateUser() {
                   onChange={(e) => handleInput(e)}
                   className="bg-white text-black ml-9 rounded-md"
                 />
-                {error.phone && <p className={style.error}>{error.phone}</p>}
+                {error.phone && <p>{error.phone}</p>}
               </div>
               <br></br>
-              <div className={style.diverror}>
-                <label className={style.label}>Password: </label>
+              <div>
+                <label >Password: </label>
                 <input
                   type="password"
                   name="password"
@@ -132,13 +132,13 @@ export default function CreateUser() {
                   className="bg-white text-black ml-1 rounded-md"
                 />
                 {error.password && (
-                  <p className={style.error}>{error.password}</p>
+                  <p >{error.password}</p>
                 )}
               </div>
               <br></br>
             </div>
           </div>
-          <div className={style.divbutton}>
+          <div >
             <Link to="/login">
               <button className="flex-none rounded-md bg-black px-3.5 py-2.5 text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                 Ingresar
