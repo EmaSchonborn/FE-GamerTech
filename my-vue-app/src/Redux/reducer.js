@@ -1,4 +1,4 @@
-import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID} from "../Redux/actions";
+import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS} from "../Redux/actions";
   
   const initialState = {
     users: [],
@@ -18,6 +18,11 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID} from "../Redux/actions";
           ...state,
           users: action.payload,
         };
+        case GET_PRODUCTS:
+          return {
+            ...state,
+            products: action.payload,
+          };
         case GET_PRODUCT_BY_ID:
           return {
             ...state,
