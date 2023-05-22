@@ -6,14 +6,14 @@ export const GET_PRODUCTS = "GET_PRODUCTS";
 
 export function getProducts() {
   return async function (dispatch) {
-    const apiData = await axios.get("https://api-conntech.onrender.com/product");
+    const apiData = await axios.get("https://api-gamertech.onrender.com/product");
     const products = apiData.data;
     dispatch({
       type: GET_PRODUCTS,
       payload: products,
     });
   };
-};
+}
 
 export function getProductById(id) {
   return async function (dispatch) {
@@ -29,7 +29,7 @@ export function getProductById(id) {
       console.log(e.message);
     }
   };
-};
+}
 
 export function getProductByName(name) {
   return async function (dispatch) {
@@ -45,7 +45,7 @@ export function getProductByName(name) {
       console.log(e.message);
     }
   };
-};
+}
 
 export function getUsers() {
   return async function (dispatch) {
@@ -56,7 +56,7 @@ export function getUsers() {
       payload: users,
     });
   };
-};
+}
 
 export function createUser(payload) {
   return async function (dispatch) {
@@ -72,7 +72,7 @@ export function createUser(payload) {
     } catch (error) {
       console.log(error.message);
     }
-  }};
+  }}
  
 
 
