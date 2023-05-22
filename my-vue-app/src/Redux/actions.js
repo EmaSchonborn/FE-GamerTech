@@ -19,7 +19,7 @@ export function getUsers() {
 
 export function getProducts() {
   return async function (dispatch) {
-    const apiData = await axios.get("https://api-conntech.onrender.com/product");
+    const apiData = await axios.get("https://api-gamertech.onrender.com/product");
     const products = apiData.data;
     dispatch({
       type: GET_PRODUCTS,

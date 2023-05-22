@@ -4,6 +4,7 @@ import { useState } from "react";
 import {getProducts} from "../Redux/actions"
 import { useEffect } from "react";
 import ProductDetail from "./ProductDetail"
+import NavBar from "../NavBar";
 // import Filter from "../../components/Filter/Filter";
 // import Paginado from "../../components/Paginado/Paginado";
 // import SearchBar from "../../components/SearchBar/SearchBar";
@@ -30,7 +31,8 @@ export default function Home(){
                 }else {
                         return(
                                 <div>
-                                <ul>
+                                    <NavBar/>
+                                {/* <ul>
                                 {allProducts.map((p) => (
                                 <ProductDetail
                                 id = {p.id}
@@ -41,7 +43,7 @@ export default function Home(){
                                 />
                         ))
                     }
-                </ul>
+                </ul> */}
             </div>
         )
     }}
