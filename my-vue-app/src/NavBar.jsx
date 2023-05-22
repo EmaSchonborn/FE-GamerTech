@@ -1,9 +1,9 @@
-import SearchBar from "./Components/SearchBar/SearchBar"
+
 
 const NavBar = () => {
   return (
     <div>
-      <SearchBar/>
+      Navbar
     </div>
   )
 }

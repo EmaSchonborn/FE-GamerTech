@@ -1,7 +1,7 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 
 export default function Card(props) {
+  // eslint-disable-next-line react/prop-types
   let {id,name,description,price,imgUrl}=props;
   return (
     <div className="container mx-auto p-4">

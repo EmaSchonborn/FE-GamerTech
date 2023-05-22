@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { getProductByName } from "../../Redux/actions";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -12,7 +13,7 @@ export default function SearchBar() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    // dispatch(getWorkerByName(findWorker));
+    dispatch(getProductByName(product));
   }
 console.log(product);
   return (
