@@ -7,8 +7,9 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-    <Route path="/register" element={<Register />} />
-    <Route path="/" element={<h1>Landing</h1>} />
+      {/* COMPONENTES GLOBALES */}
+      <Route path="/register" element={<Register />} />
+      <Route path="/" element={<h1>Landing</h1>} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
 

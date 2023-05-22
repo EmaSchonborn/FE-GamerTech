@@ -10,17 +10,12 @@ import ProductDetail from "./ProductDetail"
 
 
 export default function Home(){
-    
         let dispatch = useDispatch()
         const allProducts = useSelector((state) => state.products)
-    
-    
         useEffect(() => {
                 dispatch(getProducts())
             },[dispatch])
         
-
-    
         if(!allProducts.length){
                 return(
                         <div>
