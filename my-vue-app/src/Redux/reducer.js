@@ -1,9 +1,10 @@
-import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS} from "../Redux/actions";
+import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL} from "../Redux/actions";
   
   const initialState = {
     users: [],
     products:[],
-    productDetail: {} 
+    productDetail: {},
+    emails: [], 
   };
   
   const rootReducer = (state = initialState, action) => {
@@ -27,6 +28,11 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS} from "../Redux/
           return {
             ...state,
             productDetail: action.payload,
+          };
+        case SEND_EMAIL:
+          return {
+            ...state,
+            emails: action.payload,
           };
       default:
         return { ...state };

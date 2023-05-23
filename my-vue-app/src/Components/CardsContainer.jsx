@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Card from "./Card";
+import ProductDetail from "./ProductDetail";
 
 export default function CardsContainer() {
   const [items, setItems] = useState([]);
@@ -18,8 +19,11 @@ export default function CardsContainer() {
     setpageCount(Math.ceil(products.length / 3));
   }, [products]);
 
+  const productoDetail = useSelector((state) => state.productDetail);
+
   return (
     <>
+      {productoDetail.longth === 0 ? <ProductDetail /> : null}
       {items.map((p) => {
         return (
           <Card

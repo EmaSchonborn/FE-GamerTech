@@ -2,13 +2,15 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
+import NavBar from "./NavBar.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+    <NavBar></NavBar>
     <Routes>
-    <Route path="/register" element={<Register />} />
     <Route path="/" element={<h1>Landing</h1>} />
+    <Route path="/register" element={<Register />} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
 
