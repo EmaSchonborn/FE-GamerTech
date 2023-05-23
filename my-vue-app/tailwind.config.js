@@ -1,16 +1,15 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [],
-  mode: "jit",
-  purge: ['./index.html', './src/*/.{js,jsx,ts,tsx,vue}'],
-  darkMode: false,
+const colors = require("tailwindcss/colors");
+
+module.exports = {
+  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    colors: {
+      ale: "#592EE1",
+      ...colors,
+    },
     fontFamily: {
       "D-DIN": ["D-DIN", "sans-serif"],
     },
   },
-  variants: {},
-  plugins: [],
-}
-
+  plugins: [require("daisyui")],
+};
