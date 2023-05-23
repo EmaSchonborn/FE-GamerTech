@@ -3,7 +3,9 @@ export const GET_USERS = "GET_USERS";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const SEND_EMAIL = "SEND_EMAIL";
 export const GET_PRODUCT_BY_NAME="GET_PRODUCT_BY_NAME";
+
 
 export function getProducts() {
   return async function (dispatch) {
@@ -73,6 +75,19 @@ export function createUser(payload) {
     } catch (error) {
       console.log(error.message);
     }
+  }}
+
+  export function sendEmail(payload){
+    return async function(dispatch){
+        try {
+        let json = await axios.post(`https://api-gamertech.onrender.com/send-email`, payload)
+        dispatch({
+          type: SEND_EMAIL,
+          payload: json.data,
+        });
+        } catch (error) {
+          console.log(error.message)
+        }
   }}
  
 
