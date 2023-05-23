@@ -3,6 +3,7 @@ import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import NavBar from "./NavBar.jsx";
+import Nosotros from "./Components/Nosotros/Nosotros.jsx";
 import './Styles/Styles.css'
 import { Landing } from './Pages/Landing.jsx'
 
