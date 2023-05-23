@@ -3,7 +3,7 @@ import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import './Styles/Styles.css'
-import Landing from './Pages/Landing.jsx'
+import { Landing } from './Pages/Landing.jsx'
 
 function App() {
   return (
