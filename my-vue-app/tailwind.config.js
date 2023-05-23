@@ -4,7 +4,7 @@ module.exports = {
   content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
   theme: {
     colors: {
-      ale: "#592EE1",
+      nintendo: "#E60011",
       ...colors,
     },
     fontFamily: {

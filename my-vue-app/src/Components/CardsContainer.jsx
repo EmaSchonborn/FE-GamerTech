@@ -20,7 +20,7 @@ export default function CardsContainer() {
   }, [products]);
 
   return (
-    <>
+    <div className="bg-white">
       {productsByName &&
         productsByName.map((e) => {
           return (
@@ -77,6 +77,6 @@ export default function CardsContainer() {
           }
         />
       </div>
-    </>
+    </div>
   );
 }

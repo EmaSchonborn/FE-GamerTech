@@ -25,8 +25,9 @@ export default function Home() {
     );
   } else {
     return (
-      <div>
+      <div className="flex flex-col items-center justify-center bg-white">
         <SearchBar/>
+        <br/>
         <CardsContainer />
       </div>
     );
