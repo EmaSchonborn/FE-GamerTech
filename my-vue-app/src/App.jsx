@@ -3,14 +3,17 @@ import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import NavBar from "./NavBar.jsx";
+import './Styles/Styles.css'
+import { Landing } from './Pages/Landing.jsx'
+
 
 function App() {
   return (
     <BrowserRouter>
     <NavBar></NavBar>
     <Routes>
-    <Route path="/" element={<h1>Landing</h1>} />
     <Route path="/register" element={<Register />} />
+    <Route path="/" element={<Landing />} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
 

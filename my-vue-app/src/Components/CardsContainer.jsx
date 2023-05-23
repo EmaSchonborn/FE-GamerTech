@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Card from "./Card";
-import ProductDetail from "./ProductDetail";
 
 export default function CardsContainer() {
   const [items, setItems] = useState([]);
   const [pageCount, setpageCount] = useState(0);
   const products = useSelector((state) => state.products);
+  const productsByName = useSelector((state) => state.productsByName);
 
   const handlePageClick = (data) => {
     let currentPage = data.selected;
@@ -19,11 +19,21 @@ export default function CardsContainer() {
     setpageCount(Math.ceil(products.length / 3));
   }, [products]);
 
-  const productoDetail = useSelector((state) => state.productDetail);
-
   return (
     <>
-      {productoDetail.longth === 0 ? <ProductDetail /> : null}
+      {productsByName &&
+        productsByName.map((e) => {
+          return (
+            <Card
+              key={e.id}
+              id={e.id}
+              name={e.name}
+              description={e.description}
+              price={e.price}
+              imgUrl={e.imgUrl}
+            />
+          );
+        })}
       {items.map((p) => {
         return (
           <Card
