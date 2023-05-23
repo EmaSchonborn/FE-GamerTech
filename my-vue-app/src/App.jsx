@@ -2,10 +2,15 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
+import NavBar from "./NavBar.jsx";
+import './Styles/Styles.css'
+import { Landing } from './Pages/Landing.jsx'
+
 
 function App() {
   return (
     <BrowserRouter>
+    <NavBar></NavBar>
     <Routes>
       {/* COMPONENTES GLOBALES */}
       <Route path="/register" element={<Register />} />

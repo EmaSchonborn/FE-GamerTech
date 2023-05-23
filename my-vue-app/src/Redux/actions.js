@@ -5,6 +5,7 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
 export const SORT_PRODUCT = "SORT_PRODUCT";
+export const SEND_EMAIL = "SEND_EMAIL";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -37,10 +38,10 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech.onrender.com/product/${name}`
+        `https://api-gamertech.onrender.com/product/?name=${name}`
       );
       return dispatch({
-        type: GET_PRODUCT_BY_ID,
+        type: GET_PRODUCT_BY_NAME,
         payload: json.data,
       });
     } catch (e) {
@@ -91,7 +92,20 @@ export function createUser(payload) {
     } catch (error) {
       console.log(error.message);
     }
-  }}
+  }};
+
+  export function sendEmail(payload){
+    return async function(dispatch){
+        try {
+        let json = await axios.post(`https://api-gamertech.onrender.com/send-email`, payload)
+        dispatch({
+          type: SEND_EMAIL,
+          payload: json.data,
+        });
+        } catch (error) {
+          console.log(error.message)
+        }
+  }};
  
 
 

@@ -81,3 +81,22 @@ export default function Home(){
         </div>
     )
 }}
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  if (!allProducts.length) {
+    return (
+      <div>
+        <h1>No hay productos para mostrar!</h1>
+      </div>
+    );
+  } else {
+    return (
+      <div>
+        <SearchBar/>
+        <CardsContainer />
+      </div>
+    );
+  }
+}
