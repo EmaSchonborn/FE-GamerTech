@@ -39,6 +39,22 @@ export default function CardsContainer() {
   }
 
   return (
+
+    <div className="bg-white">
+      {productsByName &&
+        productsByName.map((e) => {
+          return (
+            <Card
+              key={e.id}
+              id={e.id}
+              name={e.name}
+              description={e.description}
+              price={e.price}
+              imgUrl={e.imgUrl}
+            />
+          );
+        })}
+=======
     <>
       <form onSubmit={(e) => handleFilter(e)}>
         <select name='option' onChange={handleChange} >
@@ -51,6 +67,7 @@ export default function CardsContainer() {
             </select>
         <button type='submit' >Filtrar</button>
       </form>
+
       {items.map((p) => {
         return (
           <Card
@@ -94,6 +111,6 @@ export default function CardsContainer() {
           }
         />
       </div>
-    </>
+    </div>
   );
 }
