@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {Link} from "react-router-dom"
-import { createUser } from "../Redux/actions.js";
+import { createUser, sendEmail } from "../Redux/actions.js";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
@@ -53,6 +53,8 @@ export default function CreateUser() {
     e.preventDefault();
     const data = { ...input };
     dispatch(createUser(data));
+    const dataEmail = { email: data.email };
+    dispatch(sendEmail(dataEmail));
     console.log(data)
     setInput({
       name: "",

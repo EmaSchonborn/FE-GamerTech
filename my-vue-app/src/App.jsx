@@ -2,17 +2,20 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx";
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
-import "./Styles/Styles.css";
-import { Landing } from "./Pages/Landing.jsx";
+import NavBar from "./NavBar.jsx";
+import './Styles/Styles.css'
+import { Landing } from './Pages/Landing.jsx'
+
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+    <NavBar></NavBar>
+    <Routes>
+    <Route path="/register" element={<Register />} />
+    <Route path="/" element={<Landing />} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
