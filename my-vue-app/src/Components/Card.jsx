@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 
 export default function Card(props) {
   // eslint-disable-next-line react/prop-types
-  let { id, name, description, price, imgUrl } = props;
+  let { id, name, description, price, imageUrl } = props;
   return (
     <div className="container mx-auto p-4 bg-slate-50 mb-5 rounded-sm">
-      <img src={imgUrl} alt="" className="w-10 h-10" />
+      <img src={imageUrl} alt="" className="w-10 h-10" />
       <br />
       <h3 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm ">
         {name}
