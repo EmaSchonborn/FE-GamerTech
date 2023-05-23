@@ -1,9 +1,12 @@
-import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS,GET_PRODUCT_BY_NAME} from "../Redux/actions";
+
+import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET_PRODUCT_BY_NAME} from "../Redux/actions";
+
   
   const initialState = {
     users: [],
     products:[],
     productDetail: {},
+    emails: [], 
     productsByName:[]
   };
   
@@ -28,6 +31,11 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS,GET_PRODUCT_BY_N
           return {
             ...state,
             productDetail: action.payload,
+          };
+        case SEND_EMAIL:
+          return {
+            ...state,
+            emails: action.payload,
           };
         case GET_PRODUCT_BY_NAME:
           return {
