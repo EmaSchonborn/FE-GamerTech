@@ -43,17 +43,17 @@ export default function CardsContainer() {
   return (
     <>
       <form onSubmit={(e) => handleFilter(e)}>
-        <select name="option" onChange={handleChange}>
+        <select name="option" onChange={handleChange} className="bg-white text-[#484848]">
           <option value="name">Orden alfabético</option>
           <option value="price">Precio</option>
         </select>
-        <select name="sort" onChange={handleChange}>
+        <select name="sort" onChange={handleChange} className="bg-white text-[#484848]">
           <option value="ascendente">Ascendente</option>
           <option value="descendente">Descendente</option>
         </select>
-        <button type="submit">Filtrar</button>
+        <button type="submit" className="bg-nintendo p-1 text-white rounded-sm font-medium">Filtrar</button>
       </form>
-
+      <br/>
       {items.map((p) => {
         return (
           <Card
