@@ -1,25 +1,45 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { sortProducts } from "../Redux/actions";
+import { useDispatch,useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Card from "./Card";
 
 export default function CardsContainer() {
+  const [options, setOptions] = useState({
+    sort : '',
+    option : '',
+  });
   const [items, setItems] = useState([]);
   const [pageCount, setpageCount] = useState(0);
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  const productsByName = useSelector((state) => state.productsByName);
 
   const handlePageClick = (data) => {
     let currentPage = data.selected;
     setItems(products.slice(currentPage * 3, 3 * (currentPage + 1)));
   };
 
+  const handleChange = (e) =>{
+    e.preventDefault();
+    setOptions({...options,[e.target.name] : e.target.value});
+  }
+
   useEffect(() => {
     setItems(products.slice(0, 3));
     setpageCount(Math.ceil(products.length / 3));
   }, [products]);
 
+  const handleFilter = async (e) =>{
+    e.preventDefault();
+    dispatch(sortProducts({
+      array : products,
+      sort : options.sort,
+      type: options.option
+    }))
+  }
+
   return (
+
     <div className="bg-white">
       {productsByName &&
         productsByName.map((e) => {
@@ -34,6 +54,20 @@ export default function CardsContainer() {
             />
           );
         })}
+=======
+    <>
+      <form onSubmit={(e) => handleFilter(e)}>
+        <select name='option' onChange={handleChange} >
+          <option value='name'>Orden alfabético</option>
+          <option value='price'>Precio</option>
+        </select>
+          <select name='sort' onChange={handleChange} >
+            <option value='ascendente'>Ascendente</option>
+            <option value='descendente'>Descendente</option>
+            </select>
+        <button type='submit' >Filtrar</button>
+      </form>
+
       {items.map((p) => {
         return (
           <Card
