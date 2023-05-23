@@ -4,8 +4,10 @@ export default function Card(props) {
   // eslint-disable-next-line react/prop-types
   let { id, name, description, price, imageUrl } = props;
   return (
-    <div className="container mx-auto p-4 bg-slate-50 mb-5 rounded-sm">
-      <img src={imageUrl} alt="" className="w-10 h-10" />
+    <div className="container  p-4 bg-slate-50 mb-5 rounded-sm">
+    <figure className="w-full flex items-center justify-center">
+      <img src={imageUrl} alt="" className="w-60 h-40" />
+      </figure>
       <br />
       <h3 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm ">
         {name}
