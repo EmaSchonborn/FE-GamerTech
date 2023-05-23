@@ -11,7 +11,6 @@ import SearchBar from "./SearchBar/SearchBar";
 export default function Home() {
   let dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products);
-  console.log(allProducts);
 
   useEffect(() => {
     dispatch(getProducts());

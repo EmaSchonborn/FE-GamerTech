@@ -5,7 +5,18 @@ export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCTS = "GET_PRODUCTS";
 export const SEND_EMAIL = "SEND_EMAIL";
 export const GET_PRODUCT_BY_NAME="GET_PRODUCT_BY_NAME";
+export const SORT_PRODUCTS = "SORT_PRODUCTS";
 
+export function sortProducts(payload) {
+  return async function (dispatch){
+    const apiData = await axios.post(`https://api-gamertech.onrender.com/product/sort`,payload);
+    const products = apiData.data;
+    dispatch({
+      type: SORT_PRODUCTS,
+      payload: products,
+    });
+  }
+}
 
 export function getProducts() {
   return async function (dispatch) {
@@ -38,8 +49,9 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech.onrender.com/product/?name=${name}`
+        `https://api-gamertech.onrender.com/product/search?name=${name}`
       );
+      console.log(json.data);
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: json.data,
