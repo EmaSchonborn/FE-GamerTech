@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -49,12 +50,12 @@ export const Header = () => {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a
-            href="#"
+          <Link
+            to="register"
             className="text-base font-semibold leading-6 text-[#484848] hover:text-[#E60011]"
           >
             Ingresar <span aria-hidden="true"></span>
-          </a>
+          </Link>
         </div>
       </nav>
       <Dialog
