@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { sortProducts } from "../Redux/actions";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Card from "./Card";
 
 export default function CardsContainer() {
   const [options, setOptions] = useState({
-    sort : '',
-    option : '',
+    sort: "",
+    option: "",
   });
   const [items, setItems] = useState([]);
   const [pageCount, setpageCount] = useState(0);
@@ -19,53 +19,39 @@ export default function CardsContainer() {
     setItems(products.slice(currentPage * 3, 3 * (currentPage + 1)));
   };
 
-  const handleChange = (e) =>{
+  const handleChange = (e) => {
     e.preventDefault();
-    setOptions({...options,[e.target.name] : e.target.value});
-  }
+    setOptions({ ...options, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     setItems(products.slice(0, 3));
     setpageCount(Math.ceil(products.length / 3));
   }, [products]);
 
-  const handleFilter = async (e) =>{
+  const handleFilter = async (e) => {
     e.preventDefault();
-    dispatch(sortProducts({
-      array : products,
-      sort : options.sort,
-      type: options.option
-    }))
-  }
+    dispatch(
+      sortProducts({
+        array: products,
+        sort: options.sort,
+        type: options.option,
+      })
+    );
+  };
 
   return (
-
-    <div className="bg-white">
-      {productsByName &&
-        productsByName.map((e) => {
-          return (
-            <Card
-              key={e.id}
-              id={e.id}
-              name={e.name}
-              description={e.description}
-              price={e.price}
-              imgUrl={e.imgUrl}
-            />
-          );
-        })}
-=======
     <>
       <form onSubmit={(e) => handleFilter(e)}>
-        <select name='option' onChange={handleChange} >
-          <option value='name'>Orden alfabético</option>
-          <option value='price'>Precio</option>
+        <select name="option" onChange={handleChange}>
+          <option value="name">Orden alfabético</option>
+          <option value="price">Precio</option>
         </select>
-          <select name='sort' onChange={handleChange} >
-            <option value='ascendente'>Ascendente</option>
-            <option value='descendente'>Descendente</option>
-            </select>
-        <button type='submit' >Filtrar</button>
+        <select name="sort" onChange={handleChange}>
+          <option value="ascendente">Ascendente</option>
+          <option value="descendente">Descendente</option>
+        </select>
+        <button type="submit">Filtrar</button>
       </form>
 
       {items.map((p) => {
@@ -76,7 +62,7 @@ export default function CardsContainer() {
             name={p.name}
             description={p.description}
             price={p.price}
-            imgUrl={p.imgUrl}
+            imageUrl={p.imageUrl}
           />
         );
       })}
@@ -111,6 +97,6 @@ export default function CardsContainer() {
           }
         />
       </div>
-    </div>
+    </>
   );
 }
