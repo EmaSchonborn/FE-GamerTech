@@ -1,12 +1,14 @@
 
-import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET_PRODUCT_BY_NAME, SORT_PRODUCTS} from "../Redux/actions";
+import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET_PRODUCT_BY_NAME, FAILURE_LOGIN, LOGIN, SORT_PRODUCTS} from "../Redux/actions";
 
   
   const initialState = {
     users: [],
     products:[],
     productDetail: {},
-    emails: [], 
+    emails: [],
+    userVerified:{} , 
+    isAuthenticated: false
   };
   
   const rootReducer = (state = initialState, action) => {
@@ -29,7 +31,7 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET
         case GET_PRODUCT_BY_ID:
           return {
             ...state,
-            products: action.payload,
+            productDetail: action.payload,
           };
         case SEND_EMAIL:
           return {
@@ -46,6 +48,17 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET
             ...state,
             products: action.payload
           }
+        case LOGIN:
+            return {
+            ...state,
+            userVerified: action.payload,
+            isAuthenticated: true,
+          };
+        case FAILURE_LOGIN:
+          return {
+            ...state,
+            isAuthenticated: false,
+          };  
       default:
         return { ...state };
     }

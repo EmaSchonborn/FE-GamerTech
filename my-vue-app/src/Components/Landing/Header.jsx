@@ -51,7 +51,7 @@ export const Header = () => {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link
-            to="register"
+            to="login"
             className="text-base font-semibold leading-6 text-[#484848] hover:text-[#E60011]"
           >
             Ingresar <span aria-hidden="true"></span>
