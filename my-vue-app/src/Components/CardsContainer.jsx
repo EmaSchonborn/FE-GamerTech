@@ -21,7 +21,7 @@ export default function CardsContainer() {
 
   return (
     <>
-      {productsByName &&
+      {productsByName?
         productsByName.map((e) => {
           return (
             <Card
@@ -33,7 +33,7 @@ export default function CardsContainer() {
               imgUrl={e.imgUrl}
             />
           );
-        })}
+        }):null}
       {items.map((p) => {
         return (
           <Card
