@@ -10,7 +10,6 @@ import SearchBar from "./SearchBar/SearchBar";
 export default function Home() {
   let dispatch = useDispatch();
   const allProducts = useSelector((state) => state.products);
-  console.log(allProducts);
 
   useEffect(() => {
     dispatch(getProducts());
@@ -24,8 +23,9 @@ export default function Home() {
     );
   } else {
     return (
-      <div>
+      <div className="flex flex-col items-center justify-center bg-white">
         <SearchBar/>
+        <br/>
         <CardsContainer />
       </div>
     );

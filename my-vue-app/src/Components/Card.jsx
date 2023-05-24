@@ -2,16 +2,24 @@ import { Link } from "react-router-dom";
 
 export default function Card(props) {
   // eslint-disable-next-line react/prop-types
-  let { id, name, description, price, imgUrl } = props;
+  let { id, name, description, price, imageUrl } = props;
   return (
-    <div className="container mx-auto p-4">
-      <img src={imgUrl} alt="imgProduct" />
-
-      <h3 className="px-4 py-2 ">{name}</h3>
-      <p className="px-4 py-2">Descripcion: {description}</p>
-      <p className="px-4 py-2">Precio: {price}</p>
+    <div className="container  p-4 bg-slate-50 mb-5 rounded-sm">
+    <figure className="w-full flex items-center justify-center">
+      <img src={imageUrl} alt="" className="w-60 h-40" />
+      </figure>
+      <br />
+      <h3 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm ">
+        {name}
+      </h3>
+      <p className="px-4 py-2 text-base font-medium text-[#484848]">
+        {description}
+      </p>
+      <p className="px-4 py-2 text-base font-medium text-[#484848]">
+        $ {price}
+      </p>
       <Link className="flex justify-center" to={`/product/${id}`}>
-        <h2 className="flex justify-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors duration-300">
+        <h2 className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
           <p>Detalle</p>
         </h2>
       </Link>
