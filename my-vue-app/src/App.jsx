@@ -5,6 +5,8 @@ import Home from "./Components/Home.jsx";
 import NavBar from "./NavBar.jsx";
 import './Styles/Styles.css'
 import { Landing } from './Pages/Landing.jsx'
+import Login from "./Components/Login/Login.jsx";
+
 
 
 function App() {
@@ -24,7 +26,7 @@ function App() {
         <Route path="/contact" element={<h1>Contact</h1>} />
 
         {/* COMPONENTES DE AUTENTICACIÓN DEL USUARIO */}
-        <Route path="/login" element={<h1>Login</h1>} />
+        <Route path="/login" element={<Login />} />
 
         {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
         <Route path="/shoppingCart" element={<h1>Carrito de compras</h1>} />

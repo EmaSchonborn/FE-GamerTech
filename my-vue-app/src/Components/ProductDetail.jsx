@@ -9,7 +9,7 @@ const ProductDetail = () => {
   let params = useParams();
 
   useEffect(() => {
-    params ? dispatch(getProductById(params.id)) : null;
+    params.id ? dispatch(getProductById(params.id)) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
@@ -47,7 +47,8 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <h1>Image: {productoDetail.imageUrl}</h1>
+            <img src={productoDetail.imageUrl} alt="Loading.." />
+            
           ) : (
             setTimeout(0)
           )}

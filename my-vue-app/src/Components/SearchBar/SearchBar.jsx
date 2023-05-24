@@ -27,7 +27,7 @@ export default function SearchBar() {
 
   return (
     <div className="flex justify-center bg-slate-100 w-full p-2">
-      <form className="text-white flex">
+      <form className="text-black flex">
         <input type="text" placeholder="Buscar..."  name='search' onChange={handleChange} className="bg-white mr-2 rounded-sm p-2" />
         <button type="submit" onClick={handleSearch}><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/484848/search--v1.png" alt="search--v1"/></button>
       </form>
