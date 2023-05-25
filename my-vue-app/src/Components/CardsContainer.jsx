@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { sortProducts } from "../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Card from "./Card";
 
 export default function CardsContainer() {
+  const [options, setOptions] = useState({
+    sort: "",
+    option: "",
+  });
   const [items, setItems] = useState([]);
   const [pageCount, setpageCount] = useState(0);
+  const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
 
   const handlePageClick = (data) => {
@@ -13,13 +19,41 @@ export default function CardsContainer() {
     setItems(products.slice(currentPage * 3, 3 * (currentPage + 1)));
   };
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setOptions({ ...options, [e.target.name]: e.target.value });
+  };
+
   useEffect(() => {
     setItems(products.slice(0, 3));
     setpageCount(Math.ceil(products.length / 3));
   }, [products]);
 
+  const handleFilter = async (e) => {
+    e.preventDefault();
+    dispatch(
+      sortProducts({
+        array: products,
+        sort: options.sort,
+        type: options.option,
+      })
+    );
+  };
+
   return (
     <>
+      <form onSubmit={(e) => handleFilter(e)}>
+        <select name="option" onChange={handleChange} className="bg-white text-[#484848]">
+          <option value="name">Orden alfabético</option>
+          <option value="price">Precio</option>
+        </select>
+        <select name="sort" onChange={handleChange} className="bg-white text-[#484848]">
+          <option value="ascendente">Ascendente</option>
+          <option value="descendente">Descendente</option>
+        </select>
+        <button type="submit" className="bg-nintendo p-1 text-white rounded-sm font-medium">Filtrar</button>
+      </form>
+      <br/>
       {items.map((p) => {
         return (
           <Card
@@ -28,7 +62,7 @@ export default function CardsContainer() {
             name={p.name}
             description={p.description}
             price={p.price}
-            imgUrl={p.imgUrl}
+            imageUrl={p.imageUrl}
           />
         );
       })}
