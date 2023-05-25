@@ -2,6 +2,7 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx"
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
+import { About } from "./Components/About/About.jsx";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
       <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
       <Route path="/terms" element={<h1>Términos y condiciones</h1>} />
-      <Route path="/about" element={<h1>About</h1>} />
+      <Route path="/about" element={<About/>} />
       <Route path="/contact" element={<h1>Contact</h1>} />
 
       {/* COMPONENTES DE AUTENTICACIÓN DEL USUARIO */}

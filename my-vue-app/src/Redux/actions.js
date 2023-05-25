@@ -3,6 +3,10 @@ export const GET_USERS = "GET_USERS";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCTS = "GET_PRODUCTS";
+export const ADD_TO_CART = 'ADD_TO_CART'
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
+export const CLEAR_CART = 'CLEAR_CART'
+export const GET_CART_BY_USER_ID = 'GET_CART_BY_USER_ID'
 
 export function getProducts() {
   return async function (dispatch) {
@@ -73,7 +77,16 @@ export function createUser(payload) {
       console.log(error.message);
     }
   }}
- 
+ export function getCartByUserId(userId){
+  return async function(dispatch){
+    try { let cart = await axios.get(`https://api-gamertech.onrender.com/cart/${userId}`)
+      
+    return dispatch({type: GET_CART_BY_USER_ID, payload: cart.data})
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+ }
 
 
 
