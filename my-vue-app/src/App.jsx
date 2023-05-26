@@ -45,7 +45,6 @@ function App() {
       <Route path="/order/:id/checkout/payment/confirmation" element={<h1>Confirmación</h1>} />
       <Route path="/order/:id/checkout/payment/confirmation/success" element={<h1>Compra exitosa</h1>} />
       <Route path="/order/:id/checkout/payment/confirmation/error" element={<h1>Compra fallida</h1>} />
-    </Routes>
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />

@@ -3,14 +3,16 @@ export const GET_USERS = "GET_USERS";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const ADD_TO_CART = 'ADD_TO_CART'
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART'
-export const CLEAR_CART = 'CLEAR_CART'
-export const GET_CART_BY_USER_ID = 'GET_CART_BY_USER_ID'
+export const ADD_TO_CART = "ADD_TO_CART";
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const CLEAR_CART = "CLEAR_CART";
+export const GET_CART_BY_USER_ID = "GET_CART_BY_USER_ID";
 
 export function getProducts() {
   return async function (dispatch) {
-    const apiData = await axios.get("https://api-gamertech.onrender.com/product");
+    const apiData = await axios.get(
+      "https://api-gamertech.onrender.com/product"
+    );
     const products = apiData.data;
     dispatch({
       type: GET_PRODUCTS,
@@ -76,16 +78,40 @@ export function createUser(payload) {
     } catch (error) {
       console.log(error.message);
     }
-  }}
- export function getCartByUserId(userId){
-  return async function(dispatch){
-    try { let cart = await axios.get(`https://api-gamertech.onrender.com/cart/${userId}`)
-      
-    return dispatch({type: GET_CART_BY_USER_ID, payload: cart.data})
+  };
+}
+export function getCartByUserId(userId) {
+  return async function (dispatch) {
+    try {
+      let cart = await axios.get(
+        `https://api-gamertech.onrender.com/cart/${userId}`
+      );
+
+      return dispatch({ type: GET_CART_BY_USER_ID, payload: cart.data });
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
- }
+  };
+}
 
+export function sendEmail(payload) {
+  return async function (dispatch) {
+    try {
+      let prueba = "Hello";
+      prueba + 1;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+}
 
+export function sortProducts(payload) {
+  return async function (dispatch) {
+    try {
+      let prueba = "try catch de prueba";
+      prueba + 1;
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+}
