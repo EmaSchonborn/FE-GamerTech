@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts,getProductByName } from "../../Redux/actions";
 
 export default function SearchBar() {
@@ -24,6 +24,8 @@ export default function SearchBar() {
     }
     option.isSearch++;
   }
+  const productsByName=useSelector(state=>state.productsByName)
+  console.log(productsByName);
 
   return (
     <div className="flex justify-center bg-slate-100 w-full p-2">

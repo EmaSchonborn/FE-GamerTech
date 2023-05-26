@@ -1,13 +1,12 @@
-import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {Link} from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import { createUser, sendEmail } from "../Redux/actions.js";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
   let dispatch = useDispatch();
-  // let history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = useState({});
   function validate(input) {
     let errors = {};
@@ -16,7 +15,7 @@ export default function CreateUser() {
       errors.name = "You have to select a name!.";
     }
     if (!/^[A-Za-z\s]+$/.test(input.name)) {
-        errors.name = "The name must only contain letters and spaces.";
+      errors.name = "The name must only contain letters and spaces.";
     }
     if (input.name.search("[^A-Za-z0-9]") !== -1) {
       errors.name = "The name must not contain symbols or spaces.";
@@ -55,17 +54,16 @@ export default function CreateUser() {
     dispatch(createUser(data));
     const dataEmail = { email: data.email };
     dispatch(sendEmail(dataEmail));
-    console.log(data)
+    console.log(data);
     setInput({
       name: "",
       email: "",
       password: "",
-      
     });
 
     if (data.name && data.email && data.password) {
       alert("Register successfull!");
-      // history.push("/");
+      navigate("/login");
     } else {
       alert("You most to complete the info");
     }
@@ -73,18 +71,15 @@ export default function CreateUser() {
 
   return (
     <div className="flex flex-col items-center justify-center bg-white w-full h-screen font-D-DIN">
-      <form
-        onSubmit={(e) => handleSubmit(e)}
-        className="bg-slate-100 p-10 rounded-sm text-[#484848]"
-      >
+      <form className="bg-slate-100 p-10 rounded-sm text-[#484848]">
         <div>
           <h1 className="font-bold text-2xl text-[#484848] text-center">
             Crear cuenta
           </h1>
-          <br/>
-          <div >
+          <br />
+          <div>
             <div className="flex flex-col items-center justify-center">
-              <div >
+              <div>
                 {/* <label>Name: </label> */}
                 <input
                   type="text"
@@ -120,9 +115,7 @@ export default function CreateUser() {
                   onChange={(e) => handleInput(e)}
                   className="bg-white text-black rounded-sm"
                 />
-                {error.password && (
-                  <p >{error.password}</p>
-                )}
+                {error.password && <p>{error.password}</p>}
               </div>
               <br></br>
             </div>
@@ -130,13 +123,13 @@ export default function CreateUser() {
           <div className="flex items-center justify-between">
             {!error.name && !error.email && !error.phone && !error.password ? (
               <button
-                type="submit"
+                onClick={(e) => handleSubmit(e)}
                 className="flex-none rounded-sm bg-nintendo p-1 text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 Registrar
               </button>
             ) : null}
-           <Link to="/login">
+            <Link to="/login">
               <button className="flex-none rounded-sm bg-nintendo p-1 text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                 Ingresar
               </button>
