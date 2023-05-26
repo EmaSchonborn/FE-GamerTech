@@ -1,12 +1,22 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch} from "react-redux";
-import { getProductByName } from "../../Redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts,getProductByName } from "../../Redux/actions";
 
 
 export default function SearchBar(){
-
-    let dispatch = useDispatch()
+let dispatch = useDispatch()
+  const handleSearch = (e) =>{
+    e.preventDefault();
+    if(option.search === ''){
+      dispatch(getProducts());
+    }else{
+      dispatch(getProductByName(option.search));
+    }
+    option.isSearch++;
+  }
+  const productsByName=useSelector(state=>state.productsByName)
+  console.log(productsByName);
 
     const [name, setName] = useState("")
 

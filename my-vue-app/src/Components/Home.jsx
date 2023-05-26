@@ -2,11 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
 import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
-import NavBar from "../NavBar";
 import SearchBar from "./SearchBar/SearchBar";
-// import Filter from "../../components/Filter/Filter";
-// import Paginado from "../../components/Paginado/Paginado";
-// import SearchBar from "../../components/SearchBar/SearchBar";
 
 export default function Home() {
   let dispatch = useDispatch();
@@ -15,6 +11,9 @@ export default function Home() {
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+
+  const isAuthenticated=localStorage.getItem("isAuthenticated");
+  console.log(isAuthenticated);
 
   if (!allProducts.length) {
     return (
