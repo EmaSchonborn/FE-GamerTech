@@ -51,7 +51,7 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech.onrender.com/product/?name=${name}`
+        `https://api-gamertech.onrender.com/product/search/?name=${name}`
       );
       console.log(json.data);
       return dispatch({
@@ -112,7 +112,7 @@ export function createUser(payload) {
     return async function (dispatch) {
       try {
         let json = await axios.post(
-          "https://api-gamertech.onrender.com/login",
+          "https://api-gamertech.onrender.com/verifyuser",
           body
         );
   

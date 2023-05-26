@@ -6,6 +6,7 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET
     users: [],
     products:[],
     productDetail: {},
+    productsByName: [],
     emails: [],
     userVerified:{} , 
     isAuthenticated: false
@@ -41,7 +42,7 @@ import {CREATE_USER, GET_USERS, GET_PRODUCT_BY_ID, GET_PRODUCTS, SEND_EMAIL, GET
         case GET_PRODUCT_BY_NAME:
           return {
             ...state,
-            products: action.payload
+            productsByName: action.payload
           }
         case SORT_PRODUCTS:
           return {
