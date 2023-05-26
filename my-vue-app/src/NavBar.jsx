@@ -1,14 +1,25 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
+  const [verified, setVerified] = useState(true);
+
   const location = useLocation();
+
   const hideGameStoreButton = location.pathname === "/home";
   const hideBuyButton =
     location.pathname === "/carrito-de-compras" ||
     location.pathname === "/register";
+
+  const hideDashBoardButton =
+    location.pathname === "/register" ||
+    location.pathname === "/controlPanel";
+
   const hidePerfilButton =
     location.pathname === "/perfil" || location.pathname === "/register";
+
   const hideNavBar = location.pathname === "/";
+
   if (!hideNavBar) {
     return (
       <div className="flex items-center justify-between bg-white p-2 sticky top-0 z-10">
@@ -22,6 +33,15 @@ const NavBar = () => {
           </a>
         </div>
         <div className="flex items-center justify-end bg-white p-2">
+          {!hideDashBoardButton && verified && (
+            <div>
+              <Link to="/controlPanel">
+                <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold h-10 py-2 px-4 rounded">
+                  Panel de Control
+                </button>
+              </Link>
+            </div>
+          )}
           {!hideGameStoreButton && (
             <div>
               <Link to="/home">
