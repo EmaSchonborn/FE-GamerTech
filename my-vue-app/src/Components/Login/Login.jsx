@@ -1,15 +1,14 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link} from "react-router-dom";
-
-
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { verifyUser } from "../../Redux/actions";
 
 const Login = () => {
-  const clientId =
-    "688737799752-2da6ig385v5aljm0fvjtisv2qtlbuqlb.apps.googleusercontent.com";
+  /* const clientId =
+    "688737799752-2da6ig385v5aljm0fvjtisv2qtlbuqlb.apps.googleusercontent.com"; */
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,8 +23,11 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(verifyUser(email, password));
+    navigate("/home");
   };
 
+  const userCreated=useSelector(state=>state.userCreated)
+  console.log(userCreated);
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
@@ -36,10 +38,7 @@ const Login = () => {
             Si ya eres miembro, inicia sesión fácilmente.
           </p>
 
-          <form
-            onSubmit={(e) => handleSubmit(e)}
-            className="flex flex-col gap-4"
-          >
+          <form className="flex flex-col gap-4">
             <input
               className="p-2 mt-8 rounded-md border bg-gray-50 text-[#002D74]"
               type="email"
@@ -69,11 +68,12 @@ const Login = () => {
                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
               </svg>
             </div>
-            <Link to="/home">
-            <button className="bg-black rounded-md text-white py-2 hover:scale-105 duration-300">
-              Ingresar
-            </button>
-            </Link>
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="bg-black rounded-md text-white py-2 hover:scale-105 duration-300"
+              >
+                Ingresar
+              </button>
           </form>
 
           <div className="mt-6 grid grid-cols-3 items-center text-gray-400">
@@ -81,7 +81,6 @@ const Login = () => {
             <p className="text-center text-sm">OR</p>
             <hr className="border-gray-400" />
           </div>
-
 
           <div className="mt-5 text-sm border-b border-[#002D74] py-4 text-white">
             <Link to="#">¿Olvidaste tu contraseña?</Link>
