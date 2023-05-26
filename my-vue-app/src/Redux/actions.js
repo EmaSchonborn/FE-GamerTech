@@ -46,7 +46,7 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech.onrender.com/product/?name=${name}`
+        `https://api-gamertech.onrender.com/product/search?name=${name}`
       );
       console.log(json.data);
       return dispatch({
