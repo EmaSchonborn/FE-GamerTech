@@ -2,13 +2,15 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx";
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
-
 import { About } from "./Components/About/About.jsx";
-
 import NavBar from "./NavBar.jsx";
 import './Styles/Styles.css'
 import { Landing } from './Pages/Landing.jsx'
 import Login from "./Components/Login/Login.jsx";
+import Preguntas from "./Components/Preguntas/Preguntas.jsx";
+import Perfil from "./Components/Perfil/Perfil.jsx";
+import Cart from "./Components/Carrito/Carrito.jsx";
+
 
 
 
@@ -28,6 +30,7 @@ function App() {
       <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
       <Route path="/terms" element={<h1>Términos y condiciones</h1>} />
       <Route path="/about" element={<About/>} />
+      <Route path="/preguntas-frecuentes" element={<Preguntas/>} />
       <Route path="/contact" element={<h1>Contact</h1>} />
 
       {/* COMPONENTES DE AUTENTICACIÓN DEL USUARIO */}
@@ -35,8 +38,8 @@ function App() {
      
 
       {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
-      <Route path="/shoppingCart" element={<h1>Carrito de compras</h1>} />
-      <Route path="/profile" element={<h1>Perfil de usuario</h1>} />
+      <Route path="/shoppingCart" element={<Cart/>} />
+      <Route path="/perfil" element={<Perfil />} />
 
       {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}
       <Route path="/orders" element={<h1>Ordenes de compra</h1>} />

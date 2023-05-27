@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { getProductById } from "../Redux/actions";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { getProductById, sumarCarrito } from "../Redux/actions";
 
 const ProductDetail = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
   let dispatch = useDispatch();
   let params = useParams();
 
+  const id = localStorage.getItem("id");
   useEffect(() => {
     params.id ? dispatch(getProductById(params.id)) : null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  console.log(productoDetail);
+  
+  const data = {userId: parseInt(id),
+    productId:parseInt(params.id)}     
+    const handleClick = (e) => { 
+      dispatch(sumarCarrito(data))
+      alert("Agregado Correctamente!")
+      navigate("/home")
+    };
+    const carrito = useSelector((state) => state.cartByUserId)
+    console.log(carrito)
 
   if (loading) {
     setLoading(false);
@@ -53,7 +64,7 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           <div className="flex justify-evenly items-center h-24">
-            <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
+            <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm" onClick={handleClick}>
               Añadir al Carrito
             </button>
             <br />

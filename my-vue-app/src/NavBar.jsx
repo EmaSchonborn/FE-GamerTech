@@ -2,12 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const location = useLocation();
-  const hideGameStoreButton = location.pathname === "/home";
+  const hideGameStoreButton = location.pathname === "/home" || location.pathname === "/register" || location.pathname === "/login";
   const hideBuyButton =
-    location.pathname === "/carrito-de-compras" ||
+    location.pathname === "/shoppingCart" || location.pathname === "/register" || location.pathname === "/login"
     location.pathname === "/register";
   const hidePerfilButton =
-    location.pathname === "/perfil" || location.pathname === "/register";
+    location.pathname === "/perfil" || location.pathname === "/register" || location.pathname === "/login";
   const hideNavBar = location.pathname === "/";
   if (!hideNavBar) {
     return (
@@ -38,7 +38,7 @@ const NavBar = () => {
           )}
           {!hideBuyButton && (
             <div>
-              <Link to="/carrito-de-compras">
+              <Link to="/shoppingCart">
                 <button className="mr-5">
                   <img
                     width="30"
