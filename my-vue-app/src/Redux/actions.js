@@ -12,6 +12,7 @@ export const GET_CART_BY_USER_ID = "GET_CART_BY_USER_ID";
 export const SEND_EMAIL = "SEND_EMAIL";
 export const LOGIN = "LOGIN";
 export const FAILURE_LOGIN = "FAILURE_LOGIN";
+export const SUMAR_CARRITO = "SUMAR_CARRITO";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -162,6 +163,20 @@ export function getCartByUserId(userId) {
         `https://api-gamertech.onrender.com/cart/${userId}`
       );
       return dispatch({ type: GET_CART_BY_USER_ID, payload: cart.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function sumarCarrito(payload) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(`https://api-gamertech.onrender.com/cart/addproducttocart`, payload);
+      dispatch({
+        type: SUMAR_CARRITO,
+        payload: json.data,
+      });
     } catch (error) {
       console.log(error.message);
     }

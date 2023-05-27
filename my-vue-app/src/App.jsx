@@ -9,6 +9,8 @@ import { Landing } from './Pages/Landing.jsx'
 import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
+import Cart from "./Components/Carrito/Carrito.jsx";
+
 
 
 
@@ -36,7 +38,7 @@ function App() {
      
 
       {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
-      <Route path="/shoppingCart" element={<h1>Carrito de compras</h1>} />
+      <Route path="/shoppingCart" element={<Cart/>} />
       <Route path="/perfil" element={<Perfil />} />
 
       {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}

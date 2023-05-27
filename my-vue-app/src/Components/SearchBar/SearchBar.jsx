@@ -16,7 +16,6 @@ let dispatch = useDispatch()
     option.isSearch++;
   }
   const productsByName=useSelector(state=>state.productsByName)
-  console.log(productsByName);
 
     const [name, setName] = useState("")
 
