@@ -2,12 +2,12 @@ import { Link, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const location = useLocation();
-  const hideGameStoreButton = location.pathname === "/home";
+  const hideGameStoreButton = location.pathname === "/home" || location.pathname === "/register" || location.pathname === "/login";
   const hideBuyButton =
-    location.pathname === "/shoppingCart" ||
+    location.pathname === "/shoppingCart" || location.pathname === "/register" || location.pathname === "/login"
     location.pathname === "/register";
   const hidePerfilButton =
-    location.pathname === "/perfil" || location.pathname === "/register";
+    location.pathname === "/perfil" || location.pathname === "/register" || location.pathname === "/login";
   const hideNavBar = location.pathname === "/";
   if (!hideNavBar) {
     return (

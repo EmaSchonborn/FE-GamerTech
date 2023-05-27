@@ -12,6 +12,7 @@ import {
   SEND_EMAIL,
   LOGIN,
   FAILURE_LOGIN,
+  SUMAR_CARRITO,
 } from "../Redux/actions";
 
 const initialState = {
@@ -95,6 +96,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         cartByUserId: action.payload,
+      };
+    case SUMAR_CARRITO:
+      return {
+        ...state,
+        cartByUserId: action.payload
       };
     default:
       return { ...state };
