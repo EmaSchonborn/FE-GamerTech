@@ -2,13 +2,12 @@ import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx";
 import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
-
 import { About } from "./Components/About/About.jsx";
-
 import NavBar from "./NavBar.jsx";
 import './Styles/Styles.css'
 import { Landing } from './Pages/Landing.jsx'
 import Login from "./Components/Login/Login.jsx";
+import Cart from "./Components/Carrito/Carrito.jsx";
 
 
 
@@ -35,7 +34,7 @@ function App() {
      
 
       {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
-      <Route path="/shoppingCart" element={<h1>Carrito de compras</h1>} />
+      <Route path="/shoppingCart" element={<Cart/>} />
       <Route path="/profile" element={<h1>Perfil de usuario</h1>} />
 
       {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}

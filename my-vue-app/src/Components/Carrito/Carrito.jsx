@@ -1,6 +1,6 @@
-import React from "react";
+import { useEffect } from "react";
 import { getCartByUserId } from "../../Redux/actions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Cart = () => {
 	// const handleRemoveFromCart = (product) => {
@@ -10,10 +10,16 @@ const Cart = () => {
 	// const handleClearCart = () => {
 	//   dispatch();
 	// };
+	const dispatch=useDispatch();
+	const UserId=useSelector(state=>state.userVerified)
+	console.log(UserId);
+
 	useEffect(() => {
 		dispatch(getCartByUserId(UserId));
 	}, []);
+
 	const cartByUserId = useSelector((state) => state.cartByUserId);
+
 	console.log(cartByUserId);
 	return (
 		<div className='shopping-cart'>

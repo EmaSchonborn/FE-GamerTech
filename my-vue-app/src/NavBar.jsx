@@ -4,7 +4,7 @@ const NavBar = () => {
   const location = useLocation();
   const hideGameStoreButton = location.pathname === "/home";
   const hideBuyButton =
-    location.pathname === "/carrito-de-compras" ||
+    location.pathname === "/shoppingCart" ||
     location.pathname === "/register";
   const hidePerfilButton =
     location.pathname === "/perfil" || location.pathname === "/register";
@@ -38,7 +38,7 @@ const NavBar = () => {
           )}
           {!hideBuyButton && (
             <div>
-              <Link to="/carrito-de-compras">
+              <Link to="/shoppingCart">
                 <button className="mr-5">
                   <img
                     width="30"

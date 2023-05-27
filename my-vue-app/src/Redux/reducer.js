@@ -19,7 +19,7 @@ const initialState = {
   products: [],
   productDetail: {},
   productsByName: [],
-  cartByUserId: [],
+  cartByUserId: {},
   emails: [],
   userVerified: {},
   userCreated: {},
