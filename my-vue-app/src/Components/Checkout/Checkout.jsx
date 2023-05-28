@@ -1,31 +1,38 @@
 import React, { useEffect } from "react";
-import classnames from 'classnames'
+import classnames from "classnames";
 import { Context } from "../ContextProvider/ContextProvider";
 
 const Checkout = ({ onClick }) => {
   const [isVisible, setIsVisible] = React.useState(true);
-  const { preferenceId, isLoading: disabled, orderData, setOrderData } = React.useContext(Context);
-  const shoppingCartClass = classnames('shopping-cart dark', {
-    'shopping-cart--hidden': !isVisible,
-  })
+  const {
+    preferenceId,
+    isLoading: disabled,
+    orderData,
+    setOrderData,
+  } = React.useContext(Context);
+  const shoppingCartClass = classnames("shopping-cart dark", {
+    "shopping-cart--hidden": !isVisible,
+  });
 
   useEffect(() => {
     if (preferenceId) setIsVisible(false);
-  }, [preferenceId])
-
+  }, [preferenceId]);
 
   const updatePrice = (event) => {
     const quantity = event.target.value;
     const amount = parseInt(orderData.price) * parseInt(quantity);
     setOrderData({ ...orderData, quantity, amount });
-  }
-  
+  };
+
   return (
     <section className={shoppingCartClass}>
       <div className="container" id="container">
         <div className="block-heading">
           <h2>Carrito</h2>
-          <p>Este es un ejemplo de integracion de nuestro carrito con Mercado Pago</p>
+          <p>
+            Este es un ejemplo de integracion de nuestro carrito con Mercado
+            Pago
+          </p>
         </div>
         <div className="content">
           <div className="row">
@@ -57,7 +64,7 @@ const Checkout = ({ onClick }) => {
                             <b>Cantidad</b>
                           </label>
                           <input
-                           onChange={updatePrice}
+                            onChange={updatePrice}
                             type="number"
                             id="quantity"
                             value={orderData.quantity}
@@ -76,7 +83,9 @@ const Checkout = ({ onClick }) => {
                 <h3>Tu compra</h3>
                 <div className="summary-item">
                   <span className="text">Subtotal: </span>
-                  <span className="price" id="cart-total">${orderData.amount}</span>
+                  <span className="price" id="cart-total">
+                    ${orderData.amount}
+                  </span>
                 </div>
                 <button
                   className="btn btn-primary btn-lg btn-block"

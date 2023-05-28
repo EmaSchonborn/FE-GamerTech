@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { initMercadoPago } from "@mercadopago/sdk-react";
 import Payment from "../Payment/Payment";
 import Checkout from "../Checkout/Checkout";
-import Footer from "../FooterPayment/FooterPayment";
+//import Footer from "../FooterPayment/FooterPayment";
 import InternalProvider from "../ContextProvider/ContextProvider";
-import { SpinnerCircular } from 'spinners-react';
+import { SpinnerCircular } from "spinners-react";
+import "../../Styles/payment.css";
 
 initMercadoPago("TEST-1b219c6f-dc51-44fd-ad18-6c48f228ef56");
 
@@ -62,13 +63,15 @@ const Cart = () => {
   };
 
   return (
-    <InternalProvider context={{ preferenceId, isLoading, orderData, setOrderData }}>
+    <InternalProvider
+      context={{ preferenceId, isLoading, orderData, setOrderData }}
+    >
       <main>
         {renderSpinner()}
-        <Checkout onClick={handleClick} description/>
+        <Checkout onClick={handleClick} description />
         <Payment />
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </InternalProvider>
   );
 };
