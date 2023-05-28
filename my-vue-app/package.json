@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mercadopago/sdk-react": "0.0.3",
+    "spinners-react": "^1.0.7",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
     "autoprefixer": "^10.4.14",
@@ -30,6 +32,7 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
+    "classnames": "2.3.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
