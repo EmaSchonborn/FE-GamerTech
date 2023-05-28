@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { getCartByUserId } from "../../Redux/actions";
 import { useSelector, useDispatch } from "react-redux";
 // import ProductDetail from "../ProductDetail";
-import Card from "../Card";
 
 const Cart = () => {
 	const dispatch = useDispatch()
@@ -10,6 +9,7 @@ const Cart = () => {
 	useEffect(() => {
 		dispatch(getCartByUserId(userId));
 	}, []);
+
 	const cartByUserId = useSelector((state) => state.cartByUserId);
 	console.log(cartByUserId.productsId)
 	return (
@@ -22,7 +22,7 @@ const Cart = () => {
 			<h5>{cartByUserId.userId}</h5>
 			{cartByUserId?.productsId ? (
             <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
-              {cartByUserId.productsId.map(e => <Card e = {e}/>)}
+              Componente CardCarrito
             </h1>
           ) : (
             setTimeout(0)
