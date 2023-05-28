@@ -9,7 +9,7 @@ import { Landing } from './Pages/Landing.jsx'
 import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
-import Cart from "./Components/Carrito/Carrito.jsx";
+import Cart from "./Components/Carrito/Cart.jsx";
 
 
 
@@ -46,8 +46,8 @@ function App() {
       <Route path="/order/:id" element={<h1>Detalles de la orden</h1>} />
       <Route path="/order/:id/checkout/payment" element={<h1>Pago</h1>} />
       <Route path="/order/:id/checkout/payment/confirmation" element={<h1>Confirmación</h1>} />
-      <Route path="/order/:id/checkout/payment/confirmation/success" element={<h1>Compra exitosa</h1>} />
-      <Route path="/order/:id/checkout/payment/confirmation/error" element={<h1>Compra fallida</h1>} />
+      <Route path="/payment/success" element={<h1>Compra exitosa</h1>} />
+      <Route path="/payment/failure" element={<h1>Compra fallida</h1>} />
     </Routes>
 
     </BrowserRouter>
