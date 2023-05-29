@@ -18,7 +18,7 @@ function App() {
     <Routes>
       {/* COMPONENTES GLOBALES */}
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<h1>Landing</h1>} />
+      <Route path="/" element={<Landing/>} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
 
