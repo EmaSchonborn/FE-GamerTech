@@ -11,10 +11,6 @@ import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
 
-
-
-
-
 function App() {
   return (
     <BrowserRouter>
