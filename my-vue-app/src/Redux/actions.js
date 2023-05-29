@@ -165,9 +165,12 @@ export function loginWithGoogle(payload) {
         "https://api-gamertech.onrender.com/users/loginwithgoogle",
         payload
       );
-      const { user, msg } = json.data;
+      const { user, msg, marcaTiempoLogin } = json.data;
+
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
+      localStorage.setItem('marcaTiempoLogin', marcaTiempoLogin)
+
       return dispatch({
         type: LOGIN_WITH_GOOGLE,
         payload: { user, msg }

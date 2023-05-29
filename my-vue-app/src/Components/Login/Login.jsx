@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { verifyUser } from "../../Redux/actions";
+import { verifyUser, loginWithGoogle } from "../../Redux/actions";
 import { GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from "firebase/auth";
 import {auth,provider} from "../../firebase.config";
 import { useEffect } from "react";
@@ -41,7 +41,7 @@ const Login = () => {
       const token = credential.accessToken;
       const user = getAdditionalUserInfo(data);
       if(user.profile.verified_email){
-        dispatch(googleLogin(user.profile));
+        dispatch(loginWithGoogle(user.profile));
         // Guardaremos el token del usuario
         localStorage.setItem("token", token);
         // Una vez validado todos los datos lo mandaremos recien al home con su cuenta logueada
