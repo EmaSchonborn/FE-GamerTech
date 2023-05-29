@@ -13,6 +13,7 @@ export const SEND_EMAIL = "SEND_EMAIL";
 export const LOGIN = "LOGIN";
 export const FAILURE_LOGIN = "FAILURE_LOGIN";
 export const SUMAR_CARRITO = "SUMAR_CARRITO";
+export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -146,6 +147,29 @@ export function verifyUser(Email, Password) {
 
       return dispatch({
         type: LOGIN,
+        payload: { user, msg }
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILURE_LOGIN,
+        payload: { error: error.message },
+      });
+    }
+  };
+}
+
+export function loginWithGoogle(payload) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        "https://api-gamertech.onrender.com/users/loginwithgoogle",
+        payload
+      );
+      const { user, msg } = json.data;
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("id", user.id);
+      return dispatch({
+        type: LOGIN_WITH_GOOGLE,
         payload: { user, msg }
       });
     } catch (error) {

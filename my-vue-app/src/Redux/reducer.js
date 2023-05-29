@@ -13,6 +13,7 @@ import {
   LOGIN,
   FAILURE_LOGIN,
   SUMAR_CARRITO,
+  LOGIN_WITH_GOOGLE
 } from "../Redux/actions";
 
 const initialState = {
@@ -65,6 +66,12 @@ const rootReducer = (state = initialState, action) => {
         products: action.payload,
       };
     case LOGIN:
+      return {
+        ...state,
+        userVerified: action.payload,
+        isAuthenticated: true,
+      };
+    case LOGIN_WITH_GOOGLE:
       return {
         ...state,
         userVerified: action.payload,
