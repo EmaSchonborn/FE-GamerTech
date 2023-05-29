@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom"
 
 export const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -29,9 +30,11 @@ export const Hero = () => {
             Todo lo que buscas en un solo lugar.
           </h1>
           <p className="mb-5"></p>
-          <button className="btn btn-primary bg-[#E60011] border-none">
+          <Link to="/register">
+          <button className="btn btn-primary bg-[#E60011] border-none rounded-sm">
             Registrarse
           </button>
+          </Link>
         </div>
       </div>
     </div>
