@@ -1,8 +1,18 @@
 import React, { useEffect } from "react";
 import classnames from "classnames";
 import { Context } from "../ContextProvider/ContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { getCartByUserId } from "../../Redux/actions";
+import Card from "../Card";
 
-const Checkout = ({ onClick }) => {
+const Checkout = ({ onClick, cartItems }) => {
+  const dispatch = useDispatch();
+  const userId = localStorage.getItem("id");
+  useEffect(() => {
+    dispatch(getCartByUserId(userId));
+  }, []);
+  const cartByUserId = useSelector((state) => state.cartByUserId);
+  console.log(cartByUserId.productsId);
   const [isVisible, setIsVisible] = React.useState(true);
   const {
     preferenceId,
@@ -18,11 +28,11 @@ const Checkout = ({ onClick }) => {
     if (preferenceId) setIsVisible(false);
   }, [preferenceId]);
 
-  const updatePrice = (event) => {
+  /* const updatePrice = (event) => {
     const quantity = event.target.value;
     const amount = parseInt(orderData.price) * parseInt(quantity);
     setOrderData({ ...orderData, quantity, amount });
-  };
+  }; */
 
   return (
     <section className={shoppingCartClass}>
@@ -42,23 +52,37 @@ const Checkout = ({ onClick }) => {
                   <div className="info">
                     <div className="product-details">
                       <div className="row justify-content-md-center">
-                        <div className="col-md-3">
+                        {/* <div className="col-md-3">
                           <img
                             className="img-fluid mx-auto d-block image"
                             alt="Imagen del producto"
                             src="../img/product.png"
                           />
-                        </div>
+                        </div> */}
                         <div className="col-md-4 product-detail">
-                          <h5>Producto</h5>
-                          <div className="product-info">
+                          <h5>Productos:</h5>
+                        </div>
+                        {
+                          cartItems.map((p) => {
+                            return (
+                              <Card
+                                key={p.id}
+                                id={p.id}
+                                name={p.name}
+                                description={p.description}
+                                price={p.price}
+                                imageUrl={p.imageUrl}
+                              />
+                            );
+                          })
+                        }
+                          {/* <div className="product-info">
                             <b>Descripción: </b>
                             <span id="product-description">Algún producto</span>
                             <br />
                             <b>Precio:</b> $ <span id="unit-price">10</span>
                             <br />
                           </div>
-                        </div>
                         <div className="col-md-3 product-detail">
                           <label htmlFor="quantity">
                             <b>Cantidad</b>
@@ -71,7 +95,7 @@ const Checkout = ({ onClick }) => {
                             min="1"
                             className="form-control"
                           />
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

@@ -7,32 +7,35 @@ import { useNavigate } from "react-router";
 
 export default function Home() {
   const navigate = useNavigate();
-  const marcaTiempoLogin = localStorage.getItem('marcaTiempoLogin')
+  let isAuthenticated = localStorage.getItem("isAuthenticated");
+  const marcaTiempoLogin = localStorage.getItem("marcaTiempoLogin");
   const marcaTiempoActual = Date.now();
   const diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
   const minutosTranscurridos = diferenciaTiempo / 60000;
   console.log(minutosTranscurridos);
-  if (minutosTranscurridos<10) {
-    console.log('Aún no han pasado 10 minutos');
+  if (minutosTranscurridos < 10) {
+    console.log("Aún no han pasado 10 minutos");
   }
-  if (minutosTranscurridos>=10) {
-    localStorage.setItem('isAuthenticated', false)
+  if (minutosTranscurridos >= 10) {
+    localStorage.setItem("isAuthenticated", false);
+    localStorage.setItem("marcaTiempoLogin", Date.now());
   }
-  let isAuthenticated=localStorage.getItem('isAuthenticated')
-  if(isAuthenticated==='false'){
-    alert('Tu sesión ha caducado. Por favor vuelve a iniciar sesión')
+  if (isAuthenticated === "false") {
+    alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
     navigate("/login");
   }
-  
-  let dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.products);
+
+  const dispatch = useDispatch();
+
+  /* useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]); */
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+  }, [])
 
-  /* const isAuthenticated = localStorage.getItem("isAuthenticated");
-  console.log(isAuthenticated); */
+  const allProducts = useSelector((state) => state.products);
 
   if (!allProducts.length) {
     return (
