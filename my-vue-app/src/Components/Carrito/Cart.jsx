@@ -20,13 +20,27 @@ const Cart = () => {
   const cartByUserId = useSelector((state) => state.cartByUserId);
   console.log(cartByUserId.productsId);
 
+  const allProducts = useSelector((state) => state.products);
+  let total=0
+  let cartItems=[]
+
+  if (allProducts.length) {
+    allProducts.forEach(e => {
+      cartByUserId.productsId.forEach(el => {
+        if (e.id===el) {
+          total=total+e.price;
+          cartItems.push(e);
+        }
+      });
+    });
+  }
+
   const [preferenceId, setPreferenceId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [orderData, setOrderData] = useState({
     quantity: "1",
-    price: "10",
-    amount: 10,
-    description: "Some book",
+    price: total,
+    description: "Tu compra en GamerTech",
   });
 
   const handleClick = () => {
@@ -68,7 +82,7 @@ const Cart = () => {
     >
       <main>
         {renderSpinner()}
-        <Checkout onClick={handleClick} description />
+        <Checkout cartItems={cartItems} onClick={handleClick} description />
         <Payment />
       </main>
       {/* <Footer /> */}

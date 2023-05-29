@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyUser } from "../../Redux/actions";
+import { useEffect } from "react";
 
 const Login = () => {
   /* const clientId =
@@ -28,6 +29,12 @@ const Login = () => {
 
   const userCreated=useSelector(state=>state.userCreated)
   console.log(userCreated);
+
+  useEffect(() => {
+    localStorage.setItem("isAuthenticated", false);
+    localStorage.setItem("marcaTiempoLogin", Date.now());
+  }, [])
+  
 
   return (
     <section className="bg-gray-50 min-h-screen flex items-center justify-center">
