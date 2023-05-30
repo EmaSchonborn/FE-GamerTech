@@ -5,7 +5,11 @@ import CardsContainer from "./CardsContainer";
 import SearchBar from "./SearchBar/SearchBar";
 
 export default function Home() {
-  let dispatch = useDispatch();
+  let marca = localStorage.getItem('marcaDeTiempoLogin');
+  let fecha = new Date(marca)
+  let hora = fecha.toLocaleDateString()
+  console.log(hora)
+  let dispatch = useDispatch(); 
   const allProducts = useSelector((state) => state.products);
 
   useEffect(() => {
