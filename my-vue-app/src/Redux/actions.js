@@ -115,3 +115,10 @@ export function sortProducts(payload) {
     }
   };
 }
+
+export function modifyProducts(payload){
+  return async function() {
+    const data = await axios.post("https://api-gamertech.onrender.com/product/modifyproduct", payload);
+    return data;
+  }
+}

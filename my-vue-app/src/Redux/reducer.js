@@ -13,6 +13,7 @@ import {
 const initialState = {
 	users: [],
 	products: [],
+	verified: true,
 	productDetail: {},
   cartByUserId : [],
 };
