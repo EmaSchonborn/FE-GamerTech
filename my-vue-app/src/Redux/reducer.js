@@ -52,7 +52,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_PRODUCT_BY_ID:
       return {
         ...state,
-        filteredProducts: action.payload,
+        productDetail: action.payload,
       };
     case SEND_EMAIL:
       return {
