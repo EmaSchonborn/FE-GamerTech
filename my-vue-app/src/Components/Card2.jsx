@@ -54,34 +54,33 @@ export default function Card2(props) {
       });
   };
 
-  
   const handleCancel = () => {
     setIsEditing(false);
   };
 
   return (
     <tr>
-      <td className="relative py-10">
+      <td className="relative py-10 w-1/5">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {id}
         </div>
       </td>
-      <td className="relative py-10 text-center">
+      <td className="relative py-10 w-1/5 text-center">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {name}
         </div>
       </td>
-      <td className="relative py-10 text-left">
+      <td className="relative py-10 w-1/5 text-left">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {price}
         </div>
       </td>
-      <td className="relative py-10">
+      <td className="relative py-10 w-1/5">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {stock}
         </div>
       </td>
-      <td className="relative justify-center text-center">
+      <td className="relative justify-center text-center w-1/5">
         {isEditing ? (
           <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
             <div className="bg-black opacity-50 fixed inset-0"></div>

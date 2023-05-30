@@ -91,11 +91,19 @@ const DashboardAdmin = () => {
                   <table className="w-full">
                     <thead>
                       <tr>
-                        <th className="sticky top-0 bg-white z-10">ID</th>
-                        <th className="sticky top-0 bg-white z-10">Nombre</th>
-                        <th className="sticky top-0 bg-white z-10">Precio</th>
-                        <th className="sticky top-0 bg-white z-10">Stock</th>
-                        <th className="sticky top-0 bg-white z-10">Acciones</th>
+                        <th className="sticky top-0 bg-white z-10 w-1/5">ID</th>
+                        <th className="sticky top-0 bg-white z-10 w-1/5">
+                          Nombre
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/5">
+                          Precio
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/5">
+                          Stock
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/5">
+                          Acciones
+                        </th>
                       </tr>
                     </thead>
 
@@ -127,7 +135,7 @@ const DashboardAdmin = () => {
                       : "bg-white text-gray-500 hover:bg-gray-200"
                   }`}
                 >
-                  First
+                  Primero
                 </button>
                 <button
                   disabled={currentPage === 1}
@@ -171,7 +179,7 @@ const DashboardAdmin = () => {
                       : "bg-white text-gray-500 hover:bg-gray-200"
                   }`}
                 >
-                  Last
+                  Último
                 </button>
               </div>
             </div>
