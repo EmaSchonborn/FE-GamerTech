@@ -12,7 +12,7 @@ const Checkout = ({ onClick, cartItems }) => {
     dispatch(getCartByUserId(userId));
   }, []);
   const cartByUserId = useSelector((state) => state.cartByUserId);
-  console.log(cartByUserId.productsId);
+  // console.log(cartByUserId.productsId);
   const [isVisible, setIsVisible] = React.useState(true);
   const {
     preferenceId,
@@ -20,6 +20,7 @@ const Checkout = ({ onClick, cartItems }) => {
     orderData,
     setOrderData,
   } = React.useContext(Context);
+  console.log(orderData.price)
   const shoppingCartClass = classnames("shopping-cart dark", {
     "shopping-cart--hidden": !isVisible,
   });
@@ -108,7 +109,7 @@ const Checkout = ({ onClick, cartItems }) => {
                 <div className="summary-item">
                   <span className="text">Subtotal: </span>
                   <span className="price" id="cart-total">
-                    ${orderData.amount}
+                    ${orderData.price}
                   </span>
                 </div>
                 <button

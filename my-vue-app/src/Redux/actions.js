@@ -14,6 +14,8 @@ export const LOGIN = "LOGIN";
 export const FAILURE_LOGIN = "FAILURE_LOGIN";
 export const SUMAR_CARRITO = "SUMAR_CARRITO";
 export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
+export const DELETE_ITEM = "DELETE_ITEM";
+export const RESET_CART = "RESET_CART";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -209,4 +211,33 @@ export function sumarCarrito(payload) {
       console.log(error.message);
     }
   };
-}
+};
+
+export function deleteItem(payload) {
+  const {userId, itemId} = payload
+  return async function (dispatch) {
+    try {
+      let json = await axios.put(`https://api-gamertech.onrender.com/cart/${userId}`, itemId);
+      dispatch({
+        type: DELETE_ITEM,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export function resetCart(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.put(`https://api-gamertech.onrender.com/cart/${id}`);
+      dispatch({
+        type: RESET_CART,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
