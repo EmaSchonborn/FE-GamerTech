@@ -13,7 +13,9 @@ import {
   LOGIN,
   FAILURE_LOGIN,
   SUMAR_CARRITO,
-  LOGIN_WITH_GOOGLE
+  LOGIN_WITH_GOOGLE,
+  DELETE_ITEM,
+  RESET_CART
 } from "../Redux/actions";
 
 const initialState = {
@@ -109,6 +111,16 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartByUserId: action.payload
       };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        cartByUserId: action.payload
+      };
+    case RESET_CART:
+      return {
+        ...state,
+         cartByUserId: action.payload
+      };        
     default:
       return { ...state };
   }

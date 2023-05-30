@@ -10,7 +10,8 @@ const ProfileUser = () => {
   const dispatch = useDispatch();
   //const navigate = useNavigate();
   
-  const userVerified = useSelector((state) => state.userVerified);
+  // const userVerified = useSelector((state) => state.userVerified);
+  const userVerified = localStorage.getItem("id")
   
   // useEffect(() => {
   //   dispatch()
@@ -79,11 +80,11 @@ const ProfileUser = () => {
               <ul className="p-7 rounded-md list-disc bg-green-100">
               Sesion iniciada:
                 <li className="mb-2 text-slate-950"> 
-                  {userVerified.user?.name}
+                  {userVerified}
                 </li>
-                <li className="mb-2 text-slate-950">
+                {/* <li className="mb-2 text-slate-950">
                   {userVerified.user?.email}
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
