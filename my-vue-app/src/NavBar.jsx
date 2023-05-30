@@ -9,19 +9,22 @@ const NavBar = () => {
     location.pathname === "/home" ||
     location.pathname === "/register" ||
     location.pathname === "/login";
+
   const hideBuyButton =
     location.pathname === "/shoppingCart" ||
     location.pathname === "/register" ||
     location.pathname === "/login";
-  location.pathname === "/register";
 
   const hideDashBoardButton =
-    location.pathname === "/register" || location.pathname === "/controlPanel";
+    location.pathname === "/register" ||
+    location.pathname === "/login" ||
+    location.pathname === "/controlPanel";
 
   const hidePerfilButton =
     location.pathname === "/perfil" ||
     location.pathname === "/register" ||
     location.pathname === "/login";
+
   const hideNavBar = location.pathname === "/";
 
   if (!hideNavBar) {
@@ -40,7 +43,7 @@ const NavBar = () => {
           {!hideDashBoardButton && verified && (
             <div>
               <Link to="/controlPanel">
-                <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold h-10 py-2 px-4 rounded">
+                <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold h-10 py-2 px-4 rounded mr-10">
                   Panel de Control
                 </button>
               </Link>
