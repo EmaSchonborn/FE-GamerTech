@@ -15,7 +15,7 @@ export const FAILURE_LOGIN = "FAILURE_LOGIN";
 export const SUMAR_CARRITO = "SUMAR_CARRITO";
 export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const DELETE_ITEM = "DELETE_ITEM";
-export const RESET_CART = "RESET_CART";
+export const RESET_CART = "RESET_CART"; 
 
 export function getProducts() {
   return async function (dispatch) {
