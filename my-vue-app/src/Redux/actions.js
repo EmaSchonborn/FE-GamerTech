@@ -91,7 +91,7 @@ export function createUser(payload) {
     name: payload.name,
     email: payload.email,
     password: payload.password,
-    isActive: true
+    isActive: true,
   };
   return async function (dispatch) {
     try {
@@ -143,11 +143,11 @@ export function verifyUser(Email, Password) {
       const { user, msg, marcaTiempoLogin } = json.data;
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
-      localStorage.setItem('marcaTiempoLogin', marcaTiempoLogin)
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
 
       return dispatch({
         type: LOGIN,
-        payload: { user, msg }
+        payload: { user, msg },
       });
     } catch (error) {
       dispatch({
@@ -169,11 +169,11 @@ export function loginWithGoogle(payload) {
 
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
-      localStorage.setItem('marcaTiempoLogin', marcaTiempoLogin)
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
 
       return dispatch({
         type: LOGIN_WITH_GOOGLE,
-        payload: { user, msg }
+        payload: { user, msg },
       });
     } catch (error) {
       dispatch({
@@ -200,7 +200,10 @@ export function getCartByUserId(userId) {
 export function sumarCarrito(payload) {
   return async function (dispatch) {
     try {
-      let json = await axios.post(`https://api-gamertech.onrender.com/cart/addproducttocart`, payload);
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/cart/addproducttocart`,
+        payload
+      );
       dispatch({
         type: SUMAR_CARRITO,
         payload: json.data,
@@ -208,5 +211,15 @@ export function sumarCarrito(payload) {
     } catch (error) {
       console.log(error.message);
     }
+  };
+}
+
+export function modifyProducts(payload) {
+  return async function () {
+    const data = await axios.post(
+      "https://api-gamertech.onrender.com/product/modifyproduct",
+      payload
+    );
+    return data;
   };
 }
