@@ -17,7 +17,8 @@ const ProductDetail = () => {
   const productoDetail = useSelector((state) => state.productDetail);
   
   const data = {userId: parseInt(id),
-    productId:parseInt(params.id)}     
+    productId:parseInt(params.id)} 
+    console.log(data)    
     const handleClick = (e) => { 
       dispatch(sumarCarrito(data))
       alert("Agregado Correctamente!")
