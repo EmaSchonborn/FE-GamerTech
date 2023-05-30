@@ -4,11 +4,6 @@ export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCTS = "GET_PRODUCTS";
-<<<<<<< HEAD
-export const GET_PRODUCTS_BY_NAME = "GET_PRODUCTS_BY_NAME";
-export const SORT_PRODUCT = "SORT_PRODUCT";
-export const SEND_EMAIL = "SEND_EMAIL";
-=======
 export const SORT_PRODUCTS = "SORT_PRODUCTS";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
@@ -66,7 +61,6 @@ export function getProductByName(name) {
   };
 }
 
-<<<<<<< HEAD
 export const sortProducts = (sort) =>{
   return async dispatch =>{
       const res = await fetch("https://api-gamertech.onrender.com/product//sort",{
@@ -82,20 +76,6 @@ export const sortProducts = (sort) =>{
           payload: dogs
       })
   }
-=======
-export function sortProducts(payload) {
-  return async function (dispatch) {
-    const apiData = await axios.post(
-      `https://api-gamertech.onrender.com/product/sort`,
-      payload
-    );
-    const products = apiData.data;
-    dispatch({
-      type: SORT_PRODUCTS,
-      payload: products,
-    });
-  };
->>>>>>> dev
 }
 
 export function getUsers() {
