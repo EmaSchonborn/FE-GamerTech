@@ -1,6 +1,8 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
 import { useEffect} from "react";
+import SearchBar from "./SearchBar/SearchBar";
+import CardsContainer from "./CardsContainer";
 
 export default function Home(){
   const dispatch = useDispatch();
