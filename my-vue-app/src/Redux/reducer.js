@@ -12,14 +12,19 @@ import {
   SEND_EMAIL,
   LOGIN,
   FAILURE_LOGIN,
+  SUMAR_CARRITO,
+  LOGIN_WITH_GOOGLE,
+  DELETE_ITEM,
+  RESET_CART
 } from "../Redux/actions";
 
 const initialState = {
   users: [],
   products: [],
+  filteredProducts: [],
   productDetail: {},
   productsByName: [],
-  cartByUserId: [],
+  cartByUserId: {},
   emails: [],
   userVerified: {},
   userCreated: {},
@@ -42,6 +47,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+        filteredProducts: action.payload
       };
     case GET_PRODUCT_BY_ID:
       return {
@@ -57,6 +63,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         productsByName: action.payload,
+        filteredProducts: action.payload
       };
     case SORT_PRODUCTS:
       return {
@@ -64,6 +71,12 @@ const rootReducer = (state = initialState, action) => {
         products: action.payload,
       };
     case LOGIN:
+      return {
+        ...state,
+        userVerified: action.payload,
+        isAuthenticated: true,
+      };
+    case LOGIN_WITH_GOOGLE:
       return {
         ...state,
         userVerified: action.payload,
@@ -96,6 +109,21 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         cartByUserId: action.payload,
       };
+    case SUMAR_CARRITO:
+      return {
+        ...state,
+        cartByUserId: action.payload
+      };
+    case DELETE_ITEM:
+      return {
+        ...state,
+        cartByUserId: action.payload
+      };
+    case RESET_CART:
+      return {
+        ...state,
+         cartByUserId: action.payload
+      };        
     default:
       return { ...state };
   }

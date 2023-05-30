@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
-import { getProductById, sumarCarrito } from "../Redux/actions";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { getProductById} from "../../Redux/actions";
+import { deleteItem } from "../../Redux/actions";
 
-const ProductDetail = () => {
+const CartProductDetail = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
   let dispatch = useDispatch();
@@ -17,14 +18,13 @@ const ProductDetail = () => {
   const productoDetail = useSelector((state) => state.productDetail);
   
   const data = {userId: parseInt(id),
-    productId:parseInt(params.id)}     
+                itemId:parseInt(params.id)}   
+                console.log(data)  
     const handleClick = (e) => { 
-      dispatch(sumarCarrito(data))
-      alert("Agregado Correctamente!")
-      navigate("/home")
+      dispatch(deleteItem(data))
+      alert("Quitado Correctamente!")
+      navigate("/shoppingCart")
     };
-    const carrito = useSelector((state) => state.cartByUserId)
-    console.log(carrito)
 
   if (loading) {
     setLoading(false);
@@ -65,10 +65,10 @@ const ProductDetail = () => {
           )}
           <div className="flex justify-evenly items-center h-24">
             <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm" onClick={handleClick}>
-              Añadir al Carrito
+              Quitar Del Carrito
             </button>
             <br />
-            <Link to="/home">
+            <Link to="/shoppingCart">
               <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
                 Volver
               </button>
@@ -80,4 +80,4 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+export default CartProductDetail;
