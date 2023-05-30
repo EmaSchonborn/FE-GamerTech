@@ -11,6 +11,8 @@ import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
 import DashboardAdmin from "./Components/DashBoard.jsx";
+import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
+import CartPayment from "./Components/CartPayment/CartPayment.jsx";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/productCart/:id" element={<CartProductDetail />} />
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
@@ -47,6 +50,17 @@ function App() {
 
         {/* COMPONENTE PARA USUARIO VERIFICADO COMO ADMIN */}
         <Route path="/controlPanel" element={<DashboardAdmin />} />
+
+        {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}
+        <Route path="/orders" element={<h1>Ordenes de compra</h1>} />
+        <Route path="/order/:id" element={<h1>Detalles de la orden</h1>} />
+        <Route path="/order/:id/checkout/payment" element={<h1>Pago</h1>} />
+        <Route
+          path="/order/:id/checkout/payment/confirmation"
+          element={<h1>Confirmación</h1>}
+        />
+        <Route path="/payment/success" element={<CartPayment />} />
+        <Route path="/payment/failure" element={<h1>Compra fallida</h1>} />
 
         <Route
           path="/order/:id/checkout/payment/confirmation/success"
