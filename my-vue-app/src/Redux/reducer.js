@@ -21,6 +21,7 @@ import {
 const initialState = {
   users: [],
   products: [],
+  filteredProducts: [],
   productDetail: {},
   productsByName: [],
   cartByUserId: {},
@@ -46,6 +47,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload,
+        filteredProducts: action.payload
       };
     case GET_PRODUCT_BY_ID:
       return {
@@ -61,6 +63,7 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         productsByName: action.payload,
+        filteredProducts: action.payload
       };
     case SORT_PRODUCTS:
       return {

@@ -33,6 +33,7 @@ const Login = () => {
   useEffect(() => {
     localStorage.setItem("isAuthenticated", false);
     localStorage.setItem("marcaTiempoLogin", Date.now());
+    localStorage.setItem("id", "")
   }, [])
 
   const handleClickWithGoogle = () =>{
