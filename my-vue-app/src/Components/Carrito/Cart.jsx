@@ -8,6 +8,7 @@ import Checkout from "../Checkout/Checkout";
 import InternalProvider from "../ContextProvider/ContextProvider";
 import { SpinnerCircular } from "spinners-react";
 import "../../Styles/payment.css";
+import { all } from "axios";
 
 initMercadoPago("TEST-1b219c6f-dc51-44fd-ad18-6c48f228ef56");
 
@@ -16,15 +17,15 @@ const Cart = () => {
   const userId = localStorage.getItem("id");
   useEffect(() => {
     dispatch(getCartByUserId(userId));
-  }, []);
+  }, [dispatch]);
+  
+  const allProducts = useSelector((state) => state.products);
   const cartByUserId = useSelector((state) => state.cartByUserId);
   console.log(cartByUserId.productsId);
-
-  const allProducts = useSelector((state) => state.products);
   let total=0
   let cartItems=[]
-
-  if (allProducts.length) {
+  setTimeout(1)
+  if (allProducts.length && cartByUserId.productsId) {
     allProducts.forEach(e => {
       cartByUserId.productsId.forEach(el => {
         if (e.id===el) {
@@ -34,6 +35,7 @@ const Cart = () => {
       });
     });
   }
+  // console.log(cartItems)
 
   const [preferenceId, setPreferenceId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -77,6 +79,7 @@ const Cart = () => {
   };
 
   return (
+
     <InternalProvider
       context={{ preferenceId, isLoading, orderData, setOrderData }}
     >

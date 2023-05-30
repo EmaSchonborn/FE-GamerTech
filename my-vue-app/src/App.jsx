@@ -10,6 +10,8 @@ import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
+import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
+import CartPayment  from "./Components/CartPayment/CartPayment.jsx";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
     <Route path="/" element={<Landing />} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
+      <Route path="/productCart/:id" element={<CartProductDetail />} />
 
 
       {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
@@ -42,7 +45,7 @@ function App() {
       <Route path="/order/:id" element={<h1>Detalles de la orden</h1>} />
       <Route path="/order/:id/checkout/payment" element={<h1>Pago</h1>} />
       <Route path="/order/:id/checkout/payment/confirmation" element={<h1>Confirmación</h1>} />
-      <Route path="/payment/success" element={<h1>Compra exitosa</h1>} />
+      <Route path="/payment/success" element={<CartPayment />} />
       <Route path="/payment/failure" element={<h1>Compra fallida</h1>} />
     </Routes>
 
