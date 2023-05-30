@@ -50,9 +50,9 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech.onrender.com/product/search?name=${name}`
+        `https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
       );
-      console.log(json.data);
+  
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: json.data,

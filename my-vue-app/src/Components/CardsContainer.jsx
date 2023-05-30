@@ -12,7 +12,7 @@ export default function CardsContainer() {
   const [items, setItems] = useState([]);
   const [pageCount, setpageCount] = useState(0);
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.filteredProducts);
 
   const handlePageClick = (data) => {
     let currentPage = data.selected;
