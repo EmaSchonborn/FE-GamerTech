@@ -1,27 +1,36 @@
+import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getProductByName } from "../../Redux/actions";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
-  const [product, setProduct] = useState("");
+  const [searchProduct, setSearchProduct] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
-    setProduct(e.target.value)
+    setSearchProduct(e.target.value);
   };
-
   const handleClick = (e) => {
     e.preventDefault();
-    dispatch(getProductByName(product));
-  }
-console.log(product);
+    dispatch(getProductByName(searchProduct));
+  };
+
   return (
-    <div className="flex justify-center bg-indigo-600">
-      <form className="text-white">
-        <input type="text" placeholder="Buscar..." onChange={handleChange} className="bg-white mr-2 rounded-sm p-2" />
-        <button type="submit" onClick={handleClick} className="bg-black rounded-md text-white py-2 hover:scale-105 duration-300" >Find</button>
-      </form>
+    <div className="flex justify-center mb-4">
+      <input
+        type="text"
+        className="px-4 py-2 border border-gray-300 rounded"
+        placeholder="Buscar producto..."
+        onChange={handleChange}
+      />
+      <button
+        className="ml-2 bg-gray-500 hover:bg-[#0061FB] text-white font-bold py-2 px-4 rounded"
+        type="submit"
+        onClick={handleClick}
+      >
+        Buscar
+      </button>
     </div>
   );
 }

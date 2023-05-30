@@ -2,20 +2,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
 import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
-import NavBar from "../NavBar";
 import SearchBar from "./SearchBar/SearchBar";
-// import Filter from "../../components/Filter/Filter";
-// import Paginado from "../../components/Paginado/Paginado";
-// import SearchBar from "../../components/SearchBar/SearchBar";
+import { useNavigate } from "react-router";
 
 export default function Home() {
-  let dispatch = useDispatch();
-  const allProducts = useSelector((state) => state.products);
-  console.log(allProducts);
+  const navigate = useNavigate();
+  let isAuthenticated = localStorage.getItem("isAuthenticated");
+  const marcaTiempoLogin = localStorage.getItem("marcaTiempoLogin");
+  const marcaTiempoActual = Date.now();
+  const diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
+  const minutosTranscurridos = diferenciaTiempo / 60000;
+  console.log(minutosTranscurridos);
+  if (minutosTranscurridos < 10) {
+    console.log("Aún no han pasado 10 minutos");
+  }
+  if (minutosTranscurridos >= 10) {
+    localStorage.setItem("isAuthenticated", false);
+    localStorage.setItem("marcaTiempoLogin", Date.now());
+  }
+  if (isAuthenticated === "false") {
+    alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
+    navigate("/login");
+  }
+
+  const dispatch = useDispatch();
+
+  /* useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]); */
 
   useEffect(() => {
     dispatch(getProducts());
-  }, [dispatch]);
+  }, []);
+
+  const allProducts = useSelector((state) => state.products);
 
   if (!allProducts.length) {
     return (
@@ -25,8 +45,8 @@ export default function Home() {
     );
   } else {
     return (
-      <div>
-        <SearchBar/>
+      <div className="flex flex-col items-center justify-center bg-gray-200">
+        <SearchBar />
         <CardsContainer />
       </div>
     );
