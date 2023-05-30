@@ -21,7 +21,7 @@ export default function Form({ initialData, onSubmit, onCancel }) {
     <div className="bg-gray-800 bg-opacity-75 fixed inset-0 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-4 rounded shadow-lg"
+        className="bg-grey p-4 rounded shadow-lg"
       >
         <label className="block mb-2">
           <span className="text-gray-700">Name:</span>

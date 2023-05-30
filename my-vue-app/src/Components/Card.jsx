@@ -4,12 +4,12 @@ export default function Card(props) {
   // eslint-disable-next-line react/prop-types
   let { id, name, description, price, imageUrl } = props;
   return (
-    <div className="container  p-4 bg-slate-50 mb-5 rounded-sm">
-    <figure className="w-full flex items-center justify-center">
-      <img src={imageUrl} alt="" className="w-60 h-40" />
+    <div className="flex flex-col p-4 bg-gradient-to-br from-white via-gray-100 to-gray-300 mb-5 rounded-sm max-w-sm border border-gray-300">
+      <figure className="w-full flex items-center justify-center">
+        <img src={imageUrl} alt="" className="w-60 h-40" />
       </figure>
       <br />
-      <h3 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm ">
+      <h3 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm">
         {name}
       </h3>
       <p className="px-4 py-2 text-base font-medium text-[#484848]">
