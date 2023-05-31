@@ -17,7 +17,8 @@ const ProductDetail = () => {
   const productoDetail = useSelector((state) => state.productDetail);
   
   const data = {userId: parseInt(id),
-    productId:parseInt(params.id)}     
+    productId:parseInt(params.id)} 
+    console.log(data)    
     const handleClick = (e) => { 
       dispatch(sumarCarrito(data))
       alert("Agregado Correctamente!")
@@ -58,7 +59,7 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <img src={productoDetail.imageUrl} alt="Loading.." />
+            <img src={productoDetail.imageUrl} alt="Loading.." className="px-60" />
             
           ) : (
             setTimeout(0)

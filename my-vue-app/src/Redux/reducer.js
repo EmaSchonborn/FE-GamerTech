@@ -52,7 +52,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_PRODUCT_BY_ID:
       return {
         ...state,
-        filteredProducts: action.payload,
+        productDetail: action.payload,
       };
     case SEND_EMAIL:
       return {
@@ -68,7 +68,8 @@ const rootReducer = (state = initialState, action) => {
     case SORT_PRODUCTS:
       return {
         ...state,
-        products: action.payload,
+        productsByName: action.payload,
+        filteredProducts: action.payload
       };
     case LOGIN:
       return {

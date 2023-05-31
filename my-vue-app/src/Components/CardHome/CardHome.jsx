@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Card(props) {
+export default function CardHome(props) {
   // eslint-disable-next-line react/prop-types
   let { id, name, description, price, imageUrl } = props;
   return (
