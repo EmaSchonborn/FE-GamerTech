@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
-import { useEffect} from "react";
-import SearchBar from "./SearchBar/SearchBar";
-<<<<<<< HEAD
+import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
-=======
+import SearchBar from "./SearchBar/SearchBar";
 import { useNavigate } from "react-router";
 import loadingImage from "../Imagenes/progress.gif";
 
@@ -29,10 +27,13 @@ export default function Home() {
   //   alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
   //   navigate("/login");
   // }
->>>>>>> 02784700f3029ccdaf778b08179f52d72f01e386
 
-export default function Home(){
   const dispatch = useDispatch();
+
+  /* useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]); */
+
   useEffect(() => {
     dispatch(getProducts());
   }, []);
