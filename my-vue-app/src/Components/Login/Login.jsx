@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyUser, loginWithGoogle } from "../../Redux/actions";
-import { GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, getAdditionalUserInfo, signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
 import {auth,provider} from "../../firebase.config";
 import { useEffect } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
@@ -23,12 +24,16 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(verifyUser(email, password));
-    navigate("/home");
+    signInWithEmailAndPassword(auth, email, password).then((data)=>{
+      console.log(data);
+      dispatch(verifyUser(email, password));
+      setError(false);
+      navigate("/home");
+    }).catch((error)=>{
+      console.log(error);
+      setError(true);
+    })
   };
-
-  const userCreated=useSelector(state=>state.userCreated)
-  console.log(userCreated);
 
   useEffect(() => {
     localStorage.setItem("isAuthenticated", false);
@@ -40,6 +45,7 @@ const Login = () => {
     signInWithPopup(auth,provider).then((data)=>{
       const credential = GoogleAuthProvider.credentialFromResult(data);
       const token = credential.accessToken;
+      const uid = data.user.uid;
       const user = getAdditionalUserInfo(data);
       if(user.profile.verified_email){
         dispatch(loginWithGoogle(user.profile));
@@ -105,6 +111,11 @@ const Login = () => {
               >
                 Ingresar
               </button>
+              {error && (
+                <span className="text-red-500 text-2xm">
+                  Correo o contraseña incorrecto
+                </span>
+              )}
           </form>
 
           <div className="mt-6 grid grid-cols-3 items-center text-gray-400">

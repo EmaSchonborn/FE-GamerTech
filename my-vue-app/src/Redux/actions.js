@@ -163,13 +163,14 @@ export function verifyUser(Email, Password) {
 }
 
 export function loginWithGoogle(payload) {
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				"https://api-gamertech.onrender.com/users/loginwithgoogle",
-				payload
-			);
-			const { user, msg, marcaTiempoLogin } = json.data;
+
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        "https://api-gamertech-prueba.onrender.com/users/loginwithgoogle",
+        payload
+      );
+      const { user, msg, marcaTiempoLogin } = json.data;
 
 			localStorage.setItem("isAuthenticated", true);
 			localStorage.setItem("id", user.id);
