@@ -63,23 +63,6 @@ export function getProductByName(name) {
 	};
 }
 
-<<<<<<< HEAD
-export const sortProducts = (sort) =>{
-  return async dispatch =>{
-      const res = await fetch("https://api-gamertech.onrender.com/product//sort",{
-          method: "POST",
-          body: JSON.stringify(sort),
-          headers:{
-              'Content-Type': 'application/json'
-          }
-      })
-      const dogs = await res.json();
-      return dispatch ({
-          type: SORT_PRODUCT,
-          payload: dogs
-      })
-  }
-=======
 export function sortProducts(payload) {
 	return async function (dispatch) {
 		const apiData = await axios.post(
@@ -92,7 +75,6 @@ export function sortProducts(payload) {
 			payload: products,
 		});
 	};
->>>>>>> 02784700f3029ccdaf778b08179f52d72f01e386
 }
 
 export function getUsers() {
