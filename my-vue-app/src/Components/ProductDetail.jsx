@@ -59,7 +59,7 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <img src={productoDetail.imageUrl} alt="Loading.." />
+            <img src={productoDetail.imageUrl} alt="Loading.." className="px-60" />
             
           ) : (
             setTimeout(0)

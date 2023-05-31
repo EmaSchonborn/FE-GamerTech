@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ReactPaginate from "react-paginate";
 import Paginate from "./Paginate";
 import CardHome from "./CardHome/CardHome";
+import SearchBar from "./SearchBar/SearchBar";
 
 export default function CardsContainer() {
   const [options, setOptions] = useState({
@@ -73,7 +74,9 @@ export default function CardsContainer() {
 
   return (
     <>
+      <SearchBar setCurrentPage={setCurrentPage}/>
       <form onSubmit={(e) => handleFilter(e)}>
+      <br />
         <select
           name="option"
           onChange={handleChange}
