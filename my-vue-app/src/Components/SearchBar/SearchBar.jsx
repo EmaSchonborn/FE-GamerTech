@@ -4,8 +4,6 @@ import { useDispatch } from "react-redux";
 import { getProductByName } from "../../Redux/actions";
 
 
-
-
 export default function SearchBar({setCurrentPage}){
 
     let dispatch = useDispatch()
