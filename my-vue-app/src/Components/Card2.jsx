@@ -5,16 +5,18 @@ import Form from "./Form";
 
 export default function Card2(props) {
   const { id, name, description, price, imageUrl, isActive, stock } = props;
+  
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
-    id: id,
-    name: name,
-    description: description,
-    price: price,
-    imageUrl: imageUrl,
-    isActive: isActive,
-    stock: stock,
+    id,
+    name,
+    description,
+    price,
+    imageUrl,
+    isActive,
+    stock,
   });
+
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -39,6 +41,16 @@ export default function Card2(props) {
 
   const handleEditProduct = () => {
     setIsEditing(true);
+    setData(prevData => ({
+      ...prevData,
+      id,
+      name,
+      description,
+      price,
+      imageUrl,
+      isActive,
+      stock,
+    }));
   };
 
   const handleFormSubmit = (updatedData) => {

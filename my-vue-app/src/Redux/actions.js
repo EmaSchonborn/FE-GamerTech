@@ -229,7 +229,7 @@ export function sumarCarrito(payload) {
 export function modifyProducts(payload) {
   return async function () {
     const data = await axios.post(
-      "https://api-gamertech.onrender.com/product/modifyproduct",
+      "https://api-gamertech-prueba.onrender.com/product/modifyproduct",
       payload
     );
     return data;

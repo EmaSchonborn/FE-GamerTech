@@ -104,7 +104,9 @@ const DashboardAdmin = () => {
                           key={p.id}
                           id={p.id}
                           name={p.name}
-                          price={`$ ${p.price}`}
+                          description={p.description}
+                          price={p.price}
+                          imageUrl={p.imageUrl}
                           isActive={p.isActive}
                           stock={p.stock}
                         />
