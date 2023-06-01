@@ -1,24 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { modifyProducts } from "../Redux/actions";
+import { getProducts, modifyProducts } from "../Redux/actions";
 import Form from "./Form";
 
 export default function Card2(props) {
   const { id, name, description, price, imageUrl, isActive, stock } = props;
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
-    name,
-    description,
-    price,
-    imageUrl,
-    isActive,
-    stock,
+    id: id,
+    name: name,
+    description: description,
+    price: price,
+    imageUrl: imageUrl,
+    isActive: isActive,
+    stock: stock,
   });
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(modifyProducts(data));
-  }, [data, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getProducts());
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   if (!isEditing) {
+  //     dispatch(getProducts());
+  //   }
+  // }, [isEditing, dispatch]);
 
   const handleToggleActivation = () => {
     const updatedData = {
@@ -26,7 +33,7 @@ export default function Card2(props) {
       isActive: !data.isActive,
     };
 
-    dispatch(modifyProducts(id, { isActive: !data.isActive }));
+    dispatch(modifyProducts(updatedData));
     setData(updatedData);
   };
 
@@ -35,23 +42,28 @@ export default function Card2(props) {
   };
 
   const handleFormSubmit = (updatedData) => {
-    dispatch(
-      modifyProducts(id, {
-        name: updatedData.name,
-        description: updatedData.description,
-        price: updatedData.price,
-        imageUrl: updatedData.imageUrl,
-        stock: updatedData.stock,
-      })
-    )
+    const updatedProductData = {
+      id: updatedData.id,
+      name: updatedData.name,
+      description: updatedData.description,
+      price: updatedData.price,
+      imageUrl: updatedData.imageUrl,
+      stock: updatedData.stock,
+      isActive: data.isActive,
+    };
+    dispatch(getProducts());
+
+    dispatch(modifyProducts(updatedProductData))
       .then(() => {
         console.log("Producto modificado");
         setIsEditing(false);
-        setData(updatedData); // Actualizar los datos del producto con la información modificada
+        setData(updatedProductData);
       })
       .catch((error) => {
         console.log("Error al modificar el producto:", error);
       });
+
+      dispatch(getProducts());
   };
 
   const handleCancel = () => {
@@ -59,7 +71,7 @@ export default function Card2(props) {
   };
 
   return (
-    <tr>
+    <tr className="text-white">
       <td className="relative py-10 w-1/5">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {id}
@@ -82,9 +94,12 @@ export default function Card2(props) {
       </td>
       <td className="relative justify-center text-center w-1/5">
         {isEditing ? (
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-            <div className="bg-black opacity-50 fixed inset-0"></div>
-            <div className="relative bg-white border border-gray-300 p-4">
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div
+              className="fixed inset-0 bg-black opacity-50"
+              style={{ pointerEvents: "none" }}
+            ></div>
+            <div className="relative bg-white border border-gray-300 p-4 ml-80">
               <Form
                 initialData={data}
                 onCancel={handleCancel}

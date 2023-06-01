@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../Redux/actions";
 import Card2 from "./Card2";
 import Paginate from "./Paginate";
+import SearchBar from "./SearchBar/SearchBar";
 
 const DashboardAdmin = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const DashboardAdmin = () => {
     setCurrentPage(lastCell);
   };
 
-  const allProducts = useSelector((state) => state.products);
+  const allProducts = useSelector((state) => state.dashFilteredProducts);
 
   const displayedProducts = 5;
   const finalReference = currentPage * displayedProducts;
@@ -72,21 +73,11 @@ const DashboardAdmin = () => {
           <Tab>Órdenes de compra</Tab>
         </TabList>
 
-        <TabPanels>
+        <TabPanels className="bg-gray-200">
           <TabPanel>
-            <div className="flex justify-center mb-4">
-              <input
-                type="text"
-                placeholder="Buscar por nombre"
-                className="px-4 py-2 border border-gray-300 rounded"
-              />
-              <button className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Buscar
-              </button>
-            </div>
-
+            <SearchBar setCurrentPage={setCurrentPage} />
             <div className="flex justify-center">
-              <div className="w-3/4 mx-auto">
+              <div className="w-3/4 mx-auto bg-gray-400">
                 <div className="table-container ">
                   <table className="w-full">
                     <thead>

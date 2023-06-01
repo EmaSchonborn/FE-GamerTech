@@ -22,6 +22,7 @@ const initialState = {
   users: [],
   products: [],
   filteredProducts: [],
+  dashFilteredProducts: [],
   productDetail: {},
   productsByName: [],
   cartByUserId: {},
@@ -44,28 +45,32 @@ const rootReducer = (state = initialState, action) => {
         users: action.payload,
       };
     case GET_PRODUCTS:
+      const {sortProducts, filteredProducts} = action.payload;
       return {
         ...state,
-        products: action.payload,
-        filteredProducts: action.payload
+        products: sortProducts,
+        filteredProducts: filteredProducts,
+        dashFilteredProducts: sortProducts
       };
-    case GET_PRODUCT_BY_ID:
+      case GET_PRODUCT_BY_ID:
       return {
         ...state,
         productDetail: action.payload,
       };
-    case SEND_EMAIL:
+      case SEND_EMAIL:
       return {
         ...state,
         emails: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
+      const {products, filteredSearch} = action.payload;
       return {
         ...state,
-        productsByName: action.payload,
-        filteredProducts: action.payload
+        productsByName: filteredSearch,
+        filteredProducts: filteredSearch,
+        dashFilteredProducts: products
       };
-    case SORT_PRODUCTS:
+      case SORT_PRODUCTS:
       return {
         ...state,
         productsByName: action.payload,
