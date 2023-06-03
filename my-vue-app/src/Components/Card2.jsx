@@ -5,7 +5,7 @@ import Form from "./Form";
 
 export default function Card2(props) {
   const { id, name, description, price, imageUrl, isActive, stock } = props;
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
     id,
@@ -29,19 +29,24 @@ export default function Card2(props) {
   //   }
   // }, [isEditing, dispatch]);
 
-  const handleToggleActivation = () => {
-    const updatedData = {
-      ...data,
+  const handleToggleActivation = (updatedData) => {
+    const updatedActive = {
+      id: updatedData.id,
+      name: updatedData.name,
+      description: updatedData.description,
+      price: updatedData.price,
+      imageUrl: updatedData.imageUrl,
+      stock: updatedData.stock,
       isActive: !data.isActive,
     };
 
-    dispatch(modifyProducts(updatedData));
-    setData(updatedData);
+    dispatch(modifyProducts(updatedActive));
+    setData(updatedActive);
   };
 
   const handleEditProduct = () => {
     setIsEditing(true);
-    setData(prevData => ({
+    setData((prevData) => ({
       ...prevData,
       id,
       name,
@@ -75,7 +80,7 @@ export default function Card2(props) {
         console.log("Error al modificar el producto:", error);
       });
 
-      dispatch(getProducts());
+    dispatch(getProducts());
   };
 
   const handleCancel = () => {
