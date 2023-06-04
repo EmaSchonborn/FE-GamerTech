@@ -228,13 +228,19 @@ export function sumarCarrito(payload) {
 
 export function modifyProducts(payload) {
   return async function () {
-    const data = await axios.post(
-      "https://api-gamertech-prueba.onrender.com/product/modifyproduct",
-      payload
-    );
-    return data;
+    try {
+      const response = await axios.post(
+        "https://api-gamertech.onrender.com/product/modifyproduct",
+        payload
+      );
+      const { product, msg } = response.data;
+      return { product, msg };
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 }
+
 
 export function deleteItem(payload) {
   const { userId, itemId } = payload;

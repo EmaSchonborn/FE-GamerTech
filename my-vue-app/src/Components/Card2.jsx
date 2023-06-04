@@ -29,21 +29,27 @@ export default function Card2(props) {
   //   }
   // }, [isEditing, dispatch]);
 
-  const handleToggleActivation = (updatedData) => {
-    const updatedActive = {
-      id: updatedData.id,
-      name: updatedData.name,
-      description: updatedData.description,
-      price: updatedData.price,
-      imageUrl: updatedData.imageUrl,
-      stock: updatedData.stock,
+  const handleToggleActivation = () => {
+    const updatedProductData = {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      imageUrl: data.imageUrl,
+      stock: data.stock,
       isActive: !data.isActive,
-    };
-
-    dispatch(modifyProducts(updatedActive));
-    setData(updatedActive);
+    }
+    dispatch(modifyProducts(updatedProductData))
+      .then(() => {
+        console.log("Producto modificado");
+        setData(updatedProductData);
+        dispatch(getProducts());
+      })
+      .catch((error) => {
+        console.log("Error al modificar el producto:", error);
+      });
   };
-
+  
   const handleEditProduct = () => {
     setIsEditing(true);
     setData((prevData) => ({
