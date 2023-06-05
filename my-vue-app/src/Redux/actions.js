@@ -155,6 +155,7 @@ export function getUserByName(name) {
         type: GET_USERS_BY_NAME,
         payload: data,
       });
+
     } catch (e) {
       console.log(e.message);
     }
