@@ -25,7 +25,9 @@ export function getProducts() {
     );
     const products = apiData.data;
     const sortProducts = products.sort((a, b) => (a.id > b.id ? 1 : -1));
-    const filteredProducts = products.filter((p) => p.isActive === true);
+    const filteredProducts = products
+      .filter((p) => p.isActive === true)
+      .filter((p) => p.stock > 0);
 
     dispatch({
       type: GET_PRODUCTS,
@@ -79,9 +81,7 @@ export function sortProducts(payload) {
       payload
     );
     const products = apiData.data;
-    const filteredProducts = products.filter((p) => {
-      p.isActive === true && p.stock > 0;
-    });
+    const filteredProducts = products.filter((p) => p.isActive === true);
 
     dispatch({
       type: SORT_PRODUCTS,
