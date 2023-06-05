@@ -16,60 +16,58 @@ export default function Form({ initialData, onSubmit, onCancel }) {
     onSubmit(data);
   };
 
-
   return (
-    <div className="bg-gray-800 bg-opacity-75 fixed inset-0 flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-grey p-4 rounded shadow-lg"
+        className="bg-gray-200 bg-opacity-90 p-4 rounded shadow-lg max-w-400"
       >
         <label className="block mb-2">
-          <span className="text-gray-700">Name:</span>
+          <span className="text-black">Nombre:</span>
           <input
             type="text"
             name="name"
             value={data.name}
             onChange={handleChange}
-            className="block w-full mt-1 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
         </label>
         <label className="block mb-2">
-          <span className="text-gray-700">Description:</span>
+          <span className="text-black">Descripción:</span>
           <textarea
             name="description"
             value={data.description}
             onChange={handleChange}
-            className="block w-full mt-1 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
           ></textarea>
         </label>
         <label className="block mb-2">
-          <span className="text-gray-700">Price:</span>
+          <span className="text-black">Precio:</span>
           <input
             type="number"
             name="price"
             value={data.price}
             onChange={handleChange}
-            className="block w-full mt-1 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
         </label>
         <label className="block mb-2">
-          <span className="text-gray-700">Image URL:</span>
+          <span className="text-black">URL de Imágen:</span>
           <input
             type="text"
             name="imageUrl"
             value={data.imageUrl}
             onChange={handleChange}
-            className="block w-full mt-1 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block text-black text-left w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
         </label>
         <label className="block mb-2">
-          <span className="text-gray-700">Stock:</span>
+          <span className="text-black">Stock:</span>
           <input
             type="number"
             name="stock"
             value={data.stock}
             onChange={handleChange}
-            className="block w-full mt-1 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+            className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
           />
         </label>
         <div className="flex justify-end">
@@ -88,6 +86,5 @@ export default function Form({ initialData, onSubmit, onCancel }) {
           </button>
         </div>
       </form>
-    </div>
   );
 }

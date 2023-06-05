@@ -10,7 +10,7 @@ import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
-import DashboardAdmin from "./Components/DashBoard.jsx";
+import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
 
