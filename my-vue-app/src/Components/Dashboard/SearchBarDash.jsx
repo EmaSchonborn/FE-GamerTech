@@ -1,12 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProductByName } from "../../Redux/actions";
+import { getUserByName } from "../../Redux/actions";
 
 export default function SearchBar({ setCurrentPage }) {
   let dispatch = useDispatch();
 
-  // const [name, setName] = useState("")
   const [searchProduct, setSearchProduct] = useState("");
 
   const handleInput = (e) => {
@@ -17,7 +16,7 @@ export default function SearchBar({ setCurrentPage }) {
   const handleClick = (e) => {
     e.preventDefault();
     setCurrentPage(1);
-    dispatch(getProductByName(searchProduct));
+    dispatch(getUserByName(searchProduct));
     setSearchProduct("");
   };
 
@@ -26,7 +25,7 @@ export default function SearchBar({ setCurrentPage }) {
       <input
         className="px-4 py-2 border border-gray-300 rounded"
         type="text"
-        placeholder="Buscar..."
+        placeholder="Buscar usuario..."
         value={searchProduct}
         onChange={(e) => handleInput(e)}
         onKeyPress={(e) => {

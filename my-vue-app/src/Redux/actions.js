@@ -1,5 +1,6 @@
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
+export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
@@ -87,16 +88,79 @@ export function sortProducts(payload) {
   };
 }
 
+const fakeUsers = [
+  {
+    "id": 1,
+    "name": "usuarioprueba",
+    "email": "usuarioprueba@mail.com",
+    "isActive": true,
+    "isAdmin": true,
+    "createdAt": "05/06/2023",
+  },
+  {
+    "id": 2,
+    "name": "Salvador",
+    "email": "usuarioprueba1@mail.com",
+    "isActive": true,
+    "isAdmin": false,
+    "createdAt": "05/06/2023",
+  },
+  {
+    "id": 3,
+    "name": "Salvador Hilares",
+    "email": "shilaresbarrios@gmail.com",
+    "isActive": true,
+    "isAdmin": false,
+    "createdAt": "05/06/2023",
+  },
+  {
+    "id": 4,
+    "name": "nicolas",
+    "email": "prueba12@mail.com",
+    "isActive": true,
+    "isAdmin": false,
+    "createdAt": "05/06/2023",
+  },
+  {
+    "id": 5,
+    "name": "schonborn",
+    "email": "emanuel.1908@hotmail.com",
+    "isActive": true,
+    "isAdmin": false,
+    "createdAt": "05/06/2023",
+  }
+]
+
 export function getUsers() {
   return async function (dispatch) {
     const apiData = await axios.get("https://api-gamertech.onrender.com/users");
-    const users = apiData.data;
+    const users = (apiData.data).sort((a, b) => (a.id > b.id ? 1 : -1));
     dispatch({
       type: GET_USERS,
-      payload: users,
+      payload: fakeUsers,
     });
   };
 }
+
+
+export function getUserByName(name) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech-prueba.onrender.com/users/search?name=${name}`
+      );
+      const data = json.data;
+
+      return dispatch({
+        type: GET_USERS_BY_NAME,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}
+
 
 export function createUser(payload) {
   const body = {
@@ -241,6 +305,20 @@ export function modifyProducts(payload) {
   };
 }
 
+export function modifyUsers(payload) {
+  return async function () {
+    try {
+      const response = await axios.post(
+        "https://api-gamertech.onrender.com/users/modifyuser",
+        payload
+      );
+      const { product, msg } = response.data;
+      return { product, msg };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
 
 export function deleteItem(payload) {
   const { userId, itemId } = payload;

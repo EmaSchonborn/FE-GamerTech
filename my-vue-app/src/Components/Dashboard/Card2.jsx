@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts, modifyProducts } from "../Redux/actions";
-import Form from "./Form";
+import { getProducts, modifyProducts } from "../../Redux/actions";
+import Form from "../Form";
 
 export default function Card2(props) {
   const { id, name, description, price, imageUrl, isActive, stock } = props;
@@ -18,16 +18,6 @@ export default function Card2(props) {
   });
 
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   dispatch(getProducts());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (!isEditing) {
-  //     dispatch(getProducts());
-  //   }
-  // }, [isEditing, dispatch]);
 
   const handleToggleActivation = () => {
     const updatedProductData = {
@@ -95,7 +85,7 @@ export default function Card2(props) {
 
   return (
     <tr className="text-white">
-      <td className="relative py-10 w-1/5">
+      <td className="relative py-10 w-1/12">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {id}
         </div>
@@ -141,7 +131,7 @@ export default function Card2(props) {
             </button>
             {data.isActive ? (
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-3 rounded"
                 onClick={handleToggleActivation}
                 disabled={isEditing}
               >
@@ -149,7 +139,7 @@ export default function Card2(props) {
               </button>
             ) : (
               <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded"
                 onClick={handleToggleActivation}
                 disabled={isEditing}
               >

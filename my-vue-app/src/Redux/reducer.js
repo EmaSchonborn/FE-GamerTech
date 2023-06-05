@@ -1,6 +1,7 @@
 import {
   CREATE_USER,
   GET_USERS,
+  GET_USERS_BY_NAME,
   GET_PRODUCT_BY_ID,
   GET_PRODUCT_BY_NAME,
   GET_PRODUCTS,
@@ -15,11 +16,12 @@ import {
   SUMAR_CARRITO,
   LOGIN_WITH_GOOGLE,
   DELETE_ITEM,
-  RESET_CART
+  RESET_CART,
 } from "../Redux/actions";
 
 const initialState = {
   users: [],
+  filteredUsers: [],
   products: [],
   filteredProducts: [],
   dashFilteredProducts: [],
@@ -43,38 +45,44 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         users: action.payload,
+        filteredUsers: action.payload,
+      };
+    case GET_USERS_BY_NAME:
+      return {
+        ...state,
+        filteredUsers: action.payload,
       };
     case GET_PRODUCTS:
-      const {sortProducts, filteredProducts} = action.payload;
+      const { sortProducts, filteredProducts } = action.payload;
       return {
         ...state,
         products: sortProducts,
         filteredProducts: filteredProducts,
-        dashFilteredProducts: sortProducts
+        dashFilteredProducts: sortProducts,
       };
-      case GET_PRODUCT_BY_ID:
+    case GET_PRODUCT_BY_ID:
       return {
         ...state,
         productDetail: action.payload,
       };
-      case SEND_EMAIL:
+    case SEND_EMAIL:
       return {
         ...state,
         emails: action.payload,
       };
     case GET_PRODUCT_BY_NAME:
-      const {products, filteredSearch} = action.payload;
+      const { products, filteredSearch } = action.payload;
       return {
         ...state,
         productsByName: filteredSearch,
         filteredProducts: filteredSearch,
-        dashFilteredProducts: products
+        dashFilteredProducts: products,
       };
-      case SORT_PRODUCTS:
+    case SORT_PRODUCTS:
       return {
         ...state,
         productsByName: action.payload,
-        filteredProducts: action.payload
+        filteredProducts: action.payload,
       };
     case LOGIN:
       return {
@@ -118,18 +126,18 @@ const rootReducer = (state = initialState, action) => {
     case SUMAR_CARRITO:
       return {
         ...state,
-        cartByUserId: action.payload
+        cartByUserId: action.payload,
       };
     case DELETE_ITEM:
       return {
         ...state,
-        cartByUserId: action.payload
+        cartByUserId: action.payload,
       };
     case RESET_CART:
       return {
         ...state,
-         cartByUserId: action.payload
-      };        
+        cartByUserId: action.payload,
+      };
     default:
       return { ...state };
   }
