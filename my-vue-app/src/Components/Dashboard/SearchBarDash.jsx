@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getUserByName } from "../../Redux/actions";
 
-export default function SearchBar({ setCurrentPage }) {
+export default function SearchBarDash({ setCurrentPage }) {
   let dispatch = useDispatch();
 
   const [searchProduct, setSearchProduct] = useState("");
