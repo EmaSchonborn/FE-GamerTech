@@ -6,6 +6,7 @@ import { getProductById, sumarCarrito } from "../Redux/actions";
 const ProductDetail = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
+  const [contador, setContador] = useState(0);
   let dispatch = useDispatch();
   let params = useParams();
 
@@ -21,6 +22,7 @@ const ProductDetail = () => {
     console.log(data)    
     const handleClick = (e) => { 
       dispatch(sumarCarrito(data))
+      setContador(contador + 1)
       alert("Agregado Correctamente!")
       navigate("/home")
     };
