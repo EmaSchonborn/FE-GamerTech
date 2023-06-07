@@ -72,7 +72,7 @@ const DashboardAdmin = () => {
   if (!paginationProducts.length) {
     return (
       <div>
-        <h1>Cargando contenido...</h1>
+        <h1></h1>
       </div>
     );
   } else {
