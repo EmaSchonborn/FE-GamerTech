@@ -15,12 +15,12 @@ export default function CardsContainer() {
   const [pageCount, setpageCount] = useState(0);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.filteredProducts);
-  
+
   const handleChange = (e) => {
     e.preventDefault();
     setOptions({ ...options, [e.target.name]: e.target.value });
   };
-  
+
   const handleFilter = async (e) => {
     e.preventDefault();
     dispatch(
@@ -31,7 +31,7 @@ export default function CardsContainer() {
       })
     );
   };
-  
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const pagination = (indexPage) => {
@@ -50,15 +50,11 @@ export default function CardsContainer() {
   const handleLastCell = () => {
     setCurrentPage(lastCell);
   };
- 
 
   const displayedProducts = 6;
   const finalReference = currentPage * displayedProducts;
   const initialReference = finalReference - displayedProducts;
-  const paginationProducts = products?.slice(
-    initialReference,
-    finalReference
-  );
+  const paginationProducts = products?.slice(initialReference, finalReference);
   const lastCell = Math.ceil(products?.length / displayedProducts);
 
   let startPage = Math.max(currentPage - 1, 1);
@@ -74,107 +70,112 @@ export default function CardsContainer() {
 
   return (
     <>
-      <SearchBar setCurrentPage={setCurrentPage}/>
-      <form onSubmit={(e) => handleFilter(e)}>
-      <br />
-        <select
-          name="option"
-          onChange={handleChange}
-          className="bg-white text-[#484848]"
-        >
-          <option value="name">Orden alfabético</option>
-          <option value="price">Precio</option>
-        </select>
-        <select
-          name="sort"
-          onChange={handleChange}
-          className="bg-white text-[#484848]"
-        >
-          <option value="ascendente">Ascendente</option>
-          <option value="descendente">Descendente</option>
-        </select>
-        <button
-          type="submit"
-          className="bg-nintendo p-1 text-white rounded-sm font-medium"
-        >
-          Filtrar
-        </button>
-      </form>
-      <br />
-       
-      <div className="grid grid-cols-3 gap-4">
-      {paginationProducts.map((p) => {
-        return (
-          <CardHome
-            key={p.id}
-            id={p.id}
-            name={p.name}
-            description={p.description}
-            price={p.price}
-            imageUrl={p.imageUrl}
-          />
-        );
-      })}
-      </div>
-        <div className="flex justify-center items-end mt-4 gap-x-5">
-          <div className="flex space-x-2">
-            <button
-              disabled={currentPage === 1}
-              onClick={handleFirstCell}
-              className={`px-4 py-2 rounded ${
-                currentPage === 1
-                  ? "bg-gray-300 text-gray-500"
-                  : "bg-white text-gray-500 hover:bg-gray-200"
-              }`}
-            >
-              Primero
-            </button>
-            <button
-              disabled={currentPage === 1}
-              onClick={handlePrevPagination}
-              className={`px-4 py-2 rounded ${
-                currentPage === 1
-                  ? "bg-gray-300 text-gray-500"
-                  : "bg-white text-gray-500 hover:bg-gray-200"
-              }`}
-            >
-              ⇠
-            </button>
-          </div>
+      <div className="flex justify-center items-center">
+        <SearchBar setCurrentPage={setCurrentPage} />
 
+        <form onSubmit={(e) => handleFilter(e)} className="ml-4 mb-4">
           <div className="flex items-center">
-            <Paginate
-              totalPages={totalPages}
-              paginate={pagination}
-              currentPage={currentPage}
-            />
-          </div>
+            <select
+              name="option"
+              onChange={handleChange}
+              className="px-4 py-2 border border-gray-300 rounded mr-2"
+            >
+              <option value="name">Orden alfabético</option>
+              <option value="price">Precio</option>
+            </select>
 
-          <div className="flex space-x-2">
-            <button
-              disabled={currentPage === lastCell}
-              onClick={handleNextPagination}
-              className={`px-4 py-2 rounded ${
-                currentPage === lastCell
-                  ? "bg-gray-300 text-gray-500"
-                  : "bg-white text-gray-500 hover:bg-gray-200"
-              }`}
+            <select
+              name="sort"
+              onChange={handleChange}
+              className="px-4 py-2 border border-gray-300 rounded mr-2"
             >
-              ⇢
-            </button>
+              <option value="ascendente">Ascendente</option>
+              <option value="descendente">Descendente</option>
+            </select>
+
             <button
-              disabled={currentPage === lastCell}
-              onClick={handleLastCell}
-              className={`px-4 py-2 rounded ${
-                currentPage === lastCell
-                  ? "bg-gray-300 text-gray-500"
-                  : "bg-white text-gray-500 hover:bg-gray-200"
-              }`}
+              type="submit"
+              className="ml-2 bg-nintendo hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
             >
-              Último
+              Filtrar
             </button>
           </div>
+        </form>
+      </div>
+
+      <div className="grid grid-cols-3 gap-4">
+        {paginationProducts.map((p) => {
+          return (
+            <CardHome
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              description={p.description}
+              price={p.price}
+              imageUrl={p.imageUrl}
+            />
+          );
+        })}
+      </div>
+      <div className="flex justify-center items-end mt-4 gap-x-5 mb-5">
+        <div className="flex space-x-2">
+          <button
+            disabled={currentPage === 1}
+            onClick={handleFirstCell}
+            className={`px-4 py-2 rounded ${
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500"
+                : "bg-white text-gray-500 hover:bg-gray-200"
+            }`}
+          >
+            Primero
+          </button>
+          <button
+            disabled={currentPage === 1}
+            onClick={handlePrevPagination}
+            className={`px-4 py-2 rounded ${
+              currentPage === 1
+                ? "bg-gray-300 text-gray-500"
+                : "bg-white text-gray-500 hover:bg-gray-200"
+            }`}
+          >
+            ⇠
+          </button>
         </div>
+
+        <div className="flex items-center">
+          <Paginate
+            totalPages={totalPages}
+            paginate={pagination}
+            currentPage={currentPage}
+          />
+        </div>
+
+        <div className="flex space-x-2">
+          <button
+            disabled={currentPage === lastCell}
+            onClick={handleNextPagination}
+            className={`px-4 py-2 rounded ${
+              currentPage === lastCell
+                ? "bg-gray-300 text-gray-500"
+                : "bg-white text-gray-500 hover:bg-gray-200"
+            }`}
+          >
+            ⇢
+          </button>
+          <button
+            disabled={currentPage === lastCell}
+            onClick={handleLastCell}
+            className={`px-4 py-2 rounded ${
+              currentPage === lastCell
+                ? "bg-gray-300 text-gray-500"
+                : "bg-white text-gray-500 hover:bg-gray-200"
+            }`}
+          >
+            Último
+          </button>
+        </div>
+      </div>
     </>
   );
 }

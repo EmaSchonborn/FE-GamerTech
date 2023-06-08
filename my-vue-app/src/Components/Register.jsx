@@ -67,7 +67,7 @@ export default function CreateUser() {
   
       if (data.name && data.email && data.password) {
         alert("Register successfull!");
-        navigate("/login");
+        navigate("/home");
       } else {
         alert("You most to complete the info");
       }

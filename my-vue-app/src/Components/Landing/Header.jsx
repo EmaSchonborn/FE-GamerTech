@@ -5,10 +5,10 @@ import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Categorias", href: "#" },
+  { name: "Categorias", path: "/" },
   /* { name: "Marcas", href: "#" }, */
-  { name: "Ofertas", href: "#" },
-  { name: "Juegos", href: "#" },
+  { name: "Ofertas", path: "#" },
+  { name: "Productos", path: "/home" },
 ];
 
 export const Header = () => {
@@ -40,13 +40,13 @@ export const Header = () => {
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
+            <Link to={item.path}
               key={item.name}
               href={item.href}
               className="text-base font-semibold leading-6 text-[#484848] hover:text-[#E60011]"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
