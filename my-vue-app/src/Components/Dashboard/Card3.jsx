@@ -17,23 +17,28 @@ const Card3 = (props) => {
   });
 
   const handleToggleActivation = () => {
-    const updatedProductData = {
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      isActive: !data.isActive,
-      createdAt: data.createdAt,
-      isAdmin: data.isAdmin,
-    };
-    dispatch(modifyUsers(updatedProductData))
-      .then(() => {
-        console.log("Producto modificado");
-        setData(updatedProductData);
-        dispatch(getUsers());
-      })
-      .catch((error) => {
-        console.log("Error al modificar el producto:", error);
-      });
+    if (data.isAdmin === true) {
+      alert("No es posible desactivar administradores");
+      console.log(data.isAdmin)
+    } else {
+      const updatedProductData = {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        isActive: !data.isActive,
+        createdAt: data.createdAt,
+        isAdmin: data.isAdmin,
+      };
+      dispatch(modifyUsers(updatedProductData))
+        .then(() => {
+          console.log("Producto modificado");
+          setData(updatedProductData);
+          dispatch(getUsers());
+        })
+        .catch((error) => {
+          console.log("Error al modificar el producto:", error);
+        });
+    }
   };
 
   const handleToggleAdmin = () => {

@@ -135,11 +135,11 @@ const fakeUsers = [
 
 export function getUsers() {
   return async function (dispatch) {
-    // const apiData = await axios.get("https://api-gamertech.onrender.com/users");
-    // const users = (apiData.data).sort((a, b) => (a.id > b.id ? 1 : -1));
+    const apiData = await axios.get("https://api-gamertech.onrender.com/users");
+    const users = (apiData.data).sort((a, b) => (a.id > b.id ? 1 : -1));
     dispatch({
       type: GET_USERS,
-      payload: fakeUsers,
+      payload: users,
     });
   };
 }

@@ -82,7 +82,7 @@ const DashboardAdmin = () => {
           <Tab>Productos</Tab>
           <Tab>Clientes</Tab>
           <Tab>Reviews</Tab>
-          <Tab>Ventas</Tab>
+          <Tab>Estadísticas</Tab>
           <Tab>Órdenes de compra</Tab>
         </TabList>
 
