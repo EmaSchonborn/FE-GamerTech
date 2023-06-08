@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { createUser, sendEmail } from "../Redux/actions.js";
+import {auth} from "../firebase.config";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
@@ -51,22 +53,27 @@ export default function CreateUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { ...input };
-    dispatch(createUser(data));
-    const dataEmail = { email: data.email };
-    dispatch(sendEmail(dataEmail));
-    console.log(data);
-    setInput({
-      name: "",
-      email: "",
-      password: "",
-    });
-
-    if (data.name && data.email && data.password) {
-      alert("Register successfull!");
-      navigate("/login");
-    } else {
-      alert("You most to complete the info");
-    }
+    createUserWithEmailAndPassword(auth, data.email, data.password).then((dataFirebase)=>{
+      console.log(dataFirebase)
+      dispatch(createUser(data));
+      const dataEmail = { email: data.email };
+      dispatch(sendEmail(dataEmail));
+      console.log(data);
+      setInput({
+        name: "",
+        email: "",
+        password: "",
+      });
+  
+      if (data.name && data.email && data.password) {
+        alert("Register successfull!");
+        navigate("/home");
+      } else {
+        alert("You most to complete the info");
+      }
+    }).catch((error)=>{
+      console.log(error);
+    })
   };
 
   return (

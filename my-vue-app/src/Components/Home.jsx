@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
 import SearchBar from "./SearchBar/SearchBar";
 import { useNavigate } from "react-router";
+import loadingImage from "../Imagenes/progress.gif";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -19,11 +20,13 @@ export default function Home() {
   if (minutosTranscurridos >= 10) {
     localStorage.setItem("isAuthenticated", false);
     localStorage.setItem("marcaTiempoLogin", Date.now());
-  }
-  if (isAuthenticated === "false") {
     alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
     navigate("/login");
   }
+  // if (isAuthenticated === "false") {
+  //   alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
+  //   navigate("/login");
+  // }
 
   const dispatch = useDispatch();
 
@@ -39,14 +42,15 @@ export default function Home() {
 
   if (!allProducts.length) {
     return (
-      <div>
-        <h1>No hay productos para mostrar!</h1>
+      <div className="flex items-center justify-center h-screen">
+        {/* <h1>No hay productos para mostrar!</h1> */}
+        <img src={loadingImage} alt="Cargando..." />
       </div>
     );
   } else {
     return (
       <div className="flex flex-col items-center justify-center bg-gray-200">
-        <SearchBar />
+        <br />
         <CardsContainer />
       </div>
     );

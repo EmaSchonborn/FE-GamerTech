@@ -10,15 +10,19 @@ import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
-import DashboardAdmin from "./Components/DashBoard.jsx";
+import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
+import NotFound from "./Components/NotFound.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar></NavBar>
       <Routes>
+        {/* MANEJO DE RUTAS NO CREADAS */}
+        <Route path="*" element={<NotFound/>}/>
+
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
