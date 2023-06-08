@@ -52,7 +52,7 @@ export function getProductByName(name) {
       var json = await axios.get(
         `https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
       );
-  
+
       return dispatch({
         type: GET_PRODUCT_BY_NAME,
         payload: json.data,

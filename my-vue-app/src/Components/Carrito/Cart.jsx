@@ -8,7 +8,6 @@ import Checkout from "../Checkout/Checkout";
 import InternalProvider from "../ContextProvider/ContextProvider";
 import { SpinnerCircular } from "spinners-react";
 import "../../Styles/payment.css";
-import { all } from "axios";
 
 initMercadoPago("TEST-1b219c6f-dc51-44fd-ad18-6c48f228ef56");
 
@@ -94,21 +93,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-{
-  /* {cartByUserId.length === 0 ? (
-<p>No hay productos en el carrito.</p>
-) : (
-<ul>
-{cartByUserId.map((item) => (
-<li key={item.id}>
-  {item.name} - ${item.price}
-  <button onClick={() => handleRemoveFromCart(item)}>
-	Eliminar
-  </button>
-</li>
-))}
-</ul>
-)}
-<button onClick={handleClearCart}>Vaciar Carrito</button> */
-}
