@@ -14,12 +14,15 @@ import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
 import NotFound from "./Components/NotFound.jsx";
+import BannedUser from "./Components/BannedUser.jsx";
 
 function App() {
   return (
     <BrowserRouter>
       <NavBar></NavBar>
       <Routes>
+        {/* USUARIO BANEADO */}
+        <Route path="/banned-user" element={<BannedUser />} />
         {/* MANEJO DE RUTAS NO CREADAS */}
         <Route path="*" element={<NotFound/>}/>
 

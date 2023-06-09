@@ -179,6 +179,7 @@ export function verifyUser(Email, Password) {
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
       localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      localStorage.setItem("vrfd", user.isActive);
 
       return dispatch({
         type: LOGIN,
