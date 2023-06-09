@@ -6,7 +6,7 @@ import { getProductById, sumarCarrito } from "../Redux/actions";
 const ProductDetail = () => {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true);
-  const [contador, setContador] = useState(0);
+
   let dispatch = useDispatch();
   let params = useParams();
 
@@ -16,23 +16,24 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  
+  console.log(productoDetail)
   const data = {userId: parseInt(id),
     productId:parseInt(params.id)} 
     console.log(data)    
+    const carrito = useSelector((state) => state.cartByUserId)
     const handleClick = (e) => { 
       dispatch(sumarCarrito(data))
-      setContador(contador + 1)
+    
       alert("Agregado Correctamente!")
       navigate("/home")
     };
-    const carrito = useSelector((state) => state.cartByUserId)
     console.log(carrito)
 
   if (loading) {
     setLoading(false);
     return <div>Cargando...</div>; // Indicador de carga
   }
+
   return (
     <div className="flex items-center justify-center h-screen w-full bg-white">
       <div className="container flex items-center justify-center">
@@ -61,7 +62,7 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <img src={productoDetail.imageUrl} alt="Loading.." className="px-60" />
+            <img src={productoDetail.imageUrl} alt="Loading.." className="px-10" />
             
           ) : (
             setTimeout(0)
@@ -81,6 +82,7 @@ const ProductDetail = () => {
       </div>
     </div>
   );
-};
+}
+
 
 export default ProductDetail;

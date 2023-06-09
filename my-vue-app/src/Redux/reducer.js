@@ -28,7 +28,7 @@ const initialState = {
   productDetail: {},
   productsByName: [],
   cartByUserId: {},
-  emails: [],
+  emails: {},
   userVerified: {},
   userCreated: {},
   isAuthenticated: false,

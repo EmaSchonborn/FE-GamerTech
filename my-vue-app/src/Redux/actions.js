@@ -42,9 +42,10 @@ export function getProductById(id) {
       var json = await axios.get(
         `https://api-gamertech.onrender.com/product/${id}`
       );
-      const products = json.data;
-      const filteredProducts = products.filter((p) => p.isActive === true);
-
+      const product = json.data;
+      console.log(product)
+      const filteredProducts = product.isActive? product : console.log("No hay Stock o no existe el producto!")
+      
       return dispatch({
         type: GET_PRODUCT_BY_ID,
         payload: filteredProducts,
