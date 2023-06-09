@@ -51,10 +51,10 @@ const BannedUser = () => {
             </p>
             <p>
               Actualmente, no tienes acceso para utilizar las funcionalidades de
-              GamerStore.
+              GamerTech.
             </p>
           </div>
-          <p>Contáctanos: soporte@gamerstore.com.ar</p>
+          <p>Contáctanos: soporte@gamertech.com.ar</p>
           <div className="flex justify-center items-center mt-5">
             <Link to="/">
               <button

@@ -64,7 +64,7 @@ const NavBar = () => {
             className="p-2 bg-[#E60011] text-white font-semibold rounded-sm"
           >
             <span className="sr-only">Your Company</span>
-            <h1>GamerStore</h1>
+            <h1>GamerTech</h1>
           </a>
         </div>
         <div className="flex items-center justify-end bg-white p-2">
