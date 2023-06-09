@@ -17,6 +17,7 @@ export const SUMAR_CARRITO = "SUMAR_CARRITO";
 export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const RESET_CART = "RESET_CART";
+export const DECREMENT_VALUE = "DECREMENT_VALUE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -91,53 +92,10 @@ export function sortProducts(payload) {
   };
 }
 
-const fakeUsers = [
-  {
-    id: 1,
-    name: "usuarioprueba",
-    email: "usuarioprueba@mail.com",
-    isActive: true,
-    isAdmin: true,
-    createdAt: "05/06/2023",
-  },
-  {
-    id: 2,
-    name: "Salvador",
-    email: "usuarioprueba1@mail.com",
-    isActive: true,
-    isAdmin: false,
-    createdAt: "05/06/2023",
-  },
-  {
-    id: 3,
-    name: "Salvador Hilares",
-    email: "shilaresbarrios@gmail.com",
-    isActive: true,
-    isAdmin: false,
-    createdAt: "05/06/2023",
-  },
-  {
-    id: 4,
-    name: "nicolas",
-    email: "prueba12@mail.com",
-    isActive: true,
-    isAdmin: false,
-    createdAt: "05/06/2023",
-  },
-  {
-    id: 5,
-    name: "schonborn",
-    email: "emanuel.1908@hotmail.com",
-    isActive: true,
-    isAdmin: false,
-    createdAt: "05/06/2023",
-  },
-];
-
 export function getUsers() {
   return async function (dispatch) {
     const apiData = await axios.get("https://api-gamertech.onrender.com/users");
-    const users = (apiData.data).sort((a, b) => (a.id > b.id ? 1 : -1));
+    const users = apiData.data.sort((a, b) => (a.id > b.id ? 1 : -1));
     dispatch({
       type: GET_USERS,
       payload: users,
@@ -149,7 +107,7 @@ export function getUserByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech-prueba.onrender.com/users/search?name=${name}`
+        `https://api-gamertech.onrender.com/users/search?name=${name}`
       );
       const data = json.data;
 
@@ -352,5 +310,15 @@ export function resetCart(id) {
     } catch (error) {
       console.log(error.message);
     }
+  };
+}
+
+export function decrementValue() {
+  return (dispatch, getState) => {
+    dispatch({ type: DECREMENT_VALUE });
+    
+    const { changeRolAttempts } = getState();
+
+    localStorage.setItem('changeRolAttempts', changeRolAttempts.toString())
   };
 }
