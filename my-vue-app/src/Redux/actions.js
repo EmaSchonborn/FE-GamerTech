@@ -59,7 +59,7 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
+        `https://api-gamertech.onrender.com/product/search?name=${name}`
       );
       const products = json.data.sort((a, b) => (a.id > b.id ? 1 : -1));
       const filteredSearch = products.filter((p) => p.isActive === true);
@@ -90,7 +90,7 @@ export function sortProducts(payload) {
   };
 }
 
-const fakeUsers = [
+/* const fakeUsers = [
   {
     id: 1,
     name: "usuarioprueba",
@@ -131,12 +131,12 @@ const fakeUsers = [
     isAdmin: false,
     createdAt: "05/06/2023",
   },
-];
+]; */
 
 export function getUsers() {
   return async function (dispatch) {
     const apiData = await axios.get("https://api-gamertech.onrender.com/users");
-    const users = (apiData.data).sort((a, b) => (a.id > b.id ? 1 : -1));
+    const users = apiData.data.sort((a, b) => (a.id > b.id ? 1 : -1));
     dispatch({
       type: GET_USERS,
       payload: users,
@@ -148,7 +148,7 @@ export function getUserByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech-prueba.onrender.com/users/search?name=${name}`
+        `https://api-gamertech.onrender.com/users/search?name=${name}`
       );
       const data = json.data;
 
@@ -238,7 +238,7 @@ export function loginWithGoogle(payload) {
   return async function (dispatch) {
     try {
       let json = await axios.post(
-        "https://api-gamertech-prueba.onrender.com/users/loginwithgoogle",
+        "https://api-gamertech.onrender.com/users/loginwithgoogle",
         payload
       );
       const { user, msg, marcaTiempoLogin } = json.data;
@@ -312,8 +312,8 @@ export function modifyUsers(payload) {
         "https://api-gamertech.onrender.com/users/modifyuser",
         payload
       );
-      const { product, msg } = response.data;
-      return { product, msg };
+      const { user, msg } = response.data;
+      return { user, msg };
     } catch (error) {
       throw new Error(error.message);
     }
