@@ -11,7 +11,7 @@ export default function Paginate({ paginate, currentPage, totalPages }) {
                 onClick={() => paginate(No)}
                 className={`px-4 py-2 rounded ${
                   currentPage === No
-                    ? "bg-blue-500 text-white"
+                    ? "bg-red-500 text-white"
                     : "bg-white text-gray-500 hover:bg-gray-200"
                 }`}
               >

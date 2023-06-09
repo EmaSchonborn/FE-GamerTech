@@ -22,9 +22,9 @@ export const Footer = () => {
       <footer className="footer px-10 py-4 border-t bg-[#242424] text-white border-base-300 text-xl font-size: 1.25rem;">
         <div className="items-center grid-flow-col">
           <p>
-            GamerStore
+            GamerTech
             <br />
-            Todos los derechos reservados | GamerStore.com
+            Todos los derechos reservados | GamerTech.com
           </p>
         </div>
         <div className="md:place-self-center md:justify-self-end">

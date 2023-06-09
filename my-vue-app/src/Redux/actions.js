@@ -1,5 +1,6 @@
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
+export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
@@ -16,250 +17,311 @@ export const SUMAR_CARRITO = "SUMAR_CARRITO";
 export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const RESET_CART = "RESET_CART";
+export const DECREMENT_VALUE = "DECREMENT_VALUE";
 
 export function getProducts() {
-	return async function (dispatch) {
-		const apiData = await axios.get(
-			"https://api-gamertech.onrender.com/product"
-		);
-		const products = apiData.data;
-		dispatch({
-			type: GET_PRODUCTS,
-			payload: products,
-		});
-	};
+  return async function (dispatch) {
+    const apiData = await axios.get(
+      "https://api-gamertech.onrender.com/product"
+    );
+    const products = apiData.data;
+    const sortProducts = products.sort((a, b) => (a.id > b.id ? 1 : -1));
+    const filteredProducts = products
+      .filter((p) => p.isActive === true)
+      .filter((p) => p.stock > 0);
+
+    dispatch({
+      type: GET_PRODUCTS,
+      payload: { sortProducts, filteredProducts },
+    });
+  };
 }
 
 export function getProductById(id) {
-	return async function (dispatch) {
-		try {
-			var json = await axios.get(
-				`https://api-gamertech.onrender.com/product/${id}`
-			);
-			return dispatch({
-				type: GET_PRODUCT_BY_ID,
-				payload: json.data,
-			});
-		} catch (e) {
-			console.log(e.message);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech.onrender.com/product/${id}`
+      );
+      const product = json.data;
+      console.log(product)
+      const filteredProducts = product.isActive? product : console.log("No hay Stock o no existe el producto!")
+      
+      return dispatch({
+        type: GET_PRODUCT_BY_ID,
+        payload: filteredProducts,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 }
 
 export function getProductByName(name) {
-	return async function (dispatch) {
-		try {
-			var json = await axios.get(
-				`https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
-			);
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
+      );
+      const products = json.data.sort((a, b) => (a.id > b.id ? 1 : -1));
+      const filteredSearch = products.filter((p) => p.isActive === true);
 
-			return dispatch({
-				type: GET_PRODUCT_BY_NAME,
-				payload: json.data,
-			});
-		} catch (e) {
-			console.log(e.message);
-		}
-	};
+      return dispatch({
+        type: GET_PRODUCT_BY_NAME,
+        payload: { products, filteredSearch },
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 }
 
 export function sortProducts(payload) {
-	return async function (dispatch) {
-		const apiData = await axios.post(
-			`https://api-gamertech.onrender.com/product/sort`,
-			payload
-		);
-		const products = apiData.data;
-		dispatch({
-			type: SORT_PRODUCTS,
-			payload: products,
-		});
-	};
+  return async function (dispatch) {
+    const apiData = await axios.post(
+      `https://api-gamertech.onrender.com/product/sort`,
+      payload
+    );
+    const products = apiData.data;
+    const filteredProducts = products.filter((p) => p.isActive === true);
+
+    dispatch({
+      type: SORT_PRODUCTS,
+      payload: filteredProducts,
+    });
+  };
 }
 
 export function getUsers() {
-	return async function (dispatch) {
-		const apiData = await axios.get(
-			"https://api-gamertech.onrender.com/users"
-		);
-		const users = apiData.data;
-		dispatch({
-			type: GET_USERS,
-			payload: users,
-		});
-	};
+  return async function (dispatch) {
+    const apiData = await axios.get("https://api-gamertech.onrender.com/users");
+    const users = apiData.data.sort((a, b) => (a.id > b.id ? 1 : -1));
+    dispatch({
+      type: GET_USERS,
+      payload: users,
+    });
+  };
+}
+
+export function getUserByName(name) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech.onrender.com/users/search?name=${name}`
+      );
+      const data = json.data;
+
+      return dispatch({
+        type: GET_USERS_BY_NAME,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 }
 
 export function createUser(payload) {
-	const body = {
-		name: payload.name,
-		email: payload.email,
-		password: payload.password,
-		isActive: true,
-	};
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				"https://api-gamertech.onrender.com/users/new",
-				body
-			);
-			const { user, msg } = json.data;
-			dispatch({
-				type: CREATE_USER,
-				payload: { user, msg },
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  const body = {
+    name: payload.name,
+    email: payload.email,
+    password: payload.password,
+    isActive: true,
+  };
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        "https://api-gamertech.onrender.com/users/new",
+        body
+      );
+      const { user, msg } = json.data;
+      dispatch({
+        type: CREATE_USER,
+        payload: { user, msg },
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export function sendEmail(payload) {
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				`https://api-gamertech.onrender.com/send-email`,
-				payload
-			);
-			dispatch({
-				type: SEND_EMAIL,
-				payload: json.data,
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/send-email`,
+        payload
+      );
+      dispatch({
+        type: SEND_EMAIL,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export function verifyUser(Email, Password) {
-	const body = {
-		email: Email,
-		password: Password,
-	};
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				"https://api-gamertech.onrender.com/users/verifyuser",
-				body
-			);
-			console.log(json.data);
+  const body = {
+    email: Email,
+    password: Password,
+  };
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        "https://api-gamertech.onrender.com/users/verifyuser",
+        body
+      );
+      console.log(json.data);
 
-			const { user, msg, marcaTiempoLogin } = json.data;
-			localStorage.setItem("isAuthenticated", true);
-			localStorage.setItem("id", user.id);
-			localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      const { user, msg, marcaTiempoLogin } = json.data;
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("id", user.id);
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      localStorage.setItem("vrfd", user.isActive);
 
-			return dispatch({
-				type: LOGIN,
-				payload: { user, msg },
-			});
-		} catch (error) {
-			dispatch({
-				type: FAILURE_LOGIN,
-				payload: { error: error.message },
-			});
-		}
-	};
+      return dispatch({
+        type: LOGIN,
+        payload: { user, msg },
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILURE_LOGIN,
+        payload: { error: error.message },
+      });
+    }
+  };
 }
 
 export function loginWithGoogle(payload) {
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				"https://api-gamertech.onrender.com/users/loginwithgoogle",
-				payload
-			);
-			const { user, msg, marcaTiempoLogin } = json.data;
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        "https://api-gamertech-prueba.onrender.com/users/loginwithgoogle",
+        payload
+      );
+      const { user, msg, marcaTiempoLogin } = json.data;
 
-			localStorage.setItem("isAuthenticated", true);
-			localStorage.setItem("id", user.id);
-			localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("id", user.id);
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
 
-			return dispatch({
-				type: LOGIN_WITH_GOOGLE,
-				payload: { user, msg },
-			});
-		} catch (error) {
-			dispatch({
-				type: FAILURE_LOGIN,
-				payload: { error: error.message },
-			});
-		}
-	};
+      return dispatch({
+        type: LOGIN_WITH_GOOGLE,
+        payload: { user, msg },
+      });
+    } catch (error) {
+      dispatch({
+        type: FAILURE_LOGIN,
+        payload: { error: error.message },
+      });
+    }
+  };
 }
 
 export function getCartByUserId(userId) {
-	return async function (dispatch) {
-		try {
-			let cart = await axios.get(
-				`https://api-gamertech.onrender.com/cart/${userId}`
-			);
-			return dispatch({ type: GET_CART_BY_USER_ID, payload: cart.data });
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      let cart = await axios.get(
+        `https://api-gamertech.onrender.com/cart/${userId}`
+      );
+      return dispatch({ type: GET_CART_BY_USER_ID, payload: cart.data });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export function sumarCarrito(payload) {
-	return async function (dispatch) {
-		try {
-			let json = await axios.post(
-				`https://api-gamertech.onrender.com/cart/addproducttocart`,
-				payload
-			);
-			dispatch({
-				type: SUMAR_CARRITO,
-				payload: json.data,
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/cart/addproducttocart`,
+        payload
+      );
+      dispatch({
+        type: SUMAR_CARRITO,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export function modifyProducts(payload) {
-	return async function () {
-		const data = await axios.post(
-			"https://api-gamertech.onrender.com/product/modifyproduct",
-			payload
-		);
-		return data;
-	};
+  return async function () {
+    try {
+      const response = await axios.post(
+        "https://api-gamertech.onrender.com/product/modifyproduct",
+        payload
+      );
+      const { product, msg } = response.data;
+      return { product, msg };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
+}
+
+export function modifyUsers(payload) {
+  return async function () {
+    try {
+      const response = await axios.post(
+        "https://api-gamertech.onrender.com/users/modifyuser",
+        payload
+      );
+      const { product, msg } = response.data;
+      return { product, msg };
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 }
 
 export function deleteItem(payload) {
-	const { userId, itemId } = payload;
-	return async function (dispatch) {
-		try {
-			let json = await axios.put(
-				`https://api-gamertech.onrender.com/cart/${userId}`,
-				itemId
-			);
-			dispatch({
-				type: DELETE_ITEM,
-				payload: json.data,
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  const { userId, itemId } = payload;
+  return async function (dispatch) {
+    try {
+      let json = await axios.put(
+        `https://api-gamertech.onrender.com/cart/${userId}`,
+        itemId
+      );
+      dispatch({
+        type: DELETE_ITEM,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }
 
 export function resetCart(id) {
-	return async function (dispatch) {
-		try {
-			let json = await axios.put(
-				`https://api-gamertech.onrender.com/cart/${id}`
-			);
-			dispatch({
-				type: RESET_CART,
-				payload: json.data,
-			});
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  return async function (dispatch) {
+    try {
+      let json = await axios.put(
+        `https://api-gamertech.onrender.com/cart/${id}`
+      );
+      dispatch({
+        type: RESET_CART,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
+export function decrementValue() {
+  return (dispatch, getState) => {
+    dispatch({ type: DECREMENT_VALUE });
+    
+    const { changeRolAttempts } = getState();
+
+    localStorage.setItem('changeRolAttempts', changeRolAttempts.toString())
+  };
 }
 export function sendReview(data) {
 	let body = {

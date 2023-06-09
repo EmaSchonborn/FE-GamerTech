@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../Redux/actions";
+import { getProducts, sendEmail } from "../Redux/actions";
 import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
 import SearchBar from "./SearchBar/SearchBar";
 import { useNavigate } from "react-router";
 import loadingImage from "../Imagenes/progress.gif";
+import { all } from "axios";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,10 +15,10 @@ export default function Home() {
   const diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
   const minutosTranscurridos = diferenciaTiempo / 60000;
   console.log(minutosTranscurridos);
-  if (minutosTranscurridos < 10) {
-    console.log("Aún no han pasado 10 minutos");
+  if (minutosTranscurridos < 30) {
+    console.log("Aún no han pasado 30 minutos");
   }
-  if (minutosTranscurridos >= 10) {
+  if (minutosTranscurridos >= 30) {
     localStorage.setItem("isAuthenticated", false);
     localStorage.setItem("marcaTiempoLogin", Date.now());
     alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
@@ -34,11 +35,12 @@ export default function Home() {
     dispatch(getProducts());
   }, [dispatch]); */
 
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
-
   const allProducts = useSelector((state) => state.products);
+  
+  useEffect(() => {
+  dispatch(getProducts());
+  }, []);
+  
 
   if (!allProducts.length) {
     return (
@@ -50,7 +52,7 @@ export default function Home() {
   } else {
     return (
       <div className="flex flex-col items-center justify-center bg-gray-200">
-        <SearchBar />
+        <br />
         <CardsContainer />
       </div>
     );

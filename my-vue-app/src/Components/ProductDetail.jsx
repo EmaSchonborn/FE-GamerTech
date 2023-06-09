@@ -2,12 +2,17 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getProductById, sumarCarrito } from "../Redux/actions";
+import { getAuth, signOut } from "firebase/auth";
 
 const ProductDetail = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const auth = getAuth();
+
   let dispatch = useDispatch();
   let params = useParams();
+
+  const verified = useSelector((state) => state.userVerified);
 
   const id = localStorage.getItem("id");
   useEffect(() => {
@@ -15,22 +20,34 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  
-  const data = {userId: parseInt(id),
-    productId:parseInt(params.id)} 
-    console.log(data)    
-    const handleClick = (e) => { 
-      dispatch(sumarCarrito(data))
-      alert("Agregado Correctamente!")
-      navigate("/home")
-    };
-    const carrito = useSelector((state) => state.cartByUserId)
-    console.log(carrito)
+  console.log(productoDetail);
+  const data = { userId: parseInt(id), productId: parseInt(params.id) };
+  console.log(data);
+  const carrito = useSelector((state) => state.cartByUserId);
+
+  const handleClick = (e) => {
+    if (verified.user?.isActive === false) {
+      signOut(auth)
+      .then(() => {
+        console.log("sign out successful");
+        localStorage.clear();
+        navigate("/banned-user");
+      })
+      .catch((error) => console.log(error));
+    } else {
+      dispatch(sumarCarrito(data));
+
+      alert("Agregado Correctamente!");
+      navigate("/home");
+    }
+  };
+  console.log(carrito);
 
   if (loading) {
     setLoading(false);
     return <div>Cargando...</div>; // Indicador de carga
   }
+
   return (
     <div className="flex items-center justify-center h-screen w-full bg-white">
       <div className="container flex items-center justify-center">
@@ -59,13 +76,19 @@ const ProductDetail = () => {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <img src={productoDetail.imageUrl} alt="Loading.." />
-            
+            <img
+              src={productoDetail.imageUrl}
+              alt="Loading.."
+              className="px-10"
+            />
           ) : (
             setTimeout(0)
           )}
           <div className="flex justify-evenly items-center h-24">
-            <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm" onClick={handleClick}>
+            <button
+              className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
+              onClick={handleClick}
+            >
               Añadir al Carrito
             </button>
             <br />
