@@ -13,6 +13,7 @@ import Cart from "./Components/Carrito/Cart.jsx";
 import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
+import { Review } from "./Components/Review/Review.jsx";
 import NotFound from "./Components/NotFound.jsx";
 import BannedUser from "./Components/BannedUser.jsx";
 
@@ -45,6 +46,7 @@ function App() {
         {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
         <Route path="/shoppingCart" element={<Cart />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/review/:id" element={<Review/>} />
 
         {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}
         <Route path="/orders" element={<h1>Ordenes de compra</h1>} />
