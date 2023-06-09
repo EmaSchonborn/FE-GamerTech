@@ -1,12 +1,15 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [click, setClick] = useState(false);
   const navigate = useNavigate();
   const auth = getAuth();
   const user = auth.currentUser;
+  const verified = useSelector((state) => state.userVerified);
+  
 
   const handleClick = () => {
     setClick(!click);
@@ -67,11 +70,13 @@ const NavBar = () => {
         <div className="flex items-center justify-end bg-white p-2">
           {!hideDashBoardButton && user && (
             <div>
-              <Link to="/controlPanel">
-                <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold h-10 py-2 px-4 rounded mr-10">
-                  Panel de Control
-                </button>
-              </Link>
+              {verified.user?.isAdmin === true && (
+                <Link to="/controlPanel">
+                  <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold h-10 py-2 px-4 rounded mr-10">
+                    Panel de Control
+                  </button>
+                </Link>
+              )}
             </div>
           )}
           {!hideGameStoreButton && (
@@ -159,7 +164,7 @@ const NavBar = () => {
                         <button onClick={userSignOut}>Desloguearse</button>
                       </>
                     ) : (
-                      <Link to="/login">Logueo</Link>
+                      <Link to="/login">Login</Link>
                     )}
                   </div>
                 </div>

@@ -17,6 +17,7 @@ import {
   LOGIN_WITH_GOOGLE,
   DELETE_ITEM,
   RESET_CART,
+  DECREMENT_VALUE,
 } from "../Redux/actions";
 
 const initialState = {
@@ -31,6 +32,7 @@ const initialState = {
   emails: [],
   userVerified: {},
   userCreated: {},
+  changeRolAttempts: 3,
   isAuthenticated: false,
 };
 
@@ -137,6 +139,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         cartByUserId: action.payload,
+      };
+    case DECREMENT_VALUE:
+      return {
+        ...state,
+        changeRolAttempts: state.changeRolAttempts - 1,
       };
     default:
       return { ...state };

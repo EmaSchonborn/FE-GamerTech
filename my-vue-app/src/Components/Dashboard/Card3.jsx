@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getUsers, modifyProducts, modifyUsers } from "../../Redux/actions";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { decrementValue, getUsers, modifyUsers } from "../../Redux/actions";
+const superAdminKey = import.meta.env.VITE_DESACTIVE_ADMIN;
 
 const Card3 = (props) => {
   const { id, name, email, isActive, createdAt, isAdmin } = props;
+  const intentos = useSelector((state) => state.changeRolAttempts);
 
   const dispatch = useDispatch();
-
   const [data, setData] = useState({
     id,
     name,
@@ -19,7 +20,6 @@ const Card3 = (props) => {
   const handleToggleActivation = () => {
     if (data.isAdmin === true) {
       alert("No es posible desactivar administradores");
-      console.log(data.isAdmin)
     } else {
       const updatedProductData = {
         id: data.id,
@@ -42,23 +42,43 @@ const Card3 = (props) => {
   };
 
   const handleToggleAdmin = () => {
-    const updatedProductData = {
-      id: data.id,
-      name: data.name,
-      email: data.email,
-      isActive: data.isActive,
-      createdAt: data.createdAt,
-      isAdmin: !data.isAdmin,
-    };
-    dispatch(modifyUsers(updatedProductData))
-      .then(() => {
-        console.log("Producto modificado");
-        setData(updatedProductData);
-        dispatch(getUsers());
-      })
-      .catch((error) => {
-        console.log("Error al modificar el producto:", error);
-      });
+    if (intentos === 0) {
+      alert("Funcionalidad bloqueada");
+    } else {
+      const contraseña = prompt("Clave superAdmin: ");
+      if (contraseña === superAdminKey) {
+        alert("Cambio correcto");
+        const updatedProductData = {
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          isActive: data.isActive,
+          createdAt: data.createdAt,
+          isAdmin: !data.isAdmin,
+        };
+
+        dispatch(modifyUsers(updatedProductData))
+          .then(() => {
+            console.log("Usuario modificado");
+            setData(updatedProductData);
+            dispatch(getUsers());
+          })
+          .catch((error) => {
+            console.log("Error al modificar el usuario:", error);
+          });
+      } else {
+        dispatch(decrementValue());
+        if (intentos - 1 === 0) {
+          alert("Funcionalidad bloqueada");
+        } else {
+          alert(
+            `No fue posible modificar el rol. Quedan ${
+              intentos - 1
+            } intentos para que se bloquee funcionalidad`
+          );
+        }
+      }
+    }
   };
 
   return (
