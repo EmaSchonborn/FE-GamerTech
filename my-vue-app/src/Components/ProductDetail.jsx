@@ -69,6 +69,12 @@ const ProductDetail = () => {
               Añadir al Carrito
             </button>
             <br />
+            <Link to={`/review/${params.id}`}>
+              <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
+                Dejar reseña
+              </button>
+            </Link>
+
             <Link to="/home">
               <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
                 Volver
