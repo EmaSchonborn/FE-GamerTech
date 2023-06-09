@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getProductById, sumarCarrito } from "../Redux/actions";
 import { getAuth, signOut } from "firebase/auth";
+import Reviews from "./Reviews/Reviews";
+
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -106,6 +108,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <Reviews/>
     </div>
   );
 };
