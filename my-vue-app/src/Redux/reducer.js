@@ -18,6 +18,7 @@ import {
   DELETE_ITEM,
   RESET_CART,
   DECREMENT_VALUE,
+  ADD_MESSAGE,
 } from "../Redux/actions";
 
 const initialState = {
@@ -34,6 +35,7 @@ const initialState = {
   userCreated: {},
   changeRolAttempts: 3,
   isAuthenticated: false,
+  messages: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -145,6 +147,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         changeRolAttempts: state.changeRolAttempts - 1,
       };
+    case ADD_MESSAGE:
+      return{
+        ...state,
+        messages: [...state.messages, action.payload]
+      }
     default:
       return { ...state };
   }

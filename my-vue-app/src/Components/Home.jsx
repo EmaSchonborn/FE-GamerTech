@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
 import { useNavigate } from "react-router";
 import loadingImage from "../Imagenes/progress.gif";
+import { all } from "axios";
+import ChatBot from "./ChatBot/ChatBot";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -53,9 +55,15 @@ export default function Home() {
     );
   } else {
     return (
-      <div className="flex flex-col items-center justify-center bg-gray-200">
-        <br />
-        <CardsContainer />
+      <div className="flex flex-col items-center justify-center bg-gray-200 h-full">
+        <div className="fixed bottom-10 right-10 z-10">
+          <ChatBot />
+        </div>
+        <div className="flex items-center justify-center mt-4">
+          <div className="w-full">
+            <CardsContainer />
+          </div>
+        </div>
       </div>
     );
   }

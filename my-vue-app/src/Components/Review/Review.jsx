@@ -16,7 +16,7 @@ export function Review() {
 	let params = useParams();
 	let userId = localStorage.getItem("id");
 	const productoDetail = useSelector((state) => state.productDetail);
-	console.log(productoDetail.id);
+	// console.log(productoDetail.id);
 	const dispatch = useDispatch();
 	const handleChange = (event) => {
 		setMensaje(event.target.value);
