@@ -20,6 +20,7 @@ const NavBar = () => {
       .then(() => {
         console.log("sign out successful");
         localStorage.clear();
+        setClick(false);
         navigate("/");
       })
       .catch((error) => console.log(error));
@@ -127,21 +128,6 @@ const NavBar = () => {
                   />
                 </button>
               </div>
-<<<<<<< HEAD
-            {click && (
-            <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-              <Link to="/perfil" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0" onClick={handleClick}>Perfil</Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1" onClick={handleClick}>Configuraciones</Link>
-              <div className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2" onClick={handleClick}>
-                {user ? (
-                  <>
-                    <button onClick={userSignOut}>Desloguearse</button>
-                  </>
-                ) : (
-                  <Link to="/login">
-                    Logueo
-=======
               {click && (
                 <div
                   className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -156,9 +142,9 @@ const NavBar = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-0"
+                    onClick={handleClick}
                   >
                     Perfil
->>>>>>> 7112bb9a67be69f96474b14a7cf911d2c0437802
                   </Link>
                   <Link
                     href="#"
@@ -166,6 +152,7 @@ const NavBar = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-1"
+                    onClick={handleClick}
                   >
                     Configuraciones
                   </Link>
@@ -180,7 +167,8 @@ const NavBar = () => {
                         <button onClick={userSignOut}>Desloguearse</button>
                       </>
                     ) : (
-                      <Link to="/login">Login</Link>
+                      <Link to="/login" 
+                      >Login</Link>
                     )}
                   </div>
                 </div>

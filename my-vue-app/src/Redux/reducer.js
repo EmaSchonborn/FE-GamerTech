@@ -19,6 +19,7 @@ import {
   RESET_CART,
   DECREMENT_VALUE,
   ADD_MESSAGE,
+  GET_USER_BY_ID
 } from "../Redux/actions";
 
 const initialState = {
@@ -55,6 +56,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredUsers: action.payload,
+      };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        userVerified: action.payload,
       };
     case GET_PRODUCTS:
       const { sortProducts, filteredProducts } = action.payload;

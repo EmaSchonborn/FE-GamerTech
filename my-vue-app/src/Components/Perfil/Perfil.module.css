@@ -13,7 +13,6 @@
 
 .Container_secundary{
     float: left;
-    width: 340px;
 }
 
 .globalNav{
@@ -58,7 +57,7 @@
 
 .globalNav_listItem{
     margin-top: 30px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .navigation{

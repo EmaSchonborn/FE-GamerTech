@@ -20,15 +20,6 @@ import BannedUser from "./Components/BannedUser.jsx";
 function App() {
   return (
     <BrowserRouter>
-<<<<<<< HEAD
-    <NavBar></NavBar>
-    <Routes>
-      {/* COMPONENTES GLOBALES */}
-      <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Landing/>} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
-=======
       <NavBar></NavBar>
       <Routes>
         {/* USUARIO BANEADO */}
@@ -41,7 +32,6 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/productCart/:id" element={<CartProductDetail />} />
->>>>>>> 7112bb9a67be69f96474b14a7cf911d2c0437802
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />

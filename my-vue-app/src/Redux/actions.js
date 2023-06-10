@@ -1,6 +1,7 @@
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CREATE_USER = "CREATE_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
@@ -117,6 +118,24 @@ export function getUserByName(name) {
       return dispatch({
         type: GET_USERS_BY_NAME,
         payload: data,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}
+
+export function getUserById(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech.onrender.com/users/${id}`
+      );
+      const user = json.data;
+
+      return dispatch({
+        type: GET_USER_BY_ID,
+        payload: user,
       });
     } catch (e) {
       console.log(e.message);
