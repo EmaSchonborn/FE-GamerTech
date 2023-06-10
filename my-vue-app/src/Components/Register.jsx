@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { createUser, sendEmail } from "../Redux/actions.js";
-import {auth} from "../firebase.config";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUser, sendEmail, verifyUser } from "../Redux/actions.js";
+import { auth } from "../firebase.config";
+import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
@@ -53,27 +53,47 @@ export default function CreateUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { ...input };
-    createUserWithEmailAndPassword(auth, data.email, data.password).then((dataFirebase)=>{
-      console.log(dataFirebase)
-      dispatch(createUser(data));
-      const dataEmail = { email: data.email };
-      dispatch(sendEmail(dataEmail));
-      console.log(data);
-      setInput({
-        name: "",
-        email: "",
-        password: "",
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then((dataFirebase) => {
+        console.log(dataFirebase);
+        dispatch(createUser(data));
+        const dataEmail = { email: data.email };
+        dispatch(sendEmail(dataEmail));
+        setInput({
+          name: "",
+          email: "",
+          password: "",
+        });
+
+        /*
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((data) => {
+        console.log(data);
+        dispatch(verifyUser(email, password));
+        setError(false);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(true);
       });
-  
-      if (data.name && data.email && data.password) {
-        alert("Register successfull!");
-        navigate("/login");
-      } else {
-        alert("You most to complete the info");
-      }
-    }).catch((error)=>{
-      console.log(error);
-    })
+  }; */
+
+        if (data.name && data.email && data.password) {
+          signInWithEmailAndPassword(auth, input.email, input.password).then((data) => {
+            console.log(data);
+            dispatch(verifyUser(input.email, input.password));
+            setError(false);
+            navigate("/home");
+          });
+        } else {
+          alert("Debes completar toda la información");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

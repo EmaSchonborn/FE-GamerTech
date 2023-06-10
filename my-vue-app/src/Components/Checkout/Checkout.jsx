@@ -12,7 +12,7 @@ const Checkout = ({ onClick, cartItems }) => {
     dispatch(getCartByUserId(userId));
   }, []);
   const cartByUserId = useSelector((state) => state.cartByUserId);
-  // console.log(cartByUserId.productsId);
+ 
   const [isVisible, setIsVisible] = React.useState(true);
   const {
     preferenceId,
@@ -20,7 +20,6 @@ const Checkout = ({ onClick, cartItems }) => {
     orderData,
     setOrderData,
   } = React.useContext(Context);
-  console.log(orderData.price)
   const shoppingCartClass = classnames("shopping-cart dark", {
     "shopping-cart--hidden": !isVisible,
   });

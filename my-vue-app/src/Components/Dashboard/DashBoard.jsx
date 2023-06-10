@@ -72,7 +72,7 @@ const DashboardAdmin = () => {
   if (!paginationProducts.length) {
     return (
       <div>
-        <h1>Cargando contenido...</h1>
+        <h1></h1>
       </div>
     );
   } else {
@@ -82,7 +82,7 @@ const DashboardAdmin = () => {
           <Tab>Productos</Tab>
           <Tab>Clientes</Tab>
           <Tab>Reviews</Tab>
-          <Tab>Ventas</Tab>
+          <Tab>Estadísticas</Tab>
           <Tab>Órdenes de compra</Tab>
         </TabList>
 

@@ -13,10 +13,14 @@ import Cart from "./Components/Carrito/Cart.jsx";
 import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
+import { Review } from "./Components/Review/Review.jsx";
+import NotFound from "./Components/NotFound.jsx";
+import BannedUser from "./Components/BannedUser.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+<<<<<<< HEAD
     <NavBar></NavBar>
     <Routes>
       {/* COMPONENTES GLOBALES */}
@@ -24,6 +28,20 @@ function App() {
       <Route path="/" element={<Landing/>} />
       <Route path="/home" element={<Home />} />
       <Route path="/product/:id" element={<ProductDetail />} />
+=======
+      <NavBar></NavBar>
+      <Routes>
+        {/* USUARIO BANEADO */}
+        <Route path="/banned-user" element={<BannedUser />} />
+        {/* MANEJO DE RUTAS NO CREADAS */}
+        <Route path="*" element={<NotFound/>}/>
+
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/productCart/:id" element={<CartProductDetail />} />
+>>>>>>> 7112bb9a67be69f96474b14a7cf911d2c0437802
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />
@@ -38,6 +56,7 @@ function App() {
         {/* COMPONENTES DE ENTRADA DEL USUARIO UNA VEZ ESTE AUTENTICADO */}
         <Route path="/shoppingCart" element={<Cart />} />
         <Route path="/perfil" element={<Perfil />} />
+        <Route path="/review/:id" element={<Review/>} />
 
         {/* COMPONENTES PARA EL PROCESO DE PAGO DE LOS PRODUCTOS DEL CARRITO */}
         <Route path="/orders" element={<h1>Ordenes de compra</h1>} />
