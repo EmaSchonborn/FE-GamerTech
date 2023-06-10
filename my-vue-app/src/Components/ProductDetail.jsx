@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getProductById, sumarCarrito } from "../Redux/actions";
 import { getAuth, signOut } from "firebase/auth";
+import Reviews from "./Reviews/Reviews";
+
 
 const ProductDetail = () => {
   const navigate = useNavigate();
@@ -92,6 +94,12 @@ const ProductDetail = () => {
               Añadir al Carrito
             </button>
             <br />
+            <Link to={`/review/${params.id}`}>
+              <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
+                Dejar reseña
+              </button>
+            </Link>
+
             <Link to="/home">
               <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
                 Volver
@@ -100,6 +108,7 @@ const ProductDetail = () => {
           </div>
         </div>
       </div>
+      <Reviews/>
     </div>
   );
 };

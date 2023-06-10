@@ -339,3 +339,21 @@ export const addMessage = (message) => {
     }
   };
 };
+export function sendReview(data) {
+	let body = {
+		textReview: { userId: data.userId, mensaje: data.mensaje },
+		score: { userId: data.userId, score: data.rate },
+		productId: data.productId,
+	};
+
+	return async function () {
+		try {
+			let json = await axios.post(
+				`https://api-gamertech.onrender.com/product/addreviewscore`,
+				body
+			);
+		} catch (error) {
+			console.log(error.message);
+		}
+	};
+}
