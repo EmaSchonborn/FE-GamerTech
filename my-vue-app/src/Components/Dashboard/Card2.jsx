@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { modifyProducts } from "../Redux/actions";
-import Form from "./Form";
+import { getProducts, modifyProducts } from "../../Redux/actions";
+import Form from "../Form";
 
 export default function Card2(props) {
   const { id, name, description, price, imageUrl, isActive, stock } = props;
+
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
+    id,
     name,
     description,
     price,
@@ -14,44 +16,67 @@ export default function Card2(props) {
     isActive,
     stock,
   });
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(modifyProducts(data));
-  }, [data, dispatch]);
-
   const handleToggleActivation = () => {
-    const updatedData = {
-      ...data,
+    const updatedProductData = {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      price: data.price,
+      imageUrl: data.imageUrl,
+      stock: data.stock,
       isActive: !data.isActive,
-    };
-
-    dispatch(modifyProducts(id, { isActive: !data.isActive }));
-    setData(updatedData);
-  };
-
-  const handleEditProduct = () => {
-    setIsEditing(true);
-  };
-
-  const handleFormSubmit = (updatedData) => {
-    dispatch(
-      modifyProducts(id, {
-        name: updatedData.name,
-        description: updatedData.description,
-        price: updatedData.price,
-        imageUrl: updatedData.imageUrl,
-        stock: updatedData.stock,
-      })
-    )
+    }
+    dispatch(modifyProducts(updatedProductData))
       .then(() => {
         console.log("Producto modificado");
-        setIsEditing(false);
-        setData(updatedData); // Actualizar los datos del producto con la información modificada
+        setData(updatedProductData);
+        dispatch(getProducts());
       })
       .catch((error) => {
         console.log("Error al modificar el producto:", error);
       });
+  };
+  
+  const handleEditProduct = () => {
+    setIsEditing(true);
+    setData((prevData) => ({
+      ...prevData,
+      id,
+      name,
+      description,
+      price,
+      imageUrl,
+      isActive,
+      stock,
+    }));
+  };
+
+  const handleFormSubmit = (updatedData) => {
+    const updatedProductData = {
+      id: updatedData.id,
+      name: updatedData.name,
+      description: updatedData.description,
+      price: updatedData.price,
+      imageUrl: updatedData.imageUrl,
+      stock: updatedData.stock,
+      isActive: data.isActive,
+    };
+    dispatch(getProducts());
+
+    dispatch(modifyProducts(updatedProductData))
+      .then(() => {
+        console.log("Producto modificado");
+        setIsEditing(false);
+        setData(updatedProductData);
+      })
+      .catch((error) => {
+        console.log("Error al modificar el producto:", error);
+      });
+
+    dispatch(getProducts());
   };
 
   const handleCancel = () => {
@@ -59,8 +84,8 @@ export default function Card2(props) {
   };
 
   return (
-    <tr>
-      <td className="relative py-10 w-1/5">
+    <tr className="text-white">
+      <td className="relative py-10 w-1/12">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
           {id}
         </div>
@@ -82,9 +107,12 @@ export default function Card2(props) {
       </td>
       <td className="relative justify-center text-center w-1/5">
         {isEditing ? (
-          <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-            <div className="bg-black opacity-50 fixed inset-0"></div>
-            <div className="relative bg-white border border-gray-300 p-4">
+          <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+            <div
+              className="fixed inset-0 bg-black opacity-50"
+              style={{ pointerEvents: "none" }}
+            ></div>
+            <div className="relative bg-white border border-gray-300 p-4 ml-80">
               <Form
                 initialData={data}
                 onCancel={handleCancel}
@@ -103,7 +131,7 @@ export default function Card2(props) {
             </button>
             {data.isActive ? (
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mr-3 rounded"
                 onClick={handleToggleActivation}
                 disabled={isEditing}
               >
@@ -111,7 +139,7 @@ export default function Card2(props) {
               </button>
             ) : (
               <button
-                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-3 rounded"
                 onClick={handleToggleActivation}
                 disabled={isEditing}
               >

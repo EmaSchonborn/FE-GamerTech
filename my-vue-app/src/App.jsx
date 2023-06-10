@@ -10,20 +10,20 @@ import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
 import Perfil from "./Components/Perfil/Perfil.jsx";
 import Cart from "./Components/Carrito/Cart.jsx";
-import DashboardAdmin from "./Components/DashBoard.jsx";
+import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
 
 function App() {
   return (
     <BrowserRouter>
-      <NavBar></NavBar>
-      <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
-        <Route path="/productCart/:id" element={<CartProductDetail />} />
+    <NavBar></NavBar>
+    <Routes>
+      {/* COMPONENTES GLOBALES */}
+      <Route path="/register" element={<Register />} />
+      <Route path="/" element={<Landing/>} />
+      <Route path="/home" element={<Home />} />
+      <Route path="/product/:id" element={<ProductDetail />} />
 
         {/* COMPONENTES DE INFORMACIÓN DE LA EMPRESA */}
         <Route path="/privacy" element={<h1>Política de privacidad</h1>} />

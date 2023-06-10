@@ -18,7 +18,7 @@ export default function Card(props) {
       <p className="px-4 py-2 text-base font-medium text-[#484848]">
         $ {price}
       </p>
-      <Link className="flex justify-center" to={`/productCart/${id}`}>
+      <Link className="flex justify-center" to={`/product/${id}`}>
         <h2 className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm">
           <p>Detalle</p>
         </h2>
