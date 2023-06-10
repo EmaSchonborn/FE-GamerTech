@@ -44,9 +44,11 @@ export function getProductById(id) {
         `https://api-gamertech.onrender.com/product/${id}`
       );
       const product = json.data;
-      console.log(product)
-      const filteredProducts = product.isActive? product : console.log("No hay Stock o no existe el producto!")
-      
+      console.log(product);
+      const filteredProducts = product.isActive
+        ? product
+        : console.log("No hay Stock o no existe el producto!");
+
       return dispatch({
         type: GET_PRODUCT_BY_ID,
         payload: filteredProducts,
@@ -61,7 +63,7 @@ export function getProductByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(
-        `https://api-gamertech-prueba.onrender.com/product/search?name=${name}`
+        `https://api-gamertech.onrender.com/product/search?name=${name}`
       );
       const products = json.data.sort((a, b) => (a.id > b.id ? 1 : -1));
       const filteredSearch = products.filter((p) => p.isActive === true);
@@ -195,11 +197,15 @@ export function verifyUser(Email, Password) {
 }
 
 export function loginWithGoogle(payload) {
+  let body = {
+    data: payload.userProfile,
+    uid: payload.uid,
+  };
   return async function (dispatch) {
     try {
       let json = await axios.post(
-        "https://api-gamertech-prueba.onrender.com/users/loginwithgoogle",
-        payload
+        "https://api-gamertech.onrender.com/users/loginwithgoogle",
+        body
       );
       const { user, msg, marcaTiempoLogin } = json.data;
 
@@ -272,8 +278,8 @@ export function modifyUsers(payload) {
         "https://api-gamertech.onrender.com/users/modifyuser",
         payload
       );
-      const { product, msg } = response.data;
-      return { product, msg };
+      const { user, msg } = response.data;
+      return { user, msg };
     } catch (error) {
       throw new Error(error.message);
     }
@@ -317,10 +323,10 @@ export function resetCart(id) {
 export function decrementValue() {
   return (dispatch, getState) => {
     dispatch({ type: DECREMENT_VALUE });
-    
+
     const { changeRolAttempts } = getState();
 
-    localStorage.setItem('changeRolAttempts', changeRolAttempts.toString())
+    localStorage.setItem("changeRolAttempts", changeRolAttempts.toString());
   };
 }
 export function sendReview(data) {

@@ -154,7 +154,7 @@ export function Review() {
 			<div className='flex items-center justify-center'>
 				<a
 					rel='noopener noreferrer'
-					href='#'
+					href='/home'
 					className='text-sm text-gray-400'>
 					Tal vez más tarde
 				</a>

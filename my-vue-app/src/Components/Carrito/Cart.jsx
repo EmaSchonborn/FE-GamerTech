@@ -111,21 +111,3 @@ const Cart = () => {
 };
 
 export default Cart;
-
-//{
-/* {cartByUserId.length === 0 ? (
-<p>No hay productos en el carrito.</p>
-) : (
-<ul>
-{cartByUserId.map((item) => (
-<li key={item.id}>
-  {item.name} - ${item.price}
-  <button onClick={() => handleRemoveFromCart(item)}>
-	Eliminar
-  </button>
-</li>
-))}
-</ul>
-)}
-<button onClick={handleClearCart}>Vaciar Carrito</button> */
-//}

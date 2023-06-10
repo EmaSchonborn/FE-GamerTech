@@ -61,8 +61,9 @@ const Login = () => {
         const token = credential.accessToken;
         const uid = data.user.uid;
         const user = getAdditionalUserInfo(data);
+        let payload = { userProfile: user.profile, uid: uid };
         if (user.profile.verified_email) {
-          dispatch(loginWithGoogle(user.profile));
+          dispatch(loginWithGoogle(payload));
           // Guardaremos el token del usuario
           localStorage.setItem("token", token);
           // Una vez validado todos los datos lo mandaremos recien al home con su cuenta logueada
