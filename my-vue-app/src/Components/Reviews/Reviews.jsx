@@ -11,6 +11,6 @@ export default function Reviews() {
 	useEffect(() => {
 		params.id ? dispatch(getProductById(params.id)) : null;
 	}, [params.id, dispatch]);
-	console.log(productoDetail);
+	// console.log(productoDetail);
 	return <div>Reviews</div>;
 }

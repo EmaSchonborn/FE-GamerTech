@@ -292,8 +292,8 @@ export function deleteItem(payload) {
   return async function (dispatch) {
     try {
       let json = await axios.put(
-        `https://api-gamertech.onrender.com/cart/${userId}`,
-        itemId
+        `https://api-gamertech.onrender.com/cart/${itemId}`,
+        userId
       );
       dispatch({
         type: DELETE_ITEM,
