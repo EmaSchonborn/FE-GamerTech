@@ -1,24 +1,27 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, sendEmail } from "../Redux/actions";
+import { getProducts } from "../Redux/actions";
 import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
-import SearchBar from "./SearchBar/SearchBar";
 import { useNavigate } from "react-router";
 import loadingImage from "../Imagenes/progress.gif";
-import { all } from "axios";
 
 export default function Home() {
   const navigate = useNavigate();
-  let isAuthenticated = localStorage.getItem("isAuthenticated");
-  const marcaTiempoLogin = localStorage.getItem("marcaTiempoLogin");
-  const marcaTiempoActual = Date.now();
-  const diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
-  const minutosTranscurridos = diferenciaTiempo / 60000;
-  console.log(minutosTranscurridos);
-  if (minutosTranscurridos < 30) {
+  let userId = localStorage.getItem("id");
+  let isAuthenticated, marcaTiempoLogin,marcaTiempoActual, diferenciaTiempo, minutosTranscurridos
+
+  if (userId) {
+    isAuthenticated = localStorage.getItem("isAuthenticated");
+    marcaTiempoLogin = localStorage.getItem("marcaTiempoLogin");
+    marcaTiempoActual = Date.now();
+    diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
+    minutosTranscurridos = diferenciaTiempo / 60000;
+  }
+  console.log(userId);
+  if (minutosTranscurridos && minutosTranscurridos < 30) {
     console.log("Aún no han pasado 30 minutos");
   }
-  if (minutosTranscurridos >= 30) {
+  if (minutosTranscurridos && minutosTranscurridos >= 30) {
     localStorage.setItem("isAuthenticated", false);
     localStorage.setItem("marcaTiempoLogin", Date.now());
     alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
@@ -36,11 +39,10 @@ export default function Home() {
   }, [dispatch]); */
 
   const allProducts = useSelector((state) => state.products);
-  
+
   useEffect(() => {
-  dispatch(getProducts());
+    dispatch(getProducts());
   }, []);
-  
 
   if (!allProducts.length) {
     return (

@@ -57,16 +57,13 @@ const Login = () => {
   const handleClickWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((data) => {
-        console.log(data);
         const credential = GoogleAuthProvider.credentialFromResult(data);
-        console.log(credential);
         const token = credential.accessToken;
         const uid = data.user.uid;
-        console.log(uid);
         const user = getAdditionalUserInfo(data);
-        console.log(user);
+        let payload = { userProfile: user.profile, uid: uid };
         if (user.profile.verified_email) {
-          dispatch(loginWithGoogle({ userProfile: user.profile, uid: uid }));
+          dispatch(loginWithGoogle(payload));
           // Guardaremos el token del usuario
           localStorage.setItem("token", token);
           // Una vez validado todos los datos lo mandaremos recien al home con su cuenta logueada
