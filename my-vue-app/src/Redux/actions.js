@@ -18,6 +18,7 @@ export const LOGIN_WITH_GOOGLE = "LOGIN_WITH_GOOGLE";
 export const DELETE_ITEM = "DELETE_ITEM";
 export const RESET_CART = "RESET_CART";
 export const DECREMENT_VALUE = "DECREMENT_VALUE";
+export const ADD_MESSAGE = "ADD_MESSAGE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -44,9 +45,11 @@ export function getProductById(id) {
         `https://api-gamertech.onrender.com/product/${id}`
       );
       const product = json.data;
-      console.log(product)
-      const filteredProducts = product.isActive? product : console.log("No hay Stock o no existe el producto!")
-      
+      console.log(product);
+      const filteredProducts = product.isActive
+        ? product
+        : console.log("No hay Stock o no existe el producto!");
+
       return dispatch({
         type: GET_PRODUCT_BY_ID,
         payload: filteredProducts,
@@ -317,9 +320,22 @@ export function resetCart(id) {
 export function decrementValue() {
   return (dispatch, getState) => {
     dispatch({ type: DECREMENT_VALUE });
-    
+
     const { changeRolAttempts } = getState();
 
-    localStorage.setItem('changeRolAttempts', changeRolAttempts.toString())
+    localStorage.setItem("changeRolAttempts", changeRolAttempts.toString());
   };
 }
+
+export const addMessage = (message) => {
+  return async function (dispatch) {
+    try {
+      dispatch({
+        type: "ADD_MESSAGE",
+        payload: message,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
