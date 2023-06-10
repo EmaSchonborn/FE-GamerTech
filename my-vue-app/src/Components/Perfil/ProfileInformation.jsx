@@ -3,7 +3,9 @@ import styles from './ProfileInformation.module.css'
 
 const ProfileInformation = ({input}) => {
   return (
-    <h1 className={styles.title}>{input}</h1>
+    <>
+      <h1 className={styles.title}>{input}</h1>
+    </>
   )
 }
 
