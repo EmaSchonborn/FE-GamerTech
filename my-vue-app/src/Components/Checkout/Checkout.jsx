@@ -66,12 +66,13 @@ const Checkout = ({ onClick, cartItems }) => {
                           cartItems.map((p) => {
                             return (
                               <Card
-                                key={p.id}
-                                id={p.id}
-                                name={p.name}
-                                description={p.description}
-                                price={p.price}
-                                imageUrl={p.imageUrl}
+                                key={p.product.id}
+                                id={p.product.id}
+                                name={p.product.name}
+                                description={p.product.description}
+                                price={p.product.price}
+                                imageUrl={p.product.imageUrl}
+                                quantity={p.quantity}
                               />
                             );
                           })
