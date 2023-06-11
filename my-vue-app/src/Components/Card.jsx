@@ -37,7 +37,7 @@ import { deleteItem } from "../Redux/actions";
 export default function Card(props) {
   const dispatch = useDispatch()
   const idLocal = localStorage.getItem("id");
-  let { id, name, description, price, imageUrl } = props;
+  let { id, name, description, price, imageUrl, quantity } = props;
   const cart = [{productId: 1,quantity: 3}, {quantity: 2}, {quantity: 20}, {quantity: 10}, {quantity: 1}];
   // const array2 = cart.filter(e => e.quantity > 1);
   
@@ -72,7 +72,8 @@ export default function Card(props) {
       <br />
       <button className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
       onClick={handleClick}>Quitar</button>
-      <h1>{itemCount > 1 && <span>Cantidad: {itemCount}</span>}</h1>
+      {/* <h1>{itemCount > 1 && <span>Cantidad: {quantity}</span>}</h1> */}
+      <h1><span>Cantidad: {quantity}</span></h1>
     </div>
   );
 }
