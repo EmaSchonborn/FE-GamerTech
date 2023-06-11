@@ -4,7 +4,6 @@ import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import { About } from "./Components/About/About.jsx";
 import NavBar from "./NavBar.jsx";
-import "./Styles/styles.css";
 import { Landing } from "./Pages/Landing.jsx";
 import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
