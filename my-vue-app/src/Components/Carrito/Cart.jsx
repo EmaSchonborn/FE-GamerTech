@@ -8,7 +8,6 @@ import Checkout from "../Checkout/Checkout";
 import InternalProvider from "../ContextProvider/ContextProvider";
 import { SpinnerCircular } from "spinners-react";
 import "../../Styles/payment.css";
-import { all } from "axios";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 
@@ -28,6 +27,9 @@ const Cart = () => {
   const allProducts = useSelector((state) => state.products);
   const cartByUserId = useSelector((state) => state.cartByUserId);
 
+  console.log(allProducts);
+  console.log(cartByUserId);
+
   let total = 0;
   let cartItems = [];
   setTimeout(1);
@@ -35,14 +37,13 @@ const Cart = () => {
   if (allProducts.length && cartByUserId.productsId) {
     allProducts.forEach((e) => {
       cartByUserId.productsId.forEach((el) => {
-        if (e.id === el) {
+        if (e.id === el.id) {
           total = total + e.price;
-          cartItems.push(e);
+          cartItems.push({product:e,quantity:el.quantity});
         }
       });
     });
   }
-  // console.log(cartItems)
 
   const [preferenceId, setPreferenceId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

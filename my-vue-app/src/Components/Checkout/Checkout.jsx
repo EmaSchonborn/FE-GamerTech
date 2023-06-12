@@ -11,8 +11,6 @@ const Checkout = ({ onClick, cartItems }) => {
   useEffect(() => {
     dispatch(getCartByUserId(userId));
   }, []);
-  const cartByUserId = useSelector((state) => state.cartByUserId);
- 
   const [isVisible, setIsVisible] = React.useState(true);
   const {
     preferenceId,
@@ -33,7 +31,13 @@ const Checkout = ({ onClick, cartItems }) => {
     const amount = parseInt(orderData.price) * parseInt(quantity);
     setOrderData({ ...orderData, quantity, amount });
   }; */
-
+  const renderedIds = new Set();
+  const subtotal = cartItems.reduce((total, cartItem) => {
+    const price = cartItem.product.price;
+    const quantity = cartItem.quantity;
+    const subtotalItem = price * quantity;
+    return total + subtotalItem;
+  }, 0);
   return (
     <section className={shoppingCartClass}>
       <div className="container" id="container">
@@ -63,19 +67,25 @@ const Checkout = ({ onClick, cartItems }) => {
                           <h5>Productos:</h5>
                         </div>
                         {
-                          cartItems.map((p) => {
-                            return (
-                              <Card
-                                key={p.id}
-                                id={p.id}
-                                name={p.name}
-                                description={p.description}
-                                price={p.price}
-                                imageUrl={p.imageUrl}
-                              />
-                            );
-                          })
-                        }
+                            cartItems.map((p) => {
+                              if (!renderedIds.has(p.product.id)) {
+                                renderedIds.add(p.product.id); // Agregar la ID al conjunto
+                          
+                                return (
+                                  <Card
+                                    key={p.product.id}
+                                    id={p.product.id}
+                                    name={p.product.name}
+                                    description={p.product.description}
+                                    price={p.product.price}
+                                    imageUrl={p.product.imageUrl}
+                                    quantity={p.quantity}
+                                  />
+                                );
+                              }
+                              return null; // Omitir la renderización si la tarjeta ya ha sido renderizada
+                            })
+                          }
                           {/* <div className="product-info">
                             <b>Descripción: </b>
                             <span id="product-description">Algún producto</span>
@@ -106,11 +116,11 @@ const Checkout = ({ onClick, cartItems }) => {
               <div className="summary">
                 <h3>Tu compra</h3>
                 <div className="summary-item">
-                  <span className="text">Subtotal: </span>
-                  <span className="price" id="cart-total">
-                    ${orderData.price}
-                  </span>
-                </div>
+        <span className="text">Subtotal: </span>
+        <span className="price" id="cart-total">
+          ${subtotal}
+        </span>
+      </div>
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   onClick={onClick}
@@ -129,3 +139,141 @@ const Checkout = ({ onClick, cartItems }) => {
 };
 
 export default Checkout;
+
+// import React, { useEffect } from "react";
+// import classnames from "classnames";
+// import { Context } from "../ContextProvider/ContextProvider";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getCartByUserId } from "../../Redux/actions";
+// import Card from "../Card";
+
+// const Checkout = ({ onClick, cartItems }) => {
+//   const dispatch = useDispatch();
+//   const userId = localStorage.getItem("id");
+//   useEffect(() => {
+//     dispatch(getCartByUserId(userId));
+//   }, []);
+//   const cartByUserId = useSelector((state) => state.cartByUserId);
+ 
+//   const [isVisible, setIsVisible] = React.useState(true);
+//   const {
+//     preferenceId,
+//     isLoading: disabled,
+//     orderData,
+//     setOrderData,
+//   } = React.useContext(Context);
+//   const shoppingCartClass = classnames("shopping-cart dark", {
+//     "shopping-cart--hidden": !isVisible,
+//   });
+
+//   useEffect(() => {
+//     if (preferenceId) setIsVisible(false);
+//   }, [preferenceId]);
+
+//   /* const updatePrice = (event) => {
+//     const quantity = event.target.value;
+//     const amount = parseInt(orderData.price) * parseInt(quantity);
+//     setOrderData({ ...orderData, quantity, amount });
+//   }; */
+//   const renderedIds = new Set();
+//   return (
+//     <section className={shoppingCartClass}>
+//       <div className="container" id="container">
+//         <div className="block-heading">
+//           <h2>Carrito</h2>
+//           <p>
+//             Este es un ejemplo de integracion de nuestro carrito con Mercado
+//             Pago
+//           </p>
+//         </div>
+//         <div className="content">
+//           <div className="row">
+//             <div className="col-md-12 col-lg-8">
+//               <div className="items">
+//                 <div className="product">
+//                   <div className="info">
+//                     <div className="product-details">
+//                       <div className="row justify-content-md-center">
+//                         {/* <div className="col-md-3">
+//                           <img
+//                             className="img-fluid mx-auto d-block image"
+//                             alt="Imagen del producto"
+//                             src="../img/product.png"
+//                           />
+//                         </div> */}
+//                         <div className="col-md-4 product-detail">
+//                           <h5>Productos:</h5>
+//                         </div>
+//                         {
+//                             cartItems.map((p) => {
+//                               if (!renderedIds.has(p.product.id)) {
+//                                 renderedIds.add(p.product.id); // Agregar la ID al conjunto
+                          
+//                                 return (
+//                                   <Card
+//                                     key={p.product.id}
+//                                     id={p.product.id}
+//                                     name={p.product.name}
+//                                     description={p.product.description}
+//                                     price={p.product.price}
+//                                     imageUrl={p.product.imageUrl}
+//                                     quantity={p.quantity}
+//                                   />
+//                                 );
+//                               }
+//                               return null; // Omitir la renderización si la tarjeta ya ha sido renderizada
+//                             })
+//                           }
+//                           {/* <div className="product-info">
+//                             <b>Descripción: </b>
+//                             <span id="product-description">Algún producto</span>
+//                             <br />
+//                             <b>Precio:</b> $ <span id="unit-price">10</span>
+//                             <br />
+//                           </div>
+//                         <div className="col-md-3 product-detail">
+//                           <label htmlFor="quantity">
+//                             <b>Cantidad</b>
+//                           </label>
+//                           <input
+//                             onChange={updatePrice}
+//                             type="number"
+//                             id="quantity"
+//                             value={orderData.quantity}
+//                             min="1"
+//                             className="form-control"
+//                           />
+//                         </div> */}
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//             <div className="col-md-12 col-lg-4">
+//               <div className="summary">
+//                 <h3>Tu compra</h3>
+//                 <div className="summary-item">
+//                   <span className="text">Subtotal: </span>
+//                   <span className="price" id="cart-total">
+//                     ${orderData.price}
+//                   </span>
+//                 </div>
+//                 <button
+//                   className="btn btn-primary btn-lg btn-block"
+//                   onClick={onClick}
+//                   id="checkout-btn"
+//                   disabled={disabled}
+//                 >
+//                   Pagar
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Checkout;
