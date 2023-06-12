@@ -14,12 +14,12 @@ const ProfileInformation = ({input, userVerified}) => {
       if (!file) throw new Error('No hay archivo')
       const result = await uploadFile(file)
       dispatch(modifyUsers({
-        'id' : userVerified.id,
-        'name' : userVerified.name,
-        'email' : userVerified.email,
-        'password' : userVerified.password,
-        'isActive' : userVerified.isActive,
-        'isAdmin' : userVerified.isAdmin,
+        'id' : userVerified.user.id,
+        'name' : userVerified.user.name,
+        'email' : userVerified.user.email,
+        'password' : userVerified.user.password,
+        'isActive' : userVerified.user.isActive,
+        'isAdmin' : userVerified.user.isAdmin,
         'imageUrl' : result
       }))
       setFile(null)
@@ -52,7 +52,7 @@ const ProfileInformation = ({input, userVerified}) => {
         <form className={styles.setting_item} onSubmit={handleSubmit}>
           <h2 className={styles.setting_title}>
             <span>Cambiar imagen del perfil</span>
-            <button className={styles.setting_action}>Subir Inagen</button>
+            <button className={styles.setting_action}>Subir Imagen</button>
           </h2>
           <div className={styles.setting_detail}>
             <ul className={styles.setting_detail_list}>

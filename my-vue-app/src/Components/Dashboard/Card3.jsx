@@ -101,7 +101,7 @@ const Card3 = (props) => {
 
       <td className="relative w-1/5 text-left">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          {createdAt}
+          {createdAt.substring(0,10)}
         </div>
       </td>
       <td className="relative py-10 w-1/5 text-left">

@@ -143,7 +143,7 @@ const ProductDetail = () => {
   );
 };
 
-// export default ProductDetail;
+export default ProductDetail; 
 // const handleClicker = (e) => {
 //   if (verified.user?.isActive === false) {
 //     signOut(auth)

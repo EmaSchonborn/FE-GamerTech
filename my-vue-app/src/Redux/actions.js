@@ -133,10 +133,11 @@ export function getUserById(id) {
         `https://api-gamertech.onrender.com/users/${id}`
       );
       const user = json.data;
+      const msg = "Usuario encontrado!"
 
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: user,
+        payload:  {user, msg},
       });
     } catch (e) {
       console.log(e.message);
