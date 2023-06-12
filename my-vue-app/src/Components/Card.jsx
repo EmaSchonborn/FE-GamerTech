@@ -6,9 +6,7 @@ export default function Card(props) {
   const dispatch = useDispatch()
   const idLocal = localStorage.getItem("id");
   let { id, name, description, price, imageUrl, quantity } = props;
-  // const cart2 = useSelector((state) => state.cartByUserId)
-  // console.log(cart2)
-  // const cart = [{productId: 1,quantity: 3}, {quantity: 2}, {quantity: 20}, {quantity: 10}, {quantity: 1}];
+
   
   // const itemInCart = cart.find(item => item.productId === id);
   // const itemCount = itemInCart ? itemInCart.quantity : 1;

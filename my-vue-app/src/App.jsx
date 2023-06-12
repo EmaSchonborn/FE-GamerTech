@@ -24,7 +24,7 @@ function App() {
         {/* USUARIO BANEADO */}
         <Route path="/banned-user" element={<BannedUser />} />
         {/* MANEJO DE RUTAS NO CREADAS */}
-        <Route path="/*" element={<NotFound/>}/>
+        <Route exact path="*" element={<NotFound/>}/>
 
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Landing />} />
