@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "./Pagination";
 import Card3 from "./Card3";
 import SearchBarDash from "./SearchBarDash";
+import { RepeatIcon } from "@chakra-ui/icons";
 
 const DashboardAdmin = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,17 @@ const DashboardAdmin = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
+  //lógica para sección de reviews y puntuaciones
+  const [selectedOption, setSelectedOption] = useState(true);
+
+  const handleOptionChange = () => {
+    setSelectedOption(true);
+  };
+  const handleOptionChange2 = () => {
+    setSelectedOption(false);
+  };
+  //----------------------------------------------
+
   if (!paginationProducts.length) {
     return (
       <div>
@@ -81,7 +93,7 @@ const DashboardAdmin = () => {
         <TabList mb="3em">
           <Tab>Productos</Tab>
           <Tab>Clientes</Tab>
-          <Tab>Reviews</Tab>
+          <Tab>Reseñas</Tab>
           <Tab>Estadísticas</Tab>
           <Tab>Órdenes de compra</Tab>
         </TabList>
@@ -95,7 +107,9 @@ const DashboardAdmin = () => {
                   <table className="w-full">
                     <thead>
                       <tr>
-                        <th className="sticky top-0 bg-white z-10 w-1/12">ID</th>
+                        <th className="sticky top-0 bg-white z-10 w-1/12">
+                          ID
+                        </th>
                         <th className="sticky top-0 bg-white z-10 w-1/4">
                           Nombre
                         </th>
@@ -196,7 +210,66 @@ const DashboardAdmin = () => {
               pagination={pagination}
             />
           </TabPanel>
-          <TabPanel></TabPanel>
+
+          <TabPanel>
+            <div className="flex flex-grow justify-center gap-5 mb-3">
+              <button
+                onClick={handleOptionChange}
+                className="btn btn-5 bg-gray-500"
+              >
+                Reseñas
+              </button>
+              <button
+                onClick={handleOptionChange2}
+                className="btn btn-5 bg-gray-500"
+              >
+                Puntuaciones
+              </button>
+            </div>
+
+            <div className="flex justify-center">
+              <div className="w-3/4 mx-auto bg-gray-400">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
+                        ID
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/8 px-4">
+                        Nombre
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                        Producto
+                      </th>
+                      {selectedOption === true ? (
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Reseña
+                        </th>
+                      ) : (
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Puntuación
+                        </th>
+                      )}
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <Pagination
+              currentPage={currentPage}
+              handleFirstCell={() => handleFirstCell()}
+              handlePrevPagination={() => handlePrevPagination()}
+              handleNextPagination={() => handleNextPagination()}
+              lastCellProducts={lastCellUsers}
+              handlelastCellProducts={() => handlelastCellUsers()}
+              pagination={pagination}
+            />
+          </TabPanel>
           <TabPanel></TabPanel>
         </TabPanels>
       </Tabs>
