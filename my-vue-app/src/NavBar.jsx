@@ -114,7 +114,7 @@ const NavBar = () => {
                 <button
                   onClick={handleClick}
                   type="button"
-                  className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="flex rounded-full bg-gray-800 text-sm focus:outline-none"
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -123,7 +123,7 @@ const NavBar = () => {
                   <img
                     width="30"
                     height="30"
-                    src="https://img.icons8.com/ios-glyphs/30/484848/user--v1.png"
+                    src={verified.imageUrl}
                     alt="user--v1"
                   />
                 </button>

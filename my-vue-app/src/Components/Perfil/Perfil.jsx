@@ -35,7 +35,7 @@ const Perfil = () => {
                 <img src={userVerified.imageUrl} alt="avatar" />
               </div>
             </figure>
-            {/* INGRESAR UN SOBRE NOMBRE AL USUARIO SI ES NECESARIO
+            {/* INGRESAR UN SOBRENOMBRE AL USUARIO SI ES NECESARIO
             <div className={styles.globalNav_info}>
               <p className={styles.nickname}>{userVerified.name}</p>
             </div>

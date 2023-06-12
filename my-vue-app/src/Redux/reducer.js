@@ -19,7 +19,8 @@ import {
   RESET_CART,
   DECREMENT_VALUE,
   ADD_MESSAGE,
-  GET_USER_BY_ID
+  GET_USER_BY_ID,
+  MODIFY_USER,
 } from "../Redux/actions";
 
 const initialState = {
@@ -58,6 +59,11 @@ const rootReducer = (state = initialState, action) => {
         filteredUsers: action.payload,
       };
     case GET_USER_BY_ID:
+      return {
+        ...state,
+        userVerified: action.payload,
+      };
+    case MODIFY_USER:
       return {
         ...state,
         userVerified: action.payload,
