@@ -123,7 +123,7 @@ const NavBar = () => {
                   <img
                     width="30"
                     height="30"
-                    src={verified.imageUrl}
+                    src={verified.user?.imageUrl}
                     alt="user--v1"
                   />
                 </button>
