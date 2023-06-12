@@ -12,7 +12,7 @@ import Cart from "./Components/Carrito/Cart.jsx";
 import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
-import { Review } from "./Components/Review/Review.jsx";
+import  Review  from "./Components/Review/Review.jsx";
 import NotFound from "./Components/NotFound.jsx";
 import BannedUser from "./Components/BannedUser.jsx";
 
