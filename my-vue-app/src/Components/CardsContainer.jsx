@@ -68,55 +68,13 @@ export default function CardsContainer() {
     totalPages.push(i);
   }
 
-  return (
-    <>
-      <div className="flex justify-center items-center">
-        <SearchBar setCurrentPage={setCurrentPage} />
+  const PaginationSection = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
 
-        <form onSubmit={(e) => handleFilter(e)} className="ml-4 mb-4">
-          <div className="flex items-center">
-            <select
-              name="option"
-              onChange={handleChange}
-              className="px-4 py-2 border border-gray-300 rounded mr-2"
-            >
-              <option value="name">Orden alfabético</option>
-              <option value="price">Precio</option>
-            </select>
-
-            <select
-              name="sort"
-              onChange={handleChange}
-              className="px-4 py-2 border border-gray-300 rounded mr-2"
-            >
-              <option value="ascendente">Ascendente</option>
-              <option value="descendente">Descendente</option>
-            </select>
-
-            <button
-              type="submit"
-              className="ml-2 bg-nintendo hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Filtrar
-            </button>
-          </div>
-        </form>
-      </div>
-
-      <div className="grid grid-cols-3 gap-4">
-        {paginationProducts.map((p) => {
-          return (
-            <CardHome
-              key={p.id}
-              id={p.id}
-              name={p.name}
-              description={p.description}
-              price={p.price}
-              imageUrl={p.imageUrl}
-            />
-          );
-        })}
-      </div>
+    return (
       <div className="flex justify-center items-end mt-4 gap-x-5 mb-5">
         <div className="flex space-x-2">
           <button
@@ -176,6 +134,59 @@ export default function CardsContainer() {
           </button>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <>
+      <div className="flex justify-center items-center">
+        <SearchBar setCurrentPage={setCurrentPage} />
+
+        <form onSubmit={(e) => handleFilter(e)} className="ml-4 mb-4">
+          <div className="flex items-center">
+            <select
+              name="option"
+              onChange={handleChange}
+              className="px-4 py-2 border border-gray-300 rounded mr-2"
+            >
+              <option value="name">Orden alfabético</option>
+              <option value="price">Precio</option>
+            </select>
+
+            <select
+              name="sort"
+              onChange={handleChange}
+              className="px-4 py-2 border border-gray-300 rounded mr-2"
+            >
+              <option value="ascendente">Ascendente</option>
+              <option value="descendente">Descendente</option>
+            </select>
+
+            <button
+              type="submit"
+              className="ml-2 bg-nintendo hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            >
+              Filtrar
+            </button>
+          </div>
+        </form>
+      </div>
+      <PaginationSection />
+      <div className="grid grid-cols-3 gap-4">
+        {paginationProducts.map((p) => {
+          return (
+            <CardHome
+              key={p.id}
+              id={p.id}
+              name={p.name}
+              description={p.description}
+              price={p.price}
+              imageUrl={p.imageUrl}
+            />
+          );
+        })}
+      </div>
+      <PaginationSection />
     </>
   );
 }

@@ -42,7 +42,7 @@ const DashboardAdmin = () => {
 
   //número de elementos en paginación
   const displayedProducts = 5;
-  const displayedUsers = 10; // Cambiar según tus necesidades para los usuarios
+  const displayedUsers = 5; // Cambiar según tus necesidades para los usuarios
 
   //calculos paginación productos
   const finalReference = currentPage * displayedProducts;

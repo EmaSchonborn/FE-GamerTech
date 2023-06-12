@@ -18,6 +18,9 @@ import {
   DELETE_ITEM,
   RESET_CART,
   DECREMENT_VALUE,
+  ADD_MESSAGE,
+  GET_USER_BY_ID,
+  MODIFY_USER,
 } from "../Redux/actions";
 
 const initialState = {
@@ -34,6 +37,7 @@ const initialState = {
   userCreated: {},
   changeRolAttempts: 3,
   isAuthenticated: false,
+  messages: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -53,6 +57,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredUsers: action.payload,
+      };
+    case GET_USER_BY_ID:
+      return {
+        ...state,
+        userVerified: action.payload,
+      };
+    case MODIFY_USER:
+      return {
+        ...state,
+        userVerified: action.payload,
       };
     case GET_PRODUCTS:
       const { sortProducts, filteredProducts } = action.payload;
@@ -145,6 +159,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         changeRolAttempts: state.changeRolAttempts - 1,
       };
+    case ADD_MESSAGE:
+      return{
+        ...state,
+        messages: [...state.messages, action.payload]
+      }
     default:
       return { ...state };
   }

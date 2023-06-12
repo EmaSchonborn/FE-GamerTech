@@ -4,7 +4,6 @@ import ProductDetail from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import { About } from "./Components/About/About.jsx";
 import NavBar from "./NavBar.jsx";
-import "./Styles/Styles.css";
 import { Landing } from "./Pages/Landing.jsx";
 import Login from "./Components/Login/Login.jsx";
 import Preguntas from "./Components/Preguntas/Preguntas.jsx";
@@ -13,7 +12,7 @@ import Cart from "./Components/Carrito/Cart.jsx";
 import DashboardAdmin from "./Components/Dashboard/DashBoard.jsx";
 import CartProductDetail from "./Components/CartProductDetail/CartProductDetail.jsx";
 import CartPayment from "./Components/CartPayment/CartPayment.jsx";
-import { Review } from "./Components/Review/Review.jsx";
+import  Review  from "./Components/Review/Review.jsx";
 import NotFound from "./Components/NotFound.jsx";
 import BannedUser from "./Components/BannedUser.jsx";
 
@@ -25,7 +24,7 @@ function App() {
         {/* USUARIO BANEADO */}
         <Route path="/banned-user" element={<BannedUser />} />
         {/* MANEJO DE RUTAS NO CREADAS */}
-        <Route path="*" element={<NotFound/>}/>
+        <Route exact path="*" element={<NotFound/>}/>
 
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Landing />} />

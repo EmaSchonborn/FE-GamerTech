@@ -69,3 +69,4 @@ const ProfileOtherSettings = ({ input }) => {
 };
 
 export default ProfileOtherSettings;
+

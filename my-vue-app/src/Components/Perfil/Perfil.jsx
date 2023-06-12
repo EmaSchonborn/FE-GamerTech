@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styles from './Perfil.module.css'
-import image from './imagen/imgPerfil.png'
-import {GrLogout} from 'react-icons/gr'
 import ProfileInformation from './ProfileInformation.jsx'
 import ProfileSecurity from './ProfileSecurity.jsx'
 import ProfileShopping from './ProfileShopping.jsx'
 import ProfileOtherSettings from './ProfileOtherSettings.jsx'
+import { useSelector, useDispatch } from "react-redux";
+import { getUserById } from "../../Redux/actions";
 
 const Perfil = () => {
   const [input, setInput] = React.useState('Informacion del usuario')
@@ -13,11 +13,17 @@ const Perfil = () => {
     e.preventDefault()
     setInput(e.target.outerText)
   }
+  const dispatch = useDispatch();
+  const userVerified = useSelector((state) => state.userVerified);
+  const id = localStorage.getItem("id");
+  useEffect(() => {
+    dispatch(getUserById(id));
+  }, [dispatch]);
   return (
     <main>
       <div className={styles.Container}>
          <div className={styles.Container_primary}>
-            {input === 'Informacion del usuario' && <ProfileInformation input={input}/>}
+            {input === 'Informacion del usuario' && <ProfileInformation input={input} userVerified={userVerified}/>}
             {input === 'Ajustes de acceso y seguridad' && <ProfileSecurity input={input}/>}
             {input === 'Mis compras' && <ProfileShopping input={input}/>}
             {input === 'Otros ajustes' && <ProfileOtherSettings input={input}/>}
@@ -26,12 +32,14 @@ const Perfil = () => {
           <header className={styles.globalNav}>
             <figure className={styles.globalNav_img}>
               <div className={styles.avatar_icon}>
-                <img src={image} alt="avatar" />
+                <img src={userVerified.imageUrl} alt="avatar" />
               </div>
             </figure>
+            {/* INGRESAR UN SOBRENOMBRE AL USUARIO SI ES NECESARIO
             <div className={styles.globalNav_info}>
-              <p className={styles.nickname}>Salvador Hilares</p>
+              <p className={styles.nickname}>{userVerified.name}</p>
             </div>
+          */} 
           </header>
           <div className={styles.globalNav_body}>
             <ul className={styles.globalNav_list}>
@@ -63,14 +71,6 @@ const Perfil = () => {
                     <svg viewBox='0 0 38 36' focusable='false' className={styles.icon}>
                     <path d="M34.9 14.6h-2.7c-.3-1.5-.9-2.9-1.7-4.2l1.9-1.9c.6-.6.6-1.5 0-2.1l-2.3-2.3c-.6-.6-1.5-.6-2.1 0L26.1 6c-1.3-.8-2.7-1.4-4.2-1.7V1.6c0-.8-.7-1.5-1.5-1.5h-3.3c-.8 0-1.5.7-1.5 1.5v2.7c-1.5.4-2.9.9-4.2 1.7L9.5 4.1c-.6-.6-1.5-.6-2.1 0L5 6.4c-.6.6-.6 1.5 0 2.1l1.9 1.9c-.8 1.3-1.4 2.7-1.7 4.2H2.5c-.8 0-1.5.7-1.5 1.5v3.3c0 .8.7 1.5 1.5 1.5h2.7c.3 1.5.9 2.9 1.7 4.2L5 27c-.6.6-.6 1.5 0 2.1l2.3 2.3c.7.6 1.6.6 2.2 0l1.9-1.9c1.3.8 2.7 1.4 4.2 1.7V34c0 .8.7 1.5 1.5 1.5h3.3c.8 0 1.5-.7 1.5-1.5v-2.7c1.5-.3 2.9-.9 4.2-1.7l1.9 1.9c.6.6 1.5.6 2.1 0l2.3-2.3c.6-.6.6-1.5 0-2.1l-1.9-1.9c.8-1.3 1.4-2.7 1.7-4.2h2.7c.8 0 1.5-.7 1.5-1.5v-3.3c.1-.9-.6-1.6-1.5-1.6m-10.6 3.2c0 3.1-2.5 5.6-5.6 5.6-3.1 0-5.6-2.5-5.6-5.6 0-3.1 2.5-5.6 5.6-5.6 3.1-.1 5.6 2.5 5.6 5.6"></path>                    </svg>
                     <span>Otros ajustes</span>
-                </div>
-              </li>
-              <li className={styles.globalNav_listItem} onClick={(e) => handleInput(e)}>
-                <div className={styles.navigation}>
-                    <svg viewBox='0 0 15 18' focusable='false' className={styles.icon}>
-                      <GrLogout/>
-                    </svg>
-                    <span>Cerrar sesión</span>
                 </div>
               </li>
             </ul>

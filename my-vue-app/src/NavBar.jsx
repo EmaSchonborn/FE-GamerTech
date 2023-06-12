@@ -20,6 +20,7 @@ const NavBar = () => {
       .then(() => {
         console.log("sign out successful");
         localStorage.clear();
+        setClick(false);
         navigate("/");
       })
       .catch((error) => console.log(error));
@@ -113,7 +114,7 @@ const NavBar = () => {
                 <button
                   onClick={handleClick}
                   type="button"
-                  className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="flex rounded-full bg-gray-800 text-sm focus:outline-none"
                   id="user-menu-button"
                   aria-expanded="false"
                   aria-haspopup="true"
@@ -122,7 +123,7 @@ const NavBar = () => {
                   <img
                     width="30"
                     height="30"
-                    src="https://img.icons8.com/ios-glyphs/30/484848/user--v1.png"
+                    src={verified.imageUrl}
                     alt="user--v1"
                   />
                 </button>
@@ -141,6 +142,7 @@ const NavBar = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-0"
+                    onClick={handleClick}
                   >
                     Perfil
                   </Link>
@@ -150,6 +152,7 @@ const NavBar = () => {
                     role="menuitem"
                     tabIndex="-1"
                     id="user-menu-item-1"
+                    onClick={handleClick}
                   >
                     Configuraciones
                   </Link>
@@ -164,7 +167,8 @@ const NavBar = () => {
                         <button onClick={userSignOut}>Desloguearse</button>
                       </>
                     ) : (
-                      <Link to="/login">Login</Link>
+                      <Link to="/login" 
+                      >Login</Link>
                     )}
                   </div>
                 </div>

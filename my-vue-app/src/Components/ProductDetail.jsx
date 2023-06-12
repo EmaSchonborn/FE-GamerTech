@@ -22,10 +22,20 @@ const ProductDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  console.log(productoDetail);
-  const data = { userId: parseInt(id), productId: parseInt(params.id) };
-  console.log(data);
+  // console.log(productoDetail);
+  const [quantity, setQuantity] = useState(1);
+  const data = { userId: parseInt(id), productId:{ id:parseInt(params.id), quantity:quantity }};
+  // const data = { userId: parseInt(id), productId:parseInt(params.id)};
   const carrito = useSelector((state) => state.cartByUserId);
+  const handleIncrement = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   const handleClick = (e) => {
     if (verified.user?.isActive === false) {
@@ -38,12 +48,12 @@ const ProductDetail = () => {
       .catch((error) => console.log(error));
     } else {
       dispatch(sumarCarrito(data));
-
+      console.log(data);
       alert("Agregado Correctamente!");
       navigate("/home");
     }
   };
-  console.log(carrito);
+  // console.log(carrito);
 
   if (loading) {
     setLoading(false);
@@ -86,6 +96,26 @@ const ProductDetail = () => {
           ) : (
             setTimeout(0)
           )}
+          <div className="flex justify-center">
+        <button
+          className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
+          onClick={handleDecrement}
+        >
+          -
+        </button>
+        <input
+          type="number"
+          value={quantity}
+          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          className="w-12 text-center text-black bg-white border border-gray-300"
+        />
+        <button
+          className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
+          onClick={handleIncrement}
+        >
+          +
+        </button>
+      </div>
           <div className="flex justify-evenly items-center h-24">
             <button
               className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
@@ -114,3 +144,28 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+// const handleClicker = (e) => {
+//   if (verified.user?.isActive === false) {
+//     signOut(auth)
+//       .then(() => {
+//         console.log("sign out successful");
+//         localStorage.clear();
+//         navigate("/banned-user");
+//       })
+//       .catch((error) => console.log(error));
+//   } else {
+//     dispatch(getCartByUserId(userId));
+//     const existingProduct = cartByUserId.find((item) => item.product.id === data.id);
+
+//     if (existingProduct) {
+//       const newQuantity = existingProduct.quantity + data.quantity;
+//       dispatch(modifyCartByUserId(userId, data.id, newQuantity));
+//     } else {
+//       dispatch(sumarCarrito(data));
+//     }
+
+//     console.log(data);
+//     alert("Agregado Correctamente!");
+//     navigate("/home");
+//   }
+// }; 
