@@ -28,7 +28,7 @@ const ProductDetail = () => {
   // const data = { userId: parseInt(id), productId:parseInt(params.id)};
   const carrito = useSelector((state) => state.cartByUserId);
 
-  console.log(quantity)
+  console.log(data)
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
