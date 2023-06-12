@@ -27,8 +27,6 @@ const ProductDetail = () => {
   const data = { userId: parseInt(id), productId:{ id:parseInt(params.id), quantity:quantity }};
   // const data = { userId: parseInt(id), productId:parseInt(params.id)};
   const carrito = useSelector((state) => state.cartByUserId);
-
-  console.log(data)
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -145,4 +143,29 @@ const ProductDetail = () => {
   );
 };
 
-export default ProductDetail;
+// export default ProductDetail;
+// const handleClicker = (e) => {
+//   if (verified.user?.isActive === false) {
+//     signOut(auth)
+//       .then(() => {
+//         console.log("sign out successful");
+//         localStorage.clear();
+//         navigate("/banned-user");
+//       })
+//       .catch((error) => console.log(error));
+//   } else {
+//     dispatch(getCartByUserId(userId));
+//     const existingProduct = cartByUserId.find((item) => item.product.id === data.id);
+
+//     if (existingProduct) {
+//       const newQuantity = existingProduct.quantity + data.quantity;
+//       dispatch(modifyCartByUserId(userId, data.id, newQuantity));
+//     } else {
+//       dispatch(sumarCarrito(data));
+//     }
+
+//     console.log(data);
+//     alert("Agregado Correctamente!");
+//     navigate("/home");
+//   }
+// }; 
