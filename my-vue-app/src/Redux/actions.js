@@ -1,7 +1,9 @@
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
+export const GET_USER_BY_ID = "GET_USER_BY_ID";
 export const CREATE_USER = "CREATE_USER";
+export const MODIFY_USER = "MODIFY_USER";
 export const GET_PRODUCT_BY_ID = "GET_PRODUCT_BY_ID";
 export const GET_PRODUCT_BY_NAME = "GET_PRODUCT_BY_NAME";
 export const GET_PRODUCTS = "GET_PRODUCTS";
@@ -117,6 +119,24 @@ export function getUserByName(name) {
       return dispatch({
         type: GET_USERS_BY_NAME,
         payload: data,
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+}
+
+export function getUserById(id) {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get(
+        `https://api-gamertech.onrender.com/users/${id}`
+      );
+      const user = json.data;
+
+      return dispatch({
+        type: GET_USER_BY_ID,
+        payload: user,
       });
     } catch (e) {
       console.log(e.message);
@@ -273,14 +293,22 @@ export function modifyProducts(payload) {
 }
 
 export function modifyUsers(payload) {
-  return async function () {
+  return async function (dispatch) {
     try {
       const response = await axios.post(
         "https://api-gamertech.onrender.com/users/modifyuser",
         payload
       );
-      const { user, msg } = response.data;
-      return { user, msg };
+       if (response.data.msg === "Usuario modificado!"){
+        const query = await axios.get(
+          `https://api-gamertech.onrender.com/users/${payload.id}`
+        );
+        const user = query.data;
+        return dispatch({
+          type: MODIFY_USER,
+          payload: user,
+        });
+      }
     } catch (error) {
       throw new Error(error.message);
     }
