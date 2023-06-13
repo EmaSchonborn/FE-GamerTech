@@ -7,6 +7,7 @@ import Reviews from "./Reviews/Reviews";
 
 
 export default function ProductDetail()  {
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const auth = getAuth();

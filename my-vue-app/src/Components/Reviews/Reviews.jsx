@@ -65,7 +65,7 @@ export default function Reviews() {
       <div>
         <h2>Últimas reseñas:</h2>
         <br />
-        {productoDetail.reviewsScores &&
+        {productoDetail.reviewsScores && comentuser &&
           productoDetail.reviewsScores.map((score, index) => (
             <div key={index}>
               <p>Usuario: {comentuser.name}</p>
