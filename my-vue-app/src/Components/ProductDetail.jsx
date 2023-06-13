@@ -6,7 +6,7 @@ import { getAuth, signOut } from "firebase/auth";
 import Reviews from "./Reviews/Reviews";
 
 
-const ProductDetail = () => {
+export default function ProductDetail()  {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
@@ -143,7 +143,7 @@ const ProductDetail = () => {
   );
 };
 
-// export default ProductDetail;
+
 // const handleClicker = (e) => {
 //   if (verified.user?.isActive === false) {
 //     signOut(auth)
