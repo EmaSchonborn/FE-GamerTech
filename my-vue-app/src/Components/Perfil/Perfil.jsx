@@ -6,9 +6,11 @@ import ProfileShopping from './ProfileShopping.jsx'
 import ProfileOtherSettings from './ProfileOtherSettings.jsx'
 import { useSelector, useDispatch } from "react-redux";
 import { getUserById } from "../../Redux/actions";
+import { auth } from '../../firebase.config';
 
 const Perfil = () => {
   const [input, setInput] = React.useState('Informacion del usuario')
+  const user = auth.currentUser;
   const handleInput = (e) => {
     e.preventDefault()
     setInput(e.target.outerText)
@@ -23,10 +25,10 @@ const Perfil = () => {
     <main>
       <div className={styles.Container}>
          <div className={styles.Container_primary}>
-            {input === 'Informacion del usuario' && <ProfileInformation input={input} userVerified={userVerified}/>}
-            {input === 'Ajustes de acceso y seguridad' && <ProfileSecurity input={input}/>}
-            {input === 'Mis compras' && <ProfileShopping input={input}/>}
-            {input === 'Otros ajustes' && <ProfileOtherSettings input={input}/>}
+            {input === 'Informacion del usuario' && <ProfileInformation input={input} userVerified={userVerified} userFirebase={user}/>}
+            {input === 'Ajustes de acceso y seguridad' && <ProfileSecurity input={input} userFirebase={user}/>}
+            {input === 'Mis compras' && <ProfileShopping input={input} userFirebase={user}/>}
+            {input === 'Otros ajustes' && <ProfileOtherSettings input={input} userFirebase={user}/>}
          </div>
          <aside className={styles.Container_secundary}>
           <header className={styles.globalNav}>

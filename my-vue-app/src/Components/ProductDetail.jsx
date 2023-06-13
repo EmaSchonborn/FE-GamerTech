@@ -6,7 +6,7 @@ import { getAuth, signOut } from "firebase/auth";
 import Reviews from "./Reviews/Reviews";
 
 
-const ProductDetail = () => {
+export const ProductDetail = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const auth = getAuth();

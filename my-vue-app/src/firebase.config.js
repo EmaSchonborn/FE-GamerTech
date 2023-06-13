@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import * as firebase from "firebase/app";
-import {getAuth, GoogleAuthProvider} from "firebase/auth";
+import {getAuth, GoogleAuthProvider, sendPasswordResetEmail} from "firebase/auth";
 import {getStorage, ref, uploadBytes, getDownloadURL} from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -26,4 +26,13 @@ export async function uploadFile(file) {
   await uploadBytes(storageRef, file);
   const url = await getDownloadURL(storageRef);
   return url;
+}
+export const updatePasswordFirebase = (email) => {
+  sendPasswordResetEmail(auth, email).then(() => {
+    alert('Mensaje enviado a su correo electrónico, por favor revise su bandeja de entrada para restablecer su contraseña')
+  }).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log(errorCode, errorMessage)
+  })
 }
