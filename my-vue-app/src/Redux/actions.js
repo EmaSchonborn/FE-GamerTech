@@ -299,7 +299,7 @@ export function modifyUsers(payload) {
         "https://api-gamertech.onrender.com/users/modifyuser",
         payload
       );
-       if (response.data.msg === "Usuario modificado!"){
+      if (response.data.msg === "Usuario modificado!") {
         const query = await axios.get(
           `https://api-gamertech.onrender.com/users/${payload.id}`
         );
@@ -316,11 +316,11 @@ export function modifyUsers(payload) {
 }
 
 export function deleteItem(payload) {
-  const { userId, itemId } = payload;
   return async function (dispatch) {
     try {
-      let json = await axios.delete(
-        `https://api-gamertech.onrender.com/cart/${userId}/products/${itemId}`
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/cart/deleteitem`,
+        payload
       );
       dispatch({
         type: DELETE_ITEM,
@@ -371,20 +371,20 @@ export const addMessage = (message) => {
   };
 };
 export function sendReview(data) {
-	let body = {
-		textReview: { userId: data.userId, mensaje: data.mensaje },
-		score: { userId: data.userId, score: data.rate },
-		productId: data.productId,
-	};
+  let body = {
+    textReview: { userId: data.userId, mensaje: data.mensaje },
+    score: { userId: data.userId, score: data.rate },
+    productId: data.productId,
+  };
 
-	return async function () {
-		try {
-			let json = await axios.post(
-				`https://api-gamertech.onrender.com/product/addreviewscore`,
-				body
-			);
-		} catch (error) {
-			console.log(error.message);
-		}
-	};
+  return async function () {
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/product/addreviewscore`,
+        body
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 }

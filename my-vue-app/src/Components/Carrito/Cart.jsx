@@ -26,8 +26,7 @@ const Cart = () => {
 
   const allProducts = useSelector((state) => state.products);
   const cartByUserId = useSelector((state) => state.cartByUserId);
-
-  console.log(allProducts);
+  
   console.log(cartByUserId);
 
   let total = 0;
