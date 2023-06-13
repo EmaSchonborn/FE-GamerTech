@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import Register from "./Components/Register.jsx";
-import ProductDetail from "./Components/ProductDetail.jsx";
+import {ProductDetail} from "./Components/ProductDetail.jsx";
 import Home from "./Components/Home.jsx";
 import { About } from "./Components/About/About.jsx";
 import NavBar from "./NavBar.jsx";

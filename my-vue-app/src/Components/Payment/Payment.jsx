@@ -9,7 +9,7 @@ const Payment = () => {
   const paymentClass = classnames('payment-form dark', {
     'payment-form--hidden': !isReady,
   });
-
+// console.log(orderData)
   const handleOnReady = () => {
     setIsReady(true);
   }
@@ -37,12 +37,12 @@ const Payment = () => {
             <div className="item">
               <span className="price" id="summary-price">${orderData.price}</span>
               <p className="item-name">
-                Producto X <span id="summary-quantity">{orderData.quantity}</span>
+                Carrito
               </p>
             </div>
             <div className="total">
               Total
-              <span className="price" id="summary-total">${orderData.amount}</span>
+              <span className="price" id="summary-total">${orderData.price}</span>
             </div>
           </div>
           <div className="payment-details">

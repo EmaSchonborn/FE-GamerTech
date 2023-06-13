@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
+import {auth} from './firebase.config'
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 const NavBar = () => {
   const [click, setClick] = useState(false);
   const navigate = useNavigate();
-  const auth = getAuth();
   const user = auth.currentUser;
   const verified = useSelector((state) => state.userVerified);
   

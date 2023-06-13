@@ -8,7 +8,7 @@ export default function Reviews() {
   let params = useParams();
   const productoDetail = useSelector((state) => state.productDetail);
   const dispatch = useDispatch();
-
+// console.log()
   useEffect(() => {
     params.id ? dispatch(getProductById(params.id)) : null;
     dispatch(getUsers());
@@ -65,7 +65,7 @@ export default function Reviews() {
       <div>
         <h2>Últimas reseñas:</h2>
         <br />
-        {productoDetail.reviewsScores &&
+        {productoDetail.reviewsScores && comentuser &&
           productoDetail.reviewsScores.map((score, index) => (
             <div key={index}>
               <p>Usuario: {comentuser.name}</p>
@@ -77,6 +77,19 @@ export default function Reviews() {
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
