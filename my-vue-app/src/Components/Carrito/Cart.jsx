@@ -27,8 +27,8 @@ const Cart = () => {
   const allProducts = useSelector((state) => state.products);
   const cartByUserId = useSelector((state) => state.cartByUserId);
 
-  console.log(allProducts);
-  console.log(cartByUserId);
+  // console.log(allProducts);
+  // console.log(cartByUserId);
 
   let total = 0;
   let cartItems = [];
@@ -52,7 +52,7 @@ const Cart = () => {
     price: total,
     description: "Tu compra en GamerTech",
   });
-
+// console.log(orderData)
   const handleClick = () => {
     setIsLoading(true);
     fetch("https://api-gamertech.onrender.com/payment/create_preference", {
@@ -70,20 +70,22 @@ const Cart = () => {
       })
       .catch((error) => {
         console.error(error);
+        setIsLoading(false)
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
-
+  
   const renderSpinner = () => {
-    if (isLoading) {
+    if (isLoading && preferenceId === null) {
       return (
         <div className="spinner-wrapper">
           <SpinnerCircular сolor="#009EE3" />
         </div>
       );
     }
+    return null
   };
 
   if (isActive === "false") {
