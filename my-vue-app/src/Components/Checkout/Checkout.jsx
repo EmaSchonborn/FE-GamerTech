@@ -21,11 +21,10 @@ const Checkout = ({ onClick, cartItems }) => {
   const shoppingCartClass = classnames("shopping-cart dark", {
     "shopping-cart--hidden": !isVisible,
   });
-
   useEffect(() => {
     if (preferenceId) setIsVisible(false);
   }, [preferenceId]);
-
+  
   /* const updatePrice = (event) => {
     const quantity = event.target.value;
     const amount = parseInt(orderData.price) * parseInt(quantity);
@@ -38,6 +37,11 @@ const Checkout = ({ onClick, cartItems }) => {
     const subtotalItem = price * quantity;
     return total + subtotalItem;
   }, 0);
+  useEffect(() => {
+    setOrderData({ ...orderData, price: subtotal });
+  }, [subtotal, setOrderData]);
+ 
+ 
   return (
     <section className={shoppingCartClass}>
       <div className="container" id="container">

@@ -8,7 +8,7 @@ export default function Reviews() {
   let params = useParams();
   const productoDetail = useSelector((state) => state.productDetail);
   const dispatch = useDispatch();
-
+// console.log()
   useEffect(() => {
     params.id ? dispatch(getProductById(params.id)) : null;
     dispatch(getUsers());
@@ -77,6 +77,19 @@ export default function Reviews() {
     </div>
   );
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
