@@ -48,7 +48,7 @@ const Checkout = ({ onClick, cartItems }) => {
         <div className="block-heading">
           <h2>Carrito</h2>
           <p>
-            Este es un ejemplo de integracion de nuestro carrito con Mercado
+            Estos son los artículos de tu carrito, el cual podrás abonar con Mercado
             Pago
           </p>
         </div>

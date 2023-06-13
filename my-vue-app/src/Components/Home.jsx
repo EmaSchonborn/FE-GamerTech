@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import CardsContainer from "./CardsContainer";
 import { useNavigate } from "react-router";
 import loadingImage from "../Imagenes/progress.gif";
-import { all } from "axios";
 import ChatBot from "./ChatBot/ChatBot";
 
 export default function Home() {

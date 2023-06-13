@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductById, sumarCarrito } from "../Redux/actions";
 import { getAuth, signOut } from "firebase/auth";
 import Reviews from "./Reviews/Reviews";
 
-
-export default function ProductDetail()  {
-
+export default function ProductDetail() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const auth = getAuth();
@@ -25,9 +23,12 @@ export default function ProductDetail()  {
   const productoDetail = useSelector((state) => state.productDetail);
   // console.log(productoDetail);
   const [quantity, setQuantity] = useState(1);
-  const data = { userId: parseInt(id), productId:{ id:parseInt(params.id), quantity:quantity }};
+  const data = {
+    userId: parseInt(id),
+    productId: { id: parseInt(params.id), quantity: quantity },
+  };
   // const data = { userId: parseInt(id), productId:parseInt(params.id)};
-  const carrito = useSelector((state) => state.cartByUserId);
+  //const carrito = useSelector((state) => state.cartByUserId);
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -38,15 +39,15 @@ export default function ProductDetail()  {
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = () => {
     if (verified.user?.isActive === false) {
       signOut(auth)
-      .then(() => {
-        console.log("sign out successful");
-        localStorage.clear();
-        navigate("/banned-user");
-      })
-      .catch((error) => console.log(error));
+        .then(() => {
+          console.log("sign out successful");
+          localStorage.clear();
+          navigate("/banned-user");
+        })
+        .catch((error) => console.log(error));
     } else {
       dispatch(sumarCarrito(data));
       console.log(data);
@@ -98,25 +99,25 @@ export default function ProductDetail()  {
             setTimeout(0)
           )}
           <div className="flex justify-center">
-        <button
-          className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
-          onClick={handleDecrement}
-        >
-          -
-        </button>
-        <input
-          type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value))}
-          className="w-12 text-center text-black bg-white border border-gray-300"
-        />
-        <button
-          className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
-          onClick={handleIncrement}
-        >
-          +
-        </button>
-      </div>
+            <button
+              className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
+              onClick={handleDecrement}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              value={quantity}
+              onChange={(e) => setQuantity(parseInt(e.target.value))}
+              className="w-12 text-center text-black bg-white border border-gray-300"
+            />
+            <button
+              className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
+              onClick={handleIncrement}
+            >
+              +
+            </button>
+          </div>
           <div className="flex justify-evenly items-center h-24">
             <button
               className="flex justify-center bg-nintendo text-white font-medium px-4 py-2 rounded-sm"
@@ -139,11 +140,10 @@ export default function ProductDetail()  {
           </div>
         </div>
       </div>
-      <Reviews/>
+      <Reviews />
     </div>
   );
-};
-
+}
 
 // const handleClicker = (e) => {
 //   if (verified.user?.isActive === false) {
@@ -169,4 +169,4 @@ export default function ProductDetail()  {
 //     alert("Agregado Correctamente!");
 //     navigate("/home");
 //   }
-// }; 
+// };
