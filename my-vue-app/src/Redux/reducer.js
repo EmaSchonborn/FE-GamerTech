@@ -22,6 +22,8 @@ import {
   GET_USER_BY_ID,
   MODIFY_USER,
   DELETE_REVIEW,
+  GET_PURCHASES,
+  GET_PURCHASES_BY_ID,
 } from "../Redux/actions";
 
 const initialState = {
@@ -39,6 +41,8 @@ const initialState = {
   changeRolAttempts: 3,
   isAuthenticated: false,
   messages: [],
+  purchases: [],
+  userPurchases: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -167,7 +171,17 @@ const rootReducer = (state = initialState, action) => {
       };
     case DELETE_REVIEW:
       return {
-        ...state
+        ...state,
+      };
+    case GET_PURCHASES:
+      return {
+        ...state,
+        purchases: action.payload,
+      };
+    case GET_PURCHASES_BY_ID:
+      return {
+        ...state,
+        userPurchases: action.payload,
       };
     default:
       return { ...state };

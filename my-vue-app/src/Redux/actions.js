@@ -22,6 +22,8 @@ export const RESET_CART = "RESET_CART";
 export const DECREMENT_VALUE = "DECREMENT_VALUE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_PURCHASES = "GET_PURCHASES";
+export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -403,6 +405,44 @@ export const deleteReview = (data) => {
         payload: data,
       });
       dispatch(getProducts());
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getAllPurchases = () => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        "https://api-gamertech-prueba.onrender.com/purchase/"
+      );
+
+      const purchases = json.data;
+
+      dispatch({
+        type: GET_PURCHASES,
+        payload: purchases,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getAllPurchasesById = (id) => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        `https://api-gamertech-prueba.onrender.com/purchase/${id}`
+      );
+
+      const purchases = json.data;
+
+      dispatch({
+        type: GET_PURCHASES_BY_ID,
+        payload: purchases,
+      });
     } catch (error) {
       console.log(error.message);
     }
