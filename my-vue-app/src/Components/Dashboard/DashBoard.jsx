@@ -1,17 +1,31 @@
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, getUsers } from "../../Redux/actions";
 import Card2 from "./Card2";
-import Paginate from "../Paginate";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "./Pagination";
 import Card3 from "./Card3";
 import SearchBarDash from "./SearchBarDash";
-import { RepeatIcon } from "@chakra-ui/icons";
+import Reviews from "./Reviews/Reviews";
+import Review from "./Reviews/Review";
 
 const DashboardAdmin = () => {
   const dispatch = useDispatch();
+
+  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [mostrarReseñas, setMostrarReseñas] = useState(false);
+
+  const handleVerReseñas = (productId) => {
+    setSelectedProductId(productId);
+    setMostrarReseñas(true);
+  };
+
+  const handleOcultarReseñas = () => {
+    setSelectedProductId(null);
+    setMostrarReseñas(false);
+  };
 
   //Paginación productos
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,12 +52,17 @@ const DashboardAdmin = () => {
     setCurrentPage(lastCellUsers);
   };
 
+  const handlelastCellReviews = () => {
+    setCurrentPage(lastCellreviewedProds);
+  };
+
   const allProducts = useSelector((state) => state.dashFilteredProducts);
   const allUsers = useSelector((state) => state.filteredUsers);
 
   //número de elementos en paginación
   const displayedProducts = 5;
-  const displayedUsers = 5; // Cambiar según tus necesidades para los usuarios
+  const displayedUsers = 5;
+  const displayedReviews = 5;
 
   //calculos paginación productos
   const finalReference = currentPage * displayedProducts;
@@ -71,14 +90,38 @@ const DashboardAdmin = () => {
   }, [dispatch]);
 
   //lógica para sección de reviews y puntuaciones
-  const [selectedOption, setSelectedOption] = useState(true);
+  const reviewedProducts = allProducts.filter(
+    (obj) => obj.reviewsTexts.length > 0
+  );
 
-  const handleOptionChange = () => {
-    setSelectedOption(true);
+  let dashReviews = reviewedProducts.filter(
+    (obj) => obj.id === selectedProductId
+  );
+
+  const dashReviewsObj = dashReviews[0];
+
+  const handleUserName = (userId) => {
+    const user = allUsers.find((x) => x.id == userId);
+
+    if (user) {
+      return user.name;
+    }
+    return "";
   };
-  const handleOptionChange2 = () => {
-    setSelectedOption(false);
-  };
+
+  //calculos paginación usuarios
+  const finalReferenceReviews = currentPage * displayedReviews;
+  const initialReferenceReviews = finalReferenceUsers - displayedReviews;
+
+  const paginationReviews = reviewedProducts?.slice(
+    initialReferenceReviews,
+    finalReferenceReviews
+  );
+
+  const lastCellreviewedProds = Math.ceil(
+    reviewedProducts?.length / displayedReviews
+  );
+
   //----------------------------------------------
 
   if (!paginationProducts.length) {
@@ -94,7 +137,6 @@ const DashboardAdmin = () => {
           <Tab>Productos</Tab>
           <Tab>Clientes</Tab>
           <Tab>Reseñas</Tab>
-          <Tab>Estadísticas</Tab>
           <Tab>Órdenes de compra</Tab>
         </TabList>
 
@@ -212,64 +254,111 @@ const DashboardAdmin = () => {
           </TabPanel>
 
           <TabPanel>
-            <div className="flex flex-grow justify-center gap-5 mb-3">
-              <button
-                onClick={handleOptionChange}
-                className="btn btn-5 bg-gray-500"
-              >
-                Reseñas
-              </button>
-              <button
-                onClick={handleOptionChange2}
-                className="btn btn-5 bg-gray-500"
-              >
-                Puntuaciones
-              </button>
-            </div>
-
-            <div className="flex justify-center">
-              <div className="w-3/4 mx-auto bg-gray-400">
-                <table className="w-full">
-                  <thead>
-                    <tr>
-                      <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
-                        ID
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/8 px-4">
-                        Nombre
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                        Producto
-                      </th>
-                      {selectedOption === true ? (
-                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                          Reseña
+            {mostrarReseñas === false ? (
+              <div className="flex justify-center">
+                <div className="w-3/4 mx-auto bg-gray-400">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
+                          ID
                         </th>
-                      ) : (
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Producto
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Número de reseñas
+                        </th>
                         <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
                           Puntuación
                         </th>
-                      )}
-                    </tr>
-                  </thead>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Acción
+                        </th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    
-                  </tbody>
-                </table>
+                    <tbody>
+                      {paginationReviews?.map((p) => {
+                        const promedioArr = p.reviewsScores.map((v) =>
+                          typeof v === "number" ? v : v.score
+                        );
+                        const sum = promedioArr.reduce(
+                          (accumulator, currentValue) =>
+                            accumulator + currentValue,
+                          0
+                        );
+                        const average = (sum / promedioArr.length).toFixed(1);
+
+                        return (
+                          <Reviews
+                            key={p.id}
+                            id={p.id}
+                            name={p.name}
+                            reseñas={p.reviewsScores.length}
+                            puntuacion={average}
+                            onVerReseñas={handleVerReseñas}
+                          />
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex justify-center">
+                <div className="w-3/4 mx-auto bg-gray-400">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="sticky  top-0 bg-white z-10 w-1/12 px-6">
+                          <button
+                            className="bg-gray-300 hover:bg-gray-400 w-10 rounded"
+                            onClick={handleOcultarReseñas}
+                          >
+                            <ArrowBackIcon />
+                          </button>
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Producto: {dashReviews[0].name}
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Reseña
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Acciones
+                        </th>
+                      </tr>
+                    </thead>
 
-            <Pagination
-              currentPage={currentPage}
-              handleFirstCell={() => handleFirstCell()}
-              handlePrevPagination={() => handlePrevPagination()}
-              handleNextPagination={() => handleNextPagination()}
-              lastCellProducts={lastCellUsers}
-              handlelastCellProducts={() => handlelastCellUsers()}
-              pagination={pagination}
-            />
+                    <tbody>
+                      {dashReviewsObj.reviewsTexts.map((p) => (
+                        <Review
+                          key={p.mensaje}
+                          id={selectedProductId}
+                          name={handleUserName(p.userId)}
+                          reseñas={p.mensaje}
+                          reviewId={p.userId}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+            {mostrarReseñas === false && (
+              <Pagination
+                currentPage={currentPage}
+                handleFirstCell={() => handleFirstCell()}
+                handlePrevPagination={() => handlePrevPagination()}
+                handleNextPagination={() => handleNextPagination()}
+                lastCellProducts={lastCellreviewedProds}
+                handlelastCellProducts={() => handlelastCellReviews()}
+                pagination={pagination}
+              />
+            )}
           </TabPanel>
+
           <TabPanel></TabPanel>
         </TabPanels>
       </Tabs>

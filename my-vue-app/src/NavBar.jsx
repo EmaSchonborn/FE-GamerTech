@@ -9,7 +9,6 @@ const NavBar = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   const verified = useSelector((state) => state.userVerified);
-  console.log(verified)
 
   const handleClick = () => {
     setClick(!click);
