@@ -159,10 +159,35 @@ export function createUser(payload) {
         "https://api-gamertech.onrender.com/users/new",
         body
       );
-      const { user, msg } = json.data;
+      const { user, msg, marcaTiempoLogin } = json.data;
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("id", user.id);
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      localStorage.setItem("vrfd", user.isActive);
+
       dispatch({
         type: CREATE_USER,
-        payload: { user, msg },
+        payload: { user, msg, marcaTiempoLogin },
       });
     } catch (error) {
       console.log(error.message);
@@ -201,6 +226,27 @@ export function verifyUser(Email, Password) {
       console.log(json.data);
 
       const { user, msg, marcaTiempoLogin } = json.data;
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
       localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
@@ -231,6 +277,26 @@ export function loginWithGoogle(payload) {
         body
       );
       const { user, msg, marcaTiempoLogin } = json.data;
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
 
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
@@ -263,6 +329,25 @@ export function getCartByUserId(userId) {
 }
 
 export function sumarCarrito(payload) {
+  let id = localStorage.getItem("id");
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  if (!id) {
+    if (!cart) {
+      let initialCart = { userId: 0, productId: [] };
+      localStorage.setItem("cart", JSON.stringify(initialCart));
+      cart = initialCart;
+    }
+    let newProduct = {
+      id: payload.productId.id,
+      quantity: payload.productId.quantity,
+    };
+    cart.productId.push(newProduct);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(
+      "Producto agregado al carrito. Recuerda que para poder ver tu carrito deberás registrarte o iniciar sesión."
+    );
+    return;
+  }
   return async function (dispatch) {
     try {
       let json = await axios.post(
