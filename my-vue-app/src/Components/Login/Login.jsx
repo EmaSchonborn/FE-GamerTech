@@ -37,7 +37,6 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
-        console.log(data);
         dispatch(verifyUser(email, password));
         setError(false);
         navigate("/home");

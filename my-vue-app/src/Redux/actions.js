@@ -200,7 +200,6 @@ export function verifyUser(Email, Password) {
         "https://api-gamertech.onrender.com/users/verifyuser",
         body
       );
-      console.log(json.data);
 
       const { user, msg, marcaTiempoLogin } = json.data;
       localStorage.setItem("isAuthenticated", true);
