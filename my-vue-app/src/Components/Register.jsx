@@ -19,9 +19,6 @@ export default function CreateUser() {
     if (!/^[A-Za-z\s]+$/.test(input.name)) {
       errors.name = "The name must only contain letters and spaces.";
     }
-    if (input.name.search("[^A-Za-z0-9]") !== -1) {
-      errors.name = "The name must not contain symbols or spaces.";
-    }
     if (!input.password) {
       errors.password = "You have to select a password!.";
     }

@@ -73,7 +73,7 @@ export default function Reviews() {
 
         return (
           <div key={index} className="my-2">
-            <p className="font-semibold">Usuario: {matchingUser ? matchingUser.name : "Usuario desconocido"}</p>
+            <p className="font-semibold">{matchingUser ? matchingUser.name : "Usuario desconocido"}:</p>
             <p className="text-sm">Comentario: {productoDetail.reviewsTexts[index].mensaje}</p>
             <br />
           </div>
