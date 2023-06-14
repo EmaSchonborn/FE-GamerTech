@@ -145,10 +145,6 @@ export default function ProductDetail() {
   );
 }
 
-<<<<<<< HEAD
-=======
-export default ProductDetail; 
->>>>>>> LocalEma
 // const handleClicker = (e) => {
 //   if (verified.user?.isActive === false) {
 //     signOut(auth)
