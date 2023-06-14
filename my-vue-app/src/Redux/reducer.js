@@ -21,6 +21,7 @@ import {
   ADD_MESSAGE,
   GET_USER_BY_ID,
   MODIFY_USER,
+  DELETE_REVIEW,
 } from "../Redux/actions";
 
 const initialState = {
@@ -160,10 +161,14 @@ const rootReducer = (state = initialState, action) => {
         changeRolAttempts: state.changeRolAttempts - 1,
       };
     case ADD_MESSAGE:
-      return{
+      return {
         ...state,
-        messages: [...state.messages, action.payload]
-      }
+        messages: [...state.messages, action.payload],
+      };
+    case DELETE_REVIEW:
+      return {
+        ...state
+      };
     default:
       return { ...state };
   }

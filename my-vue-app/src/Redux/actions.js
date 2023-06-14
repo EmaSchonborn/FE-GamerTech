@@ -21,6 +21,7 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const RESET_CART = "RESET_CART";
 export const DECREMENT_VALUE = "DECREMENT_VALUE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const DELETE_REVIEW = "DELETE_REVIEW";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -133,10 +134,11 @@ export function getUserById(id) {
         `https://api-gamertech.onrender.com/users/${id}`
       );
       const user = json.data;
+      const msg = "Usuario encontrado!";
 
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: user,
+        payload: { user, msg },
       });
     } catch (e) {
       console.log(e.message);
@@ -473,3 +475,21 @@ export function sendReview(data) {
     }
   };
 }
+
+export const deleteReview = (data) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(
+        `https://api-gamertech-prueba.onrender.com/product/deletereviewscore`,
+        data
+      );
+      dispatch({
+        type: DELETE_REVIEW,
+        payload: data,
+      });
+      dispatch(getProducts());
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};

@@ -9,7 +9,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const user = auth.currentUser;
   const verified = useSelector((state) => state.userVerified);
-  
 
   const handleClick = () => {
     setClick(!click);
@@ -123,7 +122,7 @@ const NavBar = () => {
                   <img
                     width="30"
                     height="30"
-                    src={verified.imageUrl}
+                    src={verified.user?.imageUrl}
                     alt="user--v1"
                   />
                 </button>
