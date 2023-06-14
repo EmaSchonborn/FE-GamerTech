@@ -359,7 +359,61 @@ const DashboardAdmin = () => {
             )}
           </TabPanel>
 
-          <TabPanel></TabPanel>
+          <TabPanel>
+            <SearchBarDash setCurrentPage={setCurrentPage} />
+            <div className="flex justify-center">
+              <div className="w-3/4 mx-auto bg-gray-400">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
+                        ID
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/8 px-4">
+                        Nombre
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                        Correo
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                        Creación de Cuenta
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/6 pr-10 px-4">
+                        Rol
+                      </th>
+                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                        Acciones
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {paginationUsers?.map((p) => (
+                      <Card3
+                        key={p.id}
+                        id={p.id}
+                        name={p.name}
+                        email={p.email}
+                        isActive={p.isActive}
+                        createdAt={p.createdAt}
+                        isAdmin={p.isAdmin}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <Pagination
+              currentPage={currentPage}
+              handleFirstCell={() => handleFirstCell()}
+              handlePrevPagination={() => handlePrevPagination()}
+              handleNextPagination={() => handleNextPagination()}
+              lastCellProducts={lastCellUsers}
+              handlelastCellProducts={() => handlelastCellUsers()}
+              pagination={pagination}
+            />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     );
