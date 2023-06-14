@@ -23,6 +23,7 @@ const ProfileInformation = ({input, userVerified}) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+<<<<<<< HEAD
       if(!change && username.length === 0){
         const result = await uploadFile(file)
         if(!result) throw new Error('Error al subir la imagen')
@@ -61,6 +62,20 @@ const ProfileInformation = ({input, userVerified}) => {
         }))
         setFile(null)
       }
+=======
+      if (!file) throw new Error('No hay archivo')
+      const result = await uploadFile(file)
+      dispatch(modifyUsers({
+        'id' : userVerified.user.id,
+        'name' : userVerified.user.name,
+        'email' : userVerified.user.email,
+        'password' : userVerified.user.password,
+        'isActive' : userVerified.user.isActive,
+        'isAdmin' : userVerified.user.isAdmin,
+        'imageUrl' : result
+      }))
+      setFile(null)
+>>>>>>> LocalEma
     } catch (error) {
       alert('Error al subir la imagen')
     }
@@ -103,7 +118,7 @@ const ProfileInformation = ({input, userVerified}) => {
         <form className={styles.setting_item} onSubmit={handleSubmit}>
           <h2 className={styles.setting_title}>
             <span>Cambiar imagen del perfil</span>
-            <button className={styles.setting_action}>Subir Inagen</button>
+            <button className={styles.setting_action}>Subir Imagen</button>
           </h2>
           <div className={styles.setting_detail}>
             <ul className={styles.setting_detail_list}>
