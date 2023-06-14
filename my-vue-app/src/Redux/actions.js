@@ -21,6 +21,9 @@ export const DELETE_ITEM = "DELETE_ITEM";
 export const RESET_CART = "RESET_CART";
 export const DECREMENT_VALUE = "DECREMENT_VALUE";
 export const ADD_MESSAGE = "ADD_MESSAGE";
+export const DELETE_REVIEW = "DELETE_REVIEW";
+export const GET_PURCHASES = "GET_PURCHASES";
+export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -133,10 +136,11 @@ export function getUserById(id) {
         `https://api-gamertech.onrender.com/users/${id}`
       );
       const user = json.data;
+      const msg = "Usuario encontrado!";
 
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: user,
+        payload: { user, msg },
       });
     } catch (e) {
       console.log(e.message);
@@ -157,10 +161,35 @@ export function createUser(payload) {
         "https://api-gamertech.onrender.com/users/new",
         body
       );
-      const { user, msg } = json.data;
+      const { user, msg, marcaTiempoLogin } = json.data;
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("id", user.id);
+      localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
+      localStorage.setItem("vrfd", user.isActive);
+
       dispatch({
         type: CREATE_USER,
-        payload: { user, msg },
+        payload: { user, msg, marcaTiempoLogin },
       });
     } catch (error) {
       console.log(error.message);
@@ -196,9 +225,29 @@ export function verifyUser(Email, Password) {
         "https://api-gamertech.onrender.com/users/verifyuser",
         body
       );
-      console.log(json.data);
 
       const { user, msg, marcaTiempoLogin } = json.data;
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
+
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
       localStorage.setItem("marcaTiempoLogin", marcaTiempoLogin);
@@ -229,6 +278,26 @@ export function loginWithGoogle(payload) {
         body
       );
       const { user, msg, marcaTiempoLogin } = json.data;
+
+      let cart = JSON.parse(localStorage.getItem("cart"));
+      if (cart) {
+        cart.userId = user.id;
+        localStorage.setItem("cart", JSON.stringify(cart));
+        try {
+          //sumarCarrito(cart);
+          let newCart = await axios.post(
+            `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
+            cart
+          );
+          localStorage.setItem('cart', JSON.stringify(null));
+          dispatch({
+            type: SUMAR_CARRITO,
+            payload: newCart.data,
+          });
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
 
       localStorage.setItem("isAuthenticated", true);
       localStorage.setItem("id", user.id);
@@ -261,6 +330,25 @@ export function getCartByUserId(userId) {
 }
 
 export function sumarCarrito(payload) {
+  let id = localStorage.getItem("id");
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  if (!id) {
+    if (!cart) {
+      let initialCart = { userId: 0, productId: [] };
+      localStorage.setItem("cart", JSON.stringify(initialCart));
+      cart = initialCart;
+    }
+    let newProduct = {
+      id: payload.productId.id,
+      quantity: payload.productId.quantity,
+    };
+    cart.productId.push(newProduct);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(
+      "Producto agregado al carrito. Recuerda que para poder ver tu carrito deberás registrarte o iniciar sesión."
+    );
+    return;
+  }
   return async function (dispatch) {
     try {
       let json = await axios.post(
@@ -388,3 +476,59 @@ export function sendReview(data) {
     }
   };
 }
+
+export const deleteReview = (data) => {
+  return async function (dispatch) {
+    try {
+      await axios.post(
+        `https://api-gamertech-prueba.onrender.com/product/deletereviewscore`,
+        data
+      );
+      dispatch({
+        type: DELETE_REVIEW,
+        payload: data,
+      });
+      dispatch(getProducts());
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getAllPurchases = () => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        "https://api-gamertech-prueba.onrender.com/purchase/"
+      );
+
+      const purchases = json.data;
+
+      dispatch({
+        type: GET_PURCHASES,
+        payload: purchases,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const getAllPurchasesById = (id) => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        `https://api-gamertech-prueba.onrender.com/purchase/${id}`
+      );
+
+      const purchases = json.data;
+
+      dispatch({
+        type: GET_PURCHASES_BY_ID,
+        payload: purchases,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};

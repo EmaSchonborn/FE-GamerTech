@@ -18,7 +18,6 @@ export default function Home() {
     diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
     minutosTranscurridos = diferenciaTiempo / 60000;
   }
-  console.log(userId);
   if (minutosTranscurridos && minutosTranscurridos < 30) {
     console.log("Aún no han pasado 30 minutos");
   }
