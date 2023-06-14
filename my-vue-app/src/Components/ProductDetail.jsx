@@ -145,32 +145,3 @@ export default function ProductDetail() {
   );
 }
 
-<<<<<<< HEAD
-=======
-export default ProductDetail; 
->>>>>>> LocalEma
-// const handleClicker = (e) => {
-//   if (verified.user?.isActive === false) {
-//     signOut(auth)
-//       .then(() => {
-//         console.log("sign out successful");
-//         localStorage.clear();
-//         navigate("/banned-user");
-//       })
-//       .catch((error) => console.log(error));
-//   } else {
-//     dispatch(getCartByUserId(userId));
-//     const existingProduct = cartByUserId.find((item) => item.product.id === data.id);
-
-//     if (existingProduct) {
-//       const newQuantity = existingProduct.quantity + data.quantity;
-//       dispatch(modifyCartByUserId(userId, data.id, newQuantity));
-//     } else {
-//       dispatch(sumarCarrito(data));
-//     }
-
-//     console.log(data);
-//     alert("Agregado Correctamente!");
-//     navigate("/home");
-//   }
-// };
