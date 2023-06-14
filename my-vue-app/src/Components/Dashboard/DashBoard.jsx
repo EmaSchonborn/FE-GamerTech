@@ -31,7 +31,7 @@ const DashboardAdmin = () => {
   const allUsers = useSelector((state) => state.filteredUsers);
   const allPurchases = useSelector((state) => state.purchases);
   const userPurchase = useSelector((state) => state.userPurchases);
-  
+
   //Lógica, handlers y states de componente ordenes
 
   const [selectedUserOrder, setSelectedUserOrder] = useState(null);
@@ -53,7 +53,6 @@ const DashboardAdmin = () => {
     if (selectedUserId) {
       dispatch(getAllPurchasesById(selectedUserId));
     }
-
   }, [selectedUserId, dispatch]);
 
   //Handlers y States de componente reseñas
@@ -178,7 +177,6 @@ const DashboardAdmin = () => {
 
         <TabPanels className="bg-gray-200">
           <TabPanel>
-            <SearchBar setCurrentPage={setCurrentPage} />
             <div className="flex justify-center">
               <div className="w-3/4 mx-auto bg-gray-400">
                 <div className="table-container ">
@@ -222,6 +220,7 @@ const DashboardAdmin = () => {
               </div>
             </div>
 
+            <SearchBar setCurrentPage={setCurrentPage} />
             <Pagination
               currentPage={currentPage}
               handleFirstCell={() => handleFirstCell()}
@@ -234,7 +233,6 @@ const DashboardAdmin = () => {
           </TabPanel>
 
           <TabPanel>
-            <SearchBarDash setCurrentPage={setCurrentPage} />
             <div className="flex justify-center">
               <div className="w-3/4 mx-auto bg-gray-400">
                 <table className="w-full">
@@ -278,6 +276,7 @@ const DashboardAdmin = () => {
               </div>
             </div>
 
+            <SearchBarDash setCurrentPage={setCurrentPage} />
             <Pagination
               currentPage={currentPage}
               handleFirstCell={() => handleFirstCell()}
@@ -461,10 +460,13 @@ const DashboardAdmin = () => {
                     </thead>
 
                     <tbody>
-                      
-                      {
-                      userPurchase.map((p) => (
-                        <Orden key={p.id} id={p.id} name={p.productsId} products={allProducts}/>
+                      {userPurchase.map((p) => (
+                        <Orden
+                          key={p.id}
+                          id={p.id}
+                          name={p.productsId}
+                          products={allProducts}
+                        />
                       ))}
                     </tbody>
                   </table>
