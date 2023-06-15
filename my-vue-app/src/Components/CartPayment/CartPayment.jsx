@@ -63,11 +63,17 @@ const CartPayment = () => {
   const dataEmail = { email: user?.user?.email };
 
   console.log(dataEmail)
-  useEffect(() => {
+  /* useEffect(() => {
     dispatch(createPurchase(userCart));
     dispatch(sendMailPaymentSuccess(dataEmail)); 
-  }, []);
+  }, []); */
   console.log(userCart)
+
+  if (userCart&&dataEmail) {
+    dispatch(createPurchase(userCart));
+    dispatch(sendMailPaymentSuccess(dataEmail));
+    localStorage.setItem('pagoExitoso', true)
+  }
 
   return (
 <div className="flex flex-col items-center justify-center h-screen" style={{ background: 'linear-gradient(to bottom, black, #900000)' }}>

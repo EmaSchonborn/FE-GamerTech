@@ -39,6 +39,7 @@ export default function ProductDetail() {
     }
   };
 
+  let pagoExitoso=localStorage.getItem('pagoExitoso')
   const handleClick = () => {
     if (verified.user?.isActive === false) {
       signOut(auth)
@@ -49,6 +50,9 @@ export default function ProductDetail() {
         })
         .catch((error) => console.log(error));
     } else {
+      if(pagoExitoso==='true'){
+        localStorage.setItem('pagoExitoso', false)
+      }
       dispatch(sumarCarrito(data));
       console.log(data);
       alert("Agregado Correctamente!");
