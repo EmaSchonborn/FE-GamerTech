@@ -24,6 +24,7 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_REVIEW = "DELETE_REVIEW";
 export const GET_PURCHASES = "GET_PURCHASES";
 export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
+export const CREATE_PURCHASE = "CREATE_PURCHASE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -420,22 +421,6 @@ export function deleteItem(payload) {
   };
 }
 
-export function resetCart(id) {
-  return async function (dispatch) {
-    try {
-      let json = await axios.put(
-        `https://api-gamertech.onrender.com/cart/${id}`
-      );
-      dispatch({
-        type: RESET_CART,
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-}
-
 export function decrementValue() {
   return (dispatch, getState) => {
     dispatch({ type: DECREMENT_VALUE });
@@ -526,6 +511,25 @@ export const getAllPurchasesById = (id) => {
       dispatch({
         type: GET_PURCHASES_BY_ID,
         payload: purchases,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const createPurchase = (payload) => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/purchase/new`, payload
+      );
+
+      const purchase = json.data;
+
+      dispatch({
+        type: CREATE_PURCHASE,
+        payload: purchase,
       });
     } catch (error) {
       console.log(error.message);
