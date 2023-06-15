@@ -20,6 +20,7 @@ const ProfileInformation = ({input, userVerified}) => {
     setChange(!change)
   }
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
