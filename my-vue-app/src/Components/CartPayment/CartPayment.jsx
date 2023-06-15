@@ -47,7 +47,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createPurchase, sendEmail, getCartByUserId, getUserById } from "../../Redux/actions";
+import { createPurchase, getCartByUserId, getUserById, sendMailPaymentSuccess } from "../../Redux/actions";
 
 const CartPayment = () => {
   const userId = localStorage.getItem("id");
@@ -65,7 +65,7 @@ const CartPayment = () => {
   console.log(dataEmail)
   useEffect(() => {
     dispatch(createPurchase(userCart));
-    dispatch(sendEmail(dataEmail)); 
+    dispatch(sendMailPaymentSuccess(dataEmail)); 
   }, []);
   console.log(userCart)
 
