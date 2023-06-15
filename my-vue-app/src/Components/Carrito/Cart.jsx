@@ -89,6 +89,8 @@ const Cart = () => {
     return null;
   };
 
+  console.log(cartByUserId);
+
   if (isActive === "false") {
     console.log("isActive");
     signOut(auth)
@@ -99,7 +101,8 @@ const Cart = () => {
       })
       .catch((error) => console.log(error));
   } else {
-    return (
+    return (<>
+      {cartByUserId?
       <InternalProvider
         context={{ preferenceId, isLoading, orderData, setOrderData }}
       >
@@ -110,6 +113,7 @@ const Cart = () => {
         </main>
         {/* <Footer /> */}
       </InternalProvider>
+      : null}</>
     );
   }
 };

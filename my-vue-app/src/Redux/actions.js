@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
@@ -213,6 +214,23 @@ export function sendEmail(payload) {
       console.log(error.message);
     }
   };
+}
+
+export function sendMailPaymentSuccess(Email){
+  return async function(dispatch){
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/send-email/paymentsuccess`,
+        Email
+      );
+      dispatch({
+        type: SEND_EMAIL,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 export function verifyUser(Email, Password) {
