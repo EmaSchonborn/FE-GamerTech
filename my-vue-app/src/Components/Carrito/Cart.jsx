@@ -91,6 +91,8 @@ const Cart = () => {
 
   console.log(cartByUserId);
 
+  let pagoExitoso=localStorage.getItem('pagoExitoso')
+
   if (isActive === "false") {
     console.log("isActive");
     signOut(auth)
@@ -102,7 +104,7 @@ const Cart = () => {
       .catch((error) => console.log(error));
   } else {
     return (<>
-      {cartByUserId?
+      {pagoExitoso==='false'||pagoExitoso===null?
       <InternalProvider
         context={{ preferenceId, isLoading, orderData, setOrderData }}
       >
