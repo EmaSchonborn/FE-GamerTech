@@ -24,6 +24,7 @@ import {
   DELETE_REVIEW,
   GET_PURCHASES,
   GET_PURCHASES_BY_ID,
+  CREATE_PURCHASE
 } from "../Redux/actions";
 
 const initialState = {
@@ -183,6 +184,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userPurchases: action.payload,
       };
+    case CREATE_PURCHASE:
+      return {
+        ...state,
+        };
     default:
       return { ...state };
   }

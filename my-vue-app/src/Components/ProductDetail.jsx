@@ -21,7 +21,7 @@ export default function ProductDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  // console.log(productoDetail);
+  console.log(productoDetail);
   const [quantity, setQuantity] = useState(1);
   const data = {
     userId: parseInt(id),
@@ -81,6 +81,12 @@ export default function ProductDetail() {
             </h1>
           ) : (
             setTimeout(0)
+          )}
+        {productoDetail?.stock > 1 ? (
+           <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
+           Unidades disponibles: {productoDetail.stock}
+           </h1>) : (
+           <h1 className="text-base font-medium text-black">Sin Stock!</h1>
           )}
           {productoDetail?.price !== undefined ? (
             <h1 className="px-4 py-2 text-base font-medium text-[#484848]">

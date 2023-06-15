@@ -73,7 +73,7 @@ export default function Reviews() {
 
         return (
           <div key={index} className="my-2">
-            <p className="font-semibold">Usuario: {matchingUser ? matchingUser.name : "Usuario desconocido"}</p>
+            <p className="font-semibold">{matchingUser ? matchingUser.name : "Usuario desconocido"}:</p>
             <p className="text-sm">Comentario: {productoDetail.reviewsTexts[index].mensaje}</p>
             <br />
           </div>
@@ -85,31 +85,6 @@ export default function Reviews() {
   );
 };
 
-{/* <div>
-<h1>Reviews:</h1>
-<div>
-  <h2>Puntuación general:</h2>
-  <span>{renderOverallRating()}</span>
-</div>
-<div>
-  <h2>Últimas reseñas:</h2>
-  <br />
-  {productoDetail.reviewsScores && productoDetail.reviewsScores.length > 0 &&
-    productoDetail.reviewsScores.map((score, index) => {
-      const userId = productoDetail.reviewsTexts[index].userId;
-      const matchingUser = user.find((user) => user.id === parseInt(userId));
-      
-      return (
-        <div key={index}>
-          <p>Usuario: {matchingUser ? matchingUser.name : "Usuario desconocido"}</p>
-          <p>Comentario: {productoDetail.reviewsTexts[index].mensaje}</p>
-          
-          <br />
-        </div>
-      );
-    })}
-</div>
-</div> */}
 
 
 
