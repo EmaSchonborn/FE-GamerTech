@@ -15,6 +15,7 @@ import CartPayment from "./Components/CartPayment/CartPayment.jsx";
 import  Review  from "./Components/Review/Review.jsx";
 import NotFound from "./Components/NotFound.jsx";
 import BannedUser from "./Components/BannedUser.jsx";
+import PaymetnFaliure from "./Components/PaymentFaliure/PaymentFaliure.jsx";
 
 function App() {
   return (
@@ -68,7 +69,7 @@ function App() {
           element={<h1>Confirmación</h1>}
         />
         <Route path="/payment/success" element={<CartPayment />} />
-        <Route path="/payment/failure" element={<h1>Compra fallida</h1>} />
+        <Route path="/payment/failure" element={<PaymetnFaliure />} />
 
         <Route
           path="/order/:id/checkout/payment/confirmation/success"

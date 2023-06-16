@@ -10,6 +10,7 @@ import { SpinnerCircular } from "spinners-react";
 import "../../Styles/payment.css";
 import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 initMercadoPago("TEST-1b219c6f-dc51-44fd-ad18-6c48f228ef56");
 
@@ -99,6 +100,13 @@ const Cart = () => {
       .then(() => {
         console.log("sign out successful");
         localStorage.clear();
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '¡Checkout exitoso!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         navigate("/banned-user");
       })
       .catch((error) => console.log(error));
