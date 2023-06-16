@@ -2,7 +2,12 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts, getUsers } from "../../Redux/actions";
+import {
+  getAllPurchases,
+  getAllPurchasesById,
+  getProducts,
+  getUsers,
+} from "../../Redux/actions";
 import Card2 from "./Card2";
 import SearchBar from "../SearchBar/SearchBar";
 import Pagination from "./Pagination";
@@ -10,9 +15,47 @@ import Card3 from "./Card3";
 import SearchBarDash from "./SearchBarDash";
 import Reviews from "./Reviews/Reviews";
 import Review from "./Reviews/Review";
+import Ordenes from "./Ordenes/Ordenes";
+import Orden from "./Ordenes/Orden";
 
 const DashboardAdmin = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+    dispatch(getUsers());
+    dispatch(getAllPurchases());
+  }, [dispatch]);
+
+  const allProducts = useSelector((state) => state.dashFilteredProducts);
+  const allUsers = useSelector((state) => state.filteredUsers);
+  const allPurchases = useSelector((state) => state.purchases);
+  const userPurchase = useSelector((state) => state.userPurchases);
+
+  //Lógica, handlers y states de componente ordenes
+
+  const [selectedUserOrder, setSelectedUserOrder] = useState(null);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [mostrarOrden, setMostrarOrden] = useState(false);
+
+  const handlerVerOrden = (userOrder, userId) => {
+    setSelectedUserOrder(userOrder);
+    setSelectedUserId(userId);
+    setMostrarOrden(true);
+  };
+
+  const handlerOcultarOrden = () => {
+    setSelectedUserOrder(null);
+    setMostrarOrden(false);
+  };
+
+  useEffect(() => {
+    if (selectedUserId) {
+      dispatch(getAllPurchasesById(selectedUserId));
+    }
+  }, [selectedUserId, dispatch]);
+
+  //Handlers y States de componente reseñas
 
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [mostrarReseñas, setMostrarReseñas] = useState(false);
@@ -56,9 +99,6 @@ const DashboardAdmin = () => {
     setCurrentPage(lastCellreviewedProds);
   };
 
-  const allProducts = useSelector((state) => state.dashFilteredProducts);
-  const allUsers = useSelector((state) => state.filteredUsers);
-
   //número de elementos en paginación
   const displayedProducts = 5;
   const displayedUsers = 5;
@@ -83,11 +123,6 @@ const DashboardAdmin = () => {
     finalReferenceUsers
   );
   const lastCellUsers = Math.ceil(allUsers?.length / displayedUsers);
-
-  useEffect(() => {
-    dispatch(getProducts());
-    dispatch(getUsers());
-  }, [dispatch]);
 
   //lógica para sección de reviews y puntuaciones
   const reviewedProducts = allProducts.filter(
@@ -142,7 +177,6 @@ const DashboardAdmin = () => {
 
         <TabPanels className="bg-gray-200">
           <TabPanel>
-            <SearchBar setCurrentPage={setCurrentPage} />
             <div className="flex justify-center">
               <div className="w-3/4 mx-auto bg-gray-400">
                 <div className="table-container ">
@@ -186,6 +220,7 @@ const DashboardAdmin = () => {
               </div>
             </div>
 
+            <SearchBar setCurrentPage={setCurrentPage} />
             <Pagination
               currentPage={currentPage}
               handleFirstCell={() => handleFirstCell()}
@@ -198,7 +233,6 @@ const DashboardAdmin = () => {
           </TabPanel>
 
           <TabPanel>
-            <SearchBarDash setCurrentPage={setCurrentPage} />
             <div className="flex justify-center">
               <div className="w-3/4 mx-auto bg-gray-400">
                 <table className="w-full">
@@ -242,6 +276,7 @@ const DashboardAdmin = () => {
               </div>
             </div>
 
+            <SearchBarDash setCurrentPage={setCurrentPage} />
             <Pagination
               currentPage={currentPage}
               handleFirstCell={() => handleFirstCell()}
@@ -360,59 +395,96 @@ const DashboardAdmin = () => {
           </TabPanel>
 
           <TabPanel>
-            <SearchBarDash setCurrentPage={setCurrentPage} />
-            <div className="flex justify-center">
-              <div className="w-3/4 mx-auto bg-gray-400">
-                <table className="w-full">
-                  <thead>
-                    <tr>
-                      <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
-                        ID
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/8 px-4">
-                        Nombre
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                        Correo
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                        Creación de Cuenta
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/6 pr-10 px-4">
-                        Rol
-                      </th>
-                      <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                        Acciones
-                      </th>
-                    </tr>
-                  </thead>
+            {mostrarOrden === false ? (
+              <div className="flex justify-center">
+                <div className="w-3/4 mx-auto bg-gray-400">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Nº Orden
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-3/6 px-4">
+                          Comprador
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-2/6 px-4">
+                          Acciones
+                        </th>
+                      </tr>
+                    </thead>
 
-                  <tbody>
-                    {paginationUsers?.map((p) => (
-                      <Card3
-                        key={p.id}
-                        id={p.id}
-                        name={p.name}
-                        email={p.email}
-                        isActive={p.isActive}
-                        createdAt={p.createdAt}
-                        isAdmin={p.isAdmin}
-                      />
-                    ))}
-                  </tbody>
-                </table>
+                    <tbody>
+                      {allPurchases?.map((p) => (
+                        <Ordenes
+                          key={p.id}
+                          id={p.id}
+                          userId={p.userId}
+                          name={handleUserName(p.userId)}
+                          onVerOrden={handlerVerOrden}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="flex justify-center">
+                <div className="w-3/4 mx-auto bg-gray-400">
+                  <table className="w-full">
+                    <thead>
+                      <tr>
+                        <th className="sticky  top-0 bg-white z-10 w-1/12 px-6">
+                          <button
+                            className="bg-gray-300 hover:bg-gray-400 w-10 rounded"
+                            onClick={handlerOcultarOrden}
+                          >
+                            <ArrowBackIcon />
+                          </button>
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/8 px-4">
+                          Comprador: {selectedUserOrder}
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/12 px-4">
+                          Nº Orden
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Productos
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Precio Unitario
+                        </th>
+                        <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
+                          Total Abonado
+                        </th>
+                      </tr>
+                    </thead>
 
-            <Pagination
-              currentPage={currentPage}
-              handleFirstCell={() => handleFirstCell()}
-              handlePrevPagination={() => handlePrevPagination()}
-              handleNextPagination={() => handleNextPagination()}
-              lastCellProducts={lastCellUsers}
-              handlelastCellProducts={() => handlelastCellUsers()}
-              pagination={pagination}
-            />
+                    <tbody>
+                      {userPurchase.map((p) => (
+                        <Orden
+                          key={p.id}
+                          id={p.id}
+                          name={p.productsId}
+                          products={allProducts}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {mostrarOrden === false && (
+              <Pagination
+                currentPage={currentPage}
+                handleFirstCell={() => handleFirstCell()}
+                handlePrevPagination={() => handlePrevPagination()}
+                handleNextPagination={() => handleNextPagination()}
+                lastCellProducts={lastCellUsers}
+                handlelastCellProducts={() => handlelastCellUsers()}
+                pagination={pagination}
+              />
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>

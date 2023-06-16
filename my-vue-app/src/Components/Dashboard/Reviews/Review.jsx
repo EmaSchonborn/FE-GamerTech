@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteReview, getProducts } from "../../../Redux/actions";
+import { deleteReview } from "../../../Redux/actions";
 
 export default function Review(props) {
   const { id, name, reseñas, reviewId } = props;
-  
+
   const dispatch = useDispatch();
 
   const handleDeleteReview = () => {
@@ -19,9 +19,7 @@ export default function Review(props) {
   return (
     <tr className="text-white">
       <td className="relative py-10 w-1/12">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          
-        </div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50"></div>
       </td>
       <td className="relative py-10 w-1/5 text-center">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">

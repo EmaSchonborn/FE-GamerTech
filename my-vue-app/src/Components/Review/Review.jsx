@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { getProductById, sendReview } from "../../Redux/actions";
+import Swal from "sweetalert2";
 
 export  default function Review() {
   const navigate = useNavigate();
@@ -33,13 +34,34 @@ export  default function Review() {
       productId: productoDetail.id,
       userId: userId,
     };
+    if(data.mensaje !== "" && data.rate){
     dispatch(sendReview(data));
     console.log("Mensaje enviado:", mensaje);
     console.log("Valoración:", rate);
-    alert("Gracias por tu comentario");
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: '¡Gracias por tu comentario!',
+      showConfirmButton: false,
+      timer: 1500
+    });
     navigate(`/product/${params.id}`)
     setMensaje("");
     setRate(0);
+    } else if(!data.mensaje) { Swal.fire({
+      position: 'top-end',
+      icon: 'warning',
+      title: '¡Debes dejar un comentario!',
+      showConfirmButton: false,
+      timer: 1500
+    })}
+    else {Swal.fire({
+      position: 'top-end',
+      icon: 'warning',
+      title: '¡Debes seleccionar un puntaje!',
+      showConfirmButton: false,
+      timer: 1500
+    })}
   };
 
   useEffect(() => {
