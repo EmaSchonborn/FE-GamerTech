@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUser, sendEmail, verifyUser } from "../Redux/actions.js";
 import { auth } from "../firebase.config";
 import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import Swal from "sweetalert2";
 // import style from "./Register.module.css";
 
 export default function CreateUser() {
@@ -14,16 +15,16 @@ export default function CreateUser() {
     let errors = {};
 
     if (!input.name) {
-      errors.name = "You have to select a name!.";
+      errors.name = "¡Debes poner tu nombre!.";
     }
     if (!/^[A-Za-z\s]+$/.test(input.name)) {
-      errors.name = "The name must only contain letters and spaces.";
+      errors.name = "¡Solo letras y espacios!";
     }
     if (!input.password) {
-      errors.password = "You have to select a password!.";
+      errors.password = "¡Debes seleccionar una contraseña!";
     }
     if (!input.email) {
-      errors.email = "You have to select a email!.";
+      errors.email = "¡Debes seleccionar un mail valido!";
     }
     return errors;
   }
@@ -82,10 +83,23 @@ export default function CreateUser() {
             console.log(data);
             dispatch(verifyUser(input.email, input.password));
             setError(false);
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: '¡Bienvenido!',
+              showConfirmButton: false,
+              timer: 1500
+            })
             navigate("/home");
           });
         } else {
-          alert("Debes completar toda la información");
+          Swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        title: '¡Debes completar toda la informacion!',
+        showConfirmButton: false,
+        timer: 1500
+      });
         }
       })
       .catch((error) => {

@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { deleteItem } from "../Redux/actions";
+import { deleteItem, getProductById, modifyProducts } from "../Redux/actions";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function Card(props) {
   const dispatch = useDispatch();
@@ -11,15 +13,37 @@ export default function Card(props) {
   let carrito = useSelector((state) => state.cartByUserId);
   let data;
 
-  // const itemInCart = cart.find(item => item.productId === id);
-  // const itemCount = itemInCart ? itemInCart.quantity : 1;
-  //const data = { userId: parseInt(idLocal), itemId: id };
+  useEffect(() => {
+    dispatch(getProductById(id));
+  }, []);
+
+  let product = useSelector((state) => state.productDetail);
+
   const handleClick = () => {
-    carrito.productsId = carrito.productsId.filter(item => item.id !== id);
-    data = { userId: parseInt(idLocal), productId:carrito.productsId};
-    console.log(data);
-    dispatch(deleteItem(data));
-    navigate("/home");
+    carrito.productsId = carrito.productsId.filter((item) => item.id !== id);
+    data = { userId: parseInt(idLocal), productId: carrito.productsId };
+    console.log(carrito.productsId);
+
+    Swal.fire({
+      title: 'Estas seguro/a?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, borrar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(modifyProducts({ id: parseInt(id), stock: product.stock + quantity }));
+        dispatch(deleteItem(data));
+        Swal.fire(
+          '¡Borrado!',
+          '¡El producto fue borrado del carrito!.',
+          'success'
+        );
+        navigate("/home");
+      }
+    });
   };
   return (
     <div className="flex flex-col p-4 bg-gradient-to-br from-white via-gray-100 to-gray-300 mb-5 rounded-sm max-w-sm border border-gray-300">
@@ -55,3 +79,4 @@ export default function Card(props) {
     </div>
   );
 }
+
