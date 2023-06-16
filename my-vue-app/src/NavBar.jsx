@@ -119,12 +119,21 @@ const NavBar = () => {
                   aria-haspopup="true"
                 >
                   <span className="sr-only">Abrir menu usuario</span>
+                  {user ?
                   <img
                     width="30"
                     height="30"
-                    src={verified.user?.imageUrl}
+                    src={verified.imageUrl}
                     alt="user--v1"
                   />
+                  :
+                  <img
+                    width="30"
+                    height="30"
+                    src="https://img.icons8.com/ios-glyphs/30/484848/user--v1.png"
+                    alt="user--v1"
+                  />
+                  }
                 </button>
               </div>
               {click && (
@@ -135,6 +144,7 @@ const NavBar = () => {
                   aria-labelledby="user-menu-button"
                   tabIndex="-1"
                 >
+                  {user &&
                   <Link
                     to="/perfil"
                     className="block px-4 py-2 text-sm text-gray-700"
@@ -145,16 +155,7 @@ const NavBar = () => {
                   >
                     Perfil
                   </Link>
-                  <Link
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="user-menu-item-1"
-                    onClick={handleClick}
-                  >
-                    Configuraciones
-                  </Link>
+                }
                   <div
                     className="block px-4 py-2 text-sm text-gray-700"
                     role="menuitem"

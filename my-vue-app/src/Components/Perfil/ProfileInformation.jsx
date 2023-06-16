@@ -3,6 +3,7 @@ import styles from './ProfileInformation.module.css'
 import {uploadFile} from '../../firebase.config'
 import {useDispatch} from 'react-redux'
 import { modifyUsers } from "../../Redux/actions";
+import Swal from "sweetalert2";
 
 const ProfileInformation = ({input, userVerified}) => {
   const [username, setUsername] = React.useState('')
@@ -36,6 +37,13 @@ const ProfileInformation = ({input, userVerified}) => {
           'imageUrl' : result
         }))
         setFile(null)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: '¡Imagen subida correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }else if(!file){
           dispatch(modifyUsers({
           'id' : userVerified.id,
@@ -47,11 +55,18 @@ const ProfileInformation = ({input, userVerified}) => {
           'imageUrl' : userVerified.imageUrl
         }))
         setChange(!change)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: 'Cambio de nombre correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }else{
         const result = await uploadFile(file)
         if(!result) throw new Error('Error al subir la imagen')
         dispatch(modifyUsers({
-          'id' : userVerified.id,
+          'id' : userVerified.user.id,
           'name' : username,
           'email' : userVerified.email,
           'password' : userVerified.password,
@@ -60,6 +75,13 @@ const ProfileInformation = ({input, userVerified}) => {
           'imageUrl' : result
         }))
         setFile(null)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: '¡Imagen y cambio de nombre subida correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     } catch (error) {
       alert('Error al subir la imagen')

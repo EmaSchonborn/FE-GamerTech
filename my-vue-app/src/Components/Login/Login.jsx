@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyUser, loginWithGoogle } from "../../Redux/actions";
+import Swal from "sweetalert2";
 import {
   GoogleAuthProvider,
   getAdditionalUserInfo,
@@ -37,9 +38,15 @@ const Login = () => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((data) => {
-        console.log(data);
         dispatch(verifyUser(email, password));
         setError(false);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: '¡Bienvenido!',
+          showConfirmButton: false,
+          timer: 1500
+        })
         navigate("/home");
       })
       .catch((error) => {

@@ -38,6 +38,7 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "spinners-react": "^1.0.7",
+    "sweetalert2": "^11.7.12",
     "tailwindcss": "^3.3.2",
     "uuid": "^9.0.0"
   },

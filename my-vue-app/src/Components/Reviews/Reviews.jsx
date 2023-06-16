@@ -8,25 +8,26 @@ export default function Reviews() {
   let params = useParams();
   const productoDetail = useSelector((state) => state.productDetail);
   const dispatch = useDispatch();
-// console.log()
+  
+  // console.log(productoDetail.reviewsTexts);
+  // console.log(productoDetail.reviewsScores);
+  
   useEffect(() => {
     params.id ? dispatch(getProductById(params.id)) : null;
     dispatch(getUsers());
   }, [params.id, dispatch]);
 
   const user = useSelector((state) => state.users);
-  const comentuser = user.find((e) => e.id === idLocal);
-
+  // console.log(user);
+  
   useEffect(() => {
     if (!user.length) {
       console.log('La información de los usuarios aún se está cargando...');
-    } else if (!comentuser) {
-      console.log('No se encontró ningún objeto con el ID correspondiente');
     } else {
-      console.log(comentuser);
+      // console.log(user);
     }
-  }, [user, comentuser]);
-
+  }, [user]);
+  
   const renderStarRating = (score) => {
     const maxRating = 5;
     const starFilled = '★';
@@ -56,29 +57,33 @@ export default function Reviews() {
   };
 
   return (
-    <div>
-      <h1>Reviews:</h1>
-      <div>
-        <h2>Puntuación general:</h2>
-        <span>{renderOverallRating()}</span>
-      </div>
-      <div>
-        <h2>Últimas reseñas:</h2>
-        <br />
-        {productoDetail.reviewsScores && comentuser &&
-          productoDetail.reviewsScores.map((score, index) => (
-            <div key={index}>
-              <p>Usuario: {comentuser.name}</p>
-              <p>Comentario: {productoDetail.reviewsTexts[index].mensaje}</p>
-              <br />
-            </div>
-          ))}
-      </div>
-    </div>
+    <div className="bg-white p-4 shadow-lg">
+  <h1 className="text-xl font-bold">Reviews:</h1>
+  <div className="my-4">
+    <h2 className="text-lg font-bold">Puntuación general:</h2>
+    <span>{renderOverallRating()}</span>
+  </div>
+  <div className="my-4">
+    <h2 className="text-lg font-bold">Últimas reseñas:</h2>
+    <br />
+    {productoDetail.reviewsScores && productoDetail.reviewsScores.length > 0 &&
+      productoDetail.reviewsScores.map((score, index) => {
+        const userId = productoDetail.reviewsTexts[index].userId;
+        const matchingUser = user.find((user) => user.id === parseInt(userId));
+
+        return (
+          <div key={index} className="my-2">
+            <p className="font-semibold">{matchingUser ? matchingUser.name : "Usuario desconocido"}:</p>
+            <p className="text-sm">Comentario: {productoDetail.reviewsTexts[index].mensaje}</p>
+            <br />
+          </div>
+        );
+      })}
+  </div>
+</div>
+
   );
 };
-
-
 
 
 
