@@ -42,7 +42,7 @@ const initialState = {
   userCreated: {},
   changeRolAttempts: 3,
   isAuthenticated: false,
-  messages: [],
+  messages: ["¡Novedades! Proximamente juntos a nuestra IA, podremos resolver cualquier duda que tengas"],
   purchases: [],
   userPurchases: [],
   categories: [],

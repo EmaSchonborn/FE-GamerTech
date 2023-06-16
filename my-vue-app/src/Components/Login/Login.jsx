@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { verifyUser, loginWithGoogle } from "../../Redux/actions";
 import Swal from "sweetalert2";
@@ -19,6 +19,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+
+  const userVerified = useSelector((state) => state.userVerified);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -41,13 +43,16 @@ const Login = () => {
         dispatch(verifyUser(email, password));
         setError(false);
         Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: '¡Bienvenido!',
+          position: "top-end",
+          icon: "success",
+          title: "¡Bienvenido!",
           showConfirmButton: false,
-          timer: 1500
-        })
-        navigate("/home");
+          timer: 1500,
+        });
+
+        userVerified.user?.isAdmin === true
+          ? navigate("/controlPanel")
+          : navigate("/home");
       })
       .catch((error) => {
         console.log(error);
@@ -74,6 +79,7 @@ const Login = () => {
           // Guardaremos el token del usuario
           localStorage.setItem("token", token);
           // Una vez validado todos los datos lo mandaremos recien al home con su cuenta logueada
+          user;
           navigate("/home");
         } else throw new Error("Usuario no validado");
       })

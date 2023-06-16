@@ -30,6 +30,8 @@ const Cart = () => {
 
   const allProducts = useSelector((state) => state.products);
   const cartByUserId = useSelector((state) => state.cartByUserId);
+  const userVerified = useSelector((state) => state.userVerified);
+  if (userVerified.user.isAdmin === true) navigate("/controlPanel");
 
   let total = 0;
   let cartItems = [];
@@ -91,7 +93,7 @@ const Cart = () => {
 
   console.log(cartByUserId);
 
-  let pagoExitoso=localStorage.getItem('pagoExitoso')
+  let pagoExitoso = localStorage.getItem("pagoExitoso");
 
   if (isActive === "false") {
     console.log("isActive");
@@ -103,19 +105,25 @@ const Cart = () => {
       })
       .catch((error) => console.log(error));
   } else {
-    return (<>
-      {pagoExitoso==='false'||pagoExitoso===null?
-      <InternalProvider
-        context={{ preferenceId, isLoading, orderData, setOrderData }}
-      >
-        <main>
-          {renderSpinner()}
-          <Checkout cartItems={cartItems} onClick={handleClick} description />
-          <Payment />
-        </main>
-        {/* <Footer /> */}
-      </InternalProvider>
-      : null}</>
+    return (
+      <>
+        {pagoExitoso === "false" || pagoExitoso === null ? (
+          <InternalProvider
+            context={{ preferenceId, isLoading, orderData, setOrderData }}
+          >
+            <main>
+              {renderSpinner()}
+              <Checkout
+                cartItems={cartItems}
+                onClick={handleClick}
+                description
+              />
+              <Payment />
+            </main>
+            {/* <Footer /> */}
+          </InternalProvider>
+        ) : null}
+      </>
     );
   }
 };

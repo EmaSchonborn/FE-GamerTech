@@ -20,8 +20,12 @@ export default function Home() {
     minutosTranscurridos = diferenciaTiempo / 60000;
   }
 
-  console.log(userId);
-
+  const userVerified = useSelector((state) => state.userVerified);
+  if(userVerified.user?.isAdmin === true ){
+    console.log(userVerified.user.isAdmin)
+    navigate("/controlPanel")
+  } 
+  
   if (minutosTranscurridos && minutosTranscurridos < 30) {
     console.log("Aún no han pasado 30 minutos");
   }
