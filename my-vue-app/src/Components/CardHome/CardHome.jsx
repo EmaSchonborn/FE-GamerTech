@@ -18,6 +18,7 @@ export default function CardHome(props) {
       </div>
       <div className="flex items-center justify-between px-4 py-2 bg-nintendo">
         <h1 className="text-lg font-bold text-white">${price}</h1>
+        <p className="text-lg font-bold text-white">{stock}</p>
         <Link className="flex justify-center" to={`/product/${id}`}>
           <button className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none">
             Detalle
