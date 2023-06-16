@@ -223,6 +223,7 @@ export function sendMailPaymentSuccess(Email){
         `https://api-gamertech.onrender.com/send-email/paymentsuccess`,
         Email
       );
+      
       dispatch({
         type: SEND_EMAIL,
         payload: json.data,

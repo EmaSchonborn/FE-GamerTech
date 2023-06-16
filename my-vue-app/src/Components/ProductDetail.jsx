@@ -147,6 +147,8 @@ export default function ProductDetail() {
                   $ {productoDetail.price}
                 </a>
               ) : null}
+            <br />
+           <h1 className="text-base font-bold text-gray-900">Stock: {productoDetail.stock}</h1>
             </div>
           </div>
         </div>
