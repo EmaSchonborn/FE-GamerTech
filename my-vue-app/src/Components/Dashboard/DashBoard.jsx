@@ -3,6 +3,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getAllCategories,
   getAllPurchases,
   getAllPurchasesById,
   getProducts,
@@ -17,6 +18,8 @@ import Reviews from "./Reviews/Reviews";
 import Review from "./Reviews/Review";
 import Ordenes from "./Ordenes/Ordenes";
 import Orden from "./Ordenes/Orden";
+import Form from "../Form";
+import CreateProduct from "./Forms/CreateProduct";
 
 const DashboardAdmin = () => {
   const dispatch = useDispatch();
@@ -25,6 +28,7 @@ const DashboardAdmin = () => {
     dispatch(getProducts());
     dispatch(getUsers());
     dispatch(getAllPurchases());
+    dispatch(getAllCategories());
   }, [dispatch]);
 
   const allProducts = useSelector((state) => state.dashFilteredProducts);
@@ -37,6 +41,7 @@ const DashboardAdmin = () => {
   const [selectedUserOrder, setSelectedUserOrder] = useState(null);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [mostrarOrden, setMostrarOrden] = useState(false);
+  const [verFormulario, setVerFormulario] = useState(false);
 
   const handlerVerOrden = (userOrder, userId) => {
     setSelectedUserOrder(userOrder);
@@ -70,7 +75,7 @@ const DashboardAdmin = () => {
     setMostrarReseñas(false);
   };
 
-  //Paginación productos
+  //Lógica productos
   const [currentPage, setCurrentPage] = useState(1);
 
   const pagination = (indexPage) => {
@@ -97,6 +102,18 @@ const DashboardAdmin = () => {
 
   const handlelastCellReviews = () => {
     setCurrentPage(lastCellreviewedProds);
+  };
+
+  const handleNewProduct = () => {
+    setVerFormulario(true);
+    setTimeout(() => {
+      const targetElement = document.getElementById("scrollTarget");
+      targetElement.scrollIntoView({ behavior: "smooth", block: "end" });
+    }, 500);
+  };
+
+  const handleHideForm = () => {
+    setVerFormulario(false);
   };
 
   //número de elementos en paginación
@@ -134,7 +151,7 @@ const DashboardAdmin = () => {
   );
 
   const dashReviewsObj = dashReviews[0];
-
+  console.log(dashReviewsObj)
   const handleUserName = (userId) => {
     const user = allUsers.find((x) => x.id == userId);
 
@@ -177,7 +194,7 @@ const DashboardAdmin = () => {
 
         <TabPanels className="bg-gray-200">
           <TabPanel>
-            <div className="flex justify-center">
+            <div className="flex justify-center mb-5">
               <div className="w-3/4 mx-auto bg-gray-400">
                 <div className="table-container ">
                   <table className="w-full">
@@ -212,11 +229,20 @@ const DashboardAdmin = () => {
                           imageUrl={p.imageUrl}
                           isActive={p.isActive}
                           stock={p.stock}
+                          category={p.category}
                         />
                       ))}
                     </tbody>
                   </table>
                 </div>
+                <button
+                  type="submit"
+                  className="w-full mt-5 mb-2 bg-white hover:bg-gray-200 text-black font-bold py-2 px-2 rounded"
+                  onClick={(e) => handleNewProduct(e)}
+                >
+                  {" "}
+                  Agregar Producto
+                </button>
               </div>
             </div>
 
@@ -230,6 +256,17 @@ const DashboardAdmin = () => {
               handlelastCellProducts={() => handlelastCellProducts()}
               pagination={pagination}
             />
+
+            {verFormulario && (
+              <div
+                id="scrollTarget"
+                className="flex justify-center items-center h-screen"
+              >
+                <div className="bg-gray-400 p-5">
+                  <CreateProduct id="scrollTarget" onCancel={handleHideForm} />
+                </div>
+              </div>
+            )}
           </TabPanel>
 
           <TabPanel>
@@ -355,7 +392,7 @@ const DashboardAdmin = () => {
                           </button>
                         </th>
                         <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
-                          Producto: {dashReviews[0].name}
+                          Producto: {dashReviews[0]?.name}
                         </th>
                         <th className="sticky top-0 bg-white z-10 w-1/6 px-4">
                           Reseña
@@ -367,15 +404,23 @@ const DashboardAdmin = () => {
                     </thead>
 
                     <tbody>
-                      {dashReviewsObj.reviewsTexts.map((p) => (
-                        <Review
-                          key={p.mensaje}
-                          id={selectedProductId}
-                          name={handleUserName(p.userId)}
-                          reseñas={p.mensaje}
-                          reviewId={p.userId}
-                        />
-                      ))}
+                      {dashReviewsObj.reviewsTexts ? (
+                        dashReviewsObj.reviewsTexts.map((p) => (
+                          <Review
+                            key={p.mensaje}
+                            id={selectedProductId}
+                            name={handleUserName(p.userId)}
+                            reseñas={p.mensaje}
+                            reviewId={p.userId}
+                          />
+                        ))
+                      ) : (
+                        <tr>
+                          <td colSpan="4">
+                            <h1>No se encuentran reseñas</h1>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -407,9 +452,9 @@ const DashboardAdmin = () => {
                         <th className="sticky top-0 bg-white z-10 w-3/6 px-4">
                           Comprador
                         </th>
-                        <th className="sticky top-0 bg-white z-10 w-2/6 px-4">
+                        {/* <th className="sticky top-0 bg-white z-10 w-2/6 px-4">
                           Acciones
-                        </th>
+                        </th> */}
                       </tr>
                     </thead>
 
@@ -474,7 +519,7 @@ const DashboardAdmin = () => {
               </div>
             )}
 
-            {mostrarOrden === false && (
+            {/* {mostrarOrden === false && (
               <Pagination
                 currentPage={currentPage}
                 handleFirstCell={() => handleFirstCell()}
@@ -484,7 +529,7 @@ const DashboardAdmin = () => {
                 handlelastCellProducts={() => handlelastCellUsers()}
                 pagination={pagination}
               />
-            )}
+            )} */}
           </TabPanel>
         </TabPanels>
       </Tabs>

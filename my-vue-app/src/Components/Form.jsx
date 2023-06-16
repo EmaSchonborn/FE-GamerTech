@@ -22,6 +22,16 @@ export default function Form({ initialData, onSubmit, onCancel }) {
         className="bg-gray-200 bg-opacity-90 p-4 rounded shadow-lg max-w-400"
       >
         <label className="block mb-2">
+          <span className="text-black">Categoría: </span>
+          <input
+            type="text"
+            name="category"
+            value={data.category}
+            onChange={handleChange}
+            className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
+          />
+        </label>
+        <label className="block mb-2">
           <span className="text-black">Nombre:</span>
           <input
             type="text"

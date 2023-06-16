@@ -15,7 +15,7 @@ export default function Ordenes(props) {
           {name}
         </div>
       </td>
-      <td className="relative justify-center text-center w-2/5">
+      {/* <td className="relative justify-center text-center w-2/5">
         <div className="relative">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-3 rounded"
@@ -24,7 +24,7 @@ export default function Ordenes(props) {
             Ver Orden
           </button>
         </div>
-      </td>
+      </td> */}
     </tr>
   );
 }

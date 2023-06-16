@@ -24,7 +24,9 @@ import {
   DELETE_REVIEW,
   GET_PURCHASES,
   GET_PURCHASES_BY_ID,
-  CREATE_PURCHASE
+  GET_ALL_CATEGORIES,
+  CREATE_PURCHASE,
+  ADD_NEW_PRODUCT
 } from "../Redux/actions";
 
 const initialState = {
@@ -41,9 +43,10 @@ const initialState = {
   userCreated: {},
   changeRolAttempts: 3,
   isAuthenticated: false,
-  messages: [],
+  messages: ["¡Bienvenidos a GamerTech! \nProximamente junto a nuestra IA propia, podremos resolver cualquier duda que pueda surgirte"],
   purchases: [],
   userPurchases: [],
+  categories: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -184,10 +187,19 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userPurchases: action.payload,
       };
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
+      }
     case CREATE_PURCHASE:
       return {
         ...state,
+        products: [... state.products, action.payload],
+        filteredProducts: [... state.filteredProducts, action.payload],
+        dashFilteredProducts: [ ... state.dashFilteredProducts, action.payload ]
         };
+    case ADD_NEW_PRODUCT:
     default:
       return { ...state };
   }

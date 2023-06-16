@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import imagen from "../../Imagenes/SOPN.gif";
+import imagen from "../../Imagenes/man.gif";
+import imagen2 from "../../Imagenes/technólogo.png";
 import { MinusIcon } from "@chakra-ui/icons";
 import { addMessage } from "../../Redux/actions";
 
@@ -28,7 +29,8 @@ const ChatBot = () => {
   }, [messages]);
 
   const handleChatBotClick = () => {
-    setChatBotOpen(!chatBotOpen);
+    setChatBotOpen(true);
+    sendMessage("¡Novedades! Proximamente juntos a la IA, podremos resolver cualquier duda que tengas");
   };
 
   const handleMinimizeClick = () => {
@@ -38,12 +40,16 @@ const ChatBot = () => {
   return (
     <div className="relative mr-10">
       {chatBotOpen && (
-        <div className="fixed bottom-10 right-10">
+        <div className="fixed w-96 bottom-10 right-10">
           <div
             className="bg-gray-400 flex items-center justify-end mr-1 cursor-pointer"
             onClick={handleMinimizeClick}
           >
-            <MinusIcon className="hover:bg-gray-200 w-3 h-3 mr-3" />
+            <img
+            className="w-12 h-12 mr-10"
+            src={imagen2}/>
+            <h3 className=" justify-center text-xl mr-10">Technólogo</h3>
+            <MinusIcon className="ml-10 hover:bg-gray-200 w-3 h-3 mr-10" />
           </div>
           <div className="max-w-64 max-h-96 bg-white shadow-lg rounded-lg overflow-y-auto flex flex-col">
             <div
