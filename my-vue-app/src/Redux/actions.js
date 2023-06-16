@@ -27,6 +27,7 @@ export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const CREATE_PURCHASE = "CREATE_PURCHASE";
+export const ADD_NEW_PRODUCT = "ADD_NEW_PRODUCT";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -584,9 +585,19 @@ export const createPurchase = (payload) => {
   };
 };
 
-export const createProduct = () => {
+export const createProduct = (payload) => {
   return async function (dispatch) {
     try {
+      let json = await await axios.post(
+        `https://api-gamertech-prueba.onrender.com/product/new`,
+        payload
+      );
+      const newProduct = json.data;  
+
+      dispatch({
+        type: ADD_NEW_PRODUCT,
+        payload: newProduct,
+      })
     } catch (error) {
       console.log(error.message);
     }

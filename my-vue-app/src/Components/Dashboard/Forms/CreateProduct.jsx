@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { createProduct, getProducts } from "../../../Redux/actions";
 
 export default function CreateProduct({ initialData, onSubmit, onCancel }) {
   const dispatch = useDispatch();
@@ -40,53 +41,27 @@ export default function CreateProduct({ initialData, onSubmit, onCancel }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setData((prevData) => ({
-      ...prevData,
+    setForm((prevForm) => ({
+      ...prevForm,
       [name]: value,
     }));
   };
 
-  const handleSelect = (e) => {
-    setForm({
-      ...form,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch()
-  }
-  // const handleFormSubmit = (updatedData) => {
-  //   const updatedProductData = {
-  //     id: updatedData.id,
-  //     name: updatedData.name,
-  //     description: updatedData.description,
-  //     price: updatedData.price,
-  //     imageUrl: updatedData.imageUrl,
-  //     stock: updatedData.stock,
-  //     isActive: data.isActive,
-  //     category: updatedData.category
-  //   };
-  //   dispatch(getProducts());
-
-  //   dispatch(modifyProducts(updatedProductData))
-  //     .then(() => {
-  //       console.log("Producto modificado");
-  //       setIsEditing(false);
-  //       setData(updatedProductData);
-  //     })
-  //     .catch((error) => {
-  //       console.log("Error al modificar el producto:", error);
-  //     });
-
-  //   dispatch(getProducts());
-  // };
+    dispatch(createProduct(form));
+    dispatch(getProducts());
+    console.log("Producto agregado con éxito");
+  };
 
   return (
     <form
       onSubmit={handleSubmit}
       className="bg-gray-200 bg-opacity-90 p-4 rounded shadow-lg max-w-400"
     >
+      <label className="block mb-2">
+        <span className="text-black text-lg">Agregar nuevo producto</span>
+      </label>
       <label className="block mb-2">
         <span className="text-black">Categoría: </span>
         <input
@@ -96,18 +71,6 @@ export default function CreateProduct({ initialData, onSubmit, onCancel }) {
           onChange={handleChange}
           className="block text-black text-center w-full mt-1 bg-gray-400 rounded border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200"
         />
-        <select
-          onChange={(e) => {
-            handleSelect(e);
-          }}
-        >
-          {/* <option>Selecciona categoría</option>
-          {categories?.map((temp) => (
-            <option value={temp} key={temp.name + Math.random()} className="">
-              {temp.name}
-            </option>
-          ))} */}
-        </select>
       </label>
       <label className="block mb-2">
         <span className="text-black">Nombre:</span>

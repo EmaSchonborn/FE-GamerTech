@@ -452,9 +452,9 @@ const DashboardAdmin = () => {
                         <th className="sticky top-0 bg-white z-10 w-3/6 px-4">
                           Comprador
                         </th>
-                        <th className="sticky top-0 bg-white z-10 w-2/6 px-4">
+                        {/* <th className="sticky top-0 bg-white z-10 w-2/6 px-4">
                           Acciones
-                        </th>
+                        </th> */}
                       </tr>
                     </thead>
 
@@ -519,7 +519,7 @@ const DashboardAdmin = () => {
               </div>
             )}
 
-            {mostrarOrden === false && (
+            {/* {mostrarOrden === false && (
               <Pagination
                 currentPage={currentPage}
                 handleFirstCell={() => handleFirstCell()}
@@ -529,7 +529,7 @@ const DashboardAdmin = () => {
                 handlelastCellProducts={() => handlelastCellUsers()}
                 pagination={pagination}
               />
-            )}
+            )} */}
           </TabPanel>
         </TabPanels>
       </Tabs>

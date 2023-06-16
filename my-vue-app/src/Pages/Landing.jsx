@@ -15,7 +15,7 @@ export const Landing = () => {
       <Categories />
       </div>
       <div id='ofertas'>
-      <Ofertas />
+      {/* <Ofertas /> */}
       </div>
       <Marcas />
       <Footer />
