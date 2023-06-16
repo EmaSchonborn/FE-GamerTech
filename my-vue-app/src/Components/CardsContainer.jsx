@@ -182,6 +182,7 @@ export default function CardsContainer() {
               description={p.description}
               price={p.price}
               imageUrl={p.imageUrl}
+              stock= {p.stock}
             />
           );
         })}

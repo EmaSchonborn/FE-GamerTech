@@ -7,12 +7,12 @@ export const Footer = () => {
       <footer className="footer flex items-center justify-center p-10 bg-[#E60011] text-xl font-size: 1.25rem; text-white">
         <div>
           <Link to="/about">
-          <span>Nosotros</span>
+            <span>Nosotros</span>
           </Link>
         </div>
         <div>
-        <Link to="/preguntas-frecuentes">
-          <span>Preguntas</span>
+          <Link to="/preguntas-frecuentes">
+            <span>Preguntas</span>
           </Link>
         </div>
         <div>
@@ -29,10 +29,7 @@ export const Footer = () => {
         </div>
         <div className="md:place-self-center md:justify-self-end">
           <div className="grid grid-flow-col gap-4">
-            <a
-              href=""
-              target="_blank"
-            >
+            <a href="" target="_blank">
               <img src="https://img.icons8.com/fluency-systems-regular/48/ffffff/instagram-new--v1.png" />
             </a>
             <a>

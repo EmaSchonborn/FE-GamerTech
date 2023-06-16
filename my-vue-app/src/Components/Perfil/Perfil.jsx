@@ -34,14 +34,9 @@ const Perfil = () => {
           <header className={styles.globalNav}>
             <figure className={styles.globalNav_img}>
               <div className={styles.avatar_icon}>
-                <img src={userVerified?.user.imageUrl} alt="avatar" />
+                <img src={userVerified.imageUrl} alt="avatar" />
               </div>
             </figure>
-            {/* INGRESAR UN SOBRENOMBRE AL USUARIO SI ES NECESARIO
-            <div className={styles.globalNav_info}>
-              <p className={styles.nickname}>{userVerified.name}</p>
-            </div>
-          */} 
           </header>
           <div className={styles.globalNav_body}>
             <ul className={styles.globalNav_list}>

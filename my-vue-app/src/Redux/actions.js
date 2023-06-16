@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
@@ -26,6 +27,7 @@ export const GET_PURCHASES = "GET_PURCHASES";
 export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const CREATE_PRODUCT = "CREATE_PRODUCT";
+export const CREATE_PURCHASE = "CREATE_PURCHASE";
 
 export function getProducts() {
   return async function (dispatch) {
@@ -140,9 +142,11 @@ export function getUserById(id) {
       const user = json.data;
       const msg = "Usuario encontrado!";
 
+      console.log(msg);
+
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: { user, msg },
+        payload: user,
       });
     } catch (e) {
       console.log(e.message);
@@ -216,6 +220,23 @@ export function sendEmail(payload) {
   };
 }
 
+export function sendMailPaymentSuccess(Email) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/send-email/paymentsuccess`,
+        Email
+      );
+      dispatch({
+        type: SEND_EMAIL,
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+}
+
 export function verifyUser(Email, Password) {
   const body = {
     email: Email,
@@ -270,8 +291,8 @@ export function verifyUser(Email, Password) {
 
 export function loginWithGoogle(payload) {
   let body = {
-    data: payload.userProfile,
     uid: payload.uid,
+    data: payload.userProfile,
   };
   return async function (dispatch) {
     try {
@@ -422,22 +443,6 @@ export function deleteItem(payload) {
   };
 }
 
-export function resetCart(id) {
-  return async function (dispatch) {
-    try {
-      let json = await axios.put(
-        `https://api-gamertech.onrender.com/cart/${id}`
-      );
-      dispatch({
-        type: RESET_CART,
-        payload: json.data,
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-}
-
 export function decrementValue() {
   return (dispatch, getState) => {
     dispatch({ type: DECREMENT_VALUE });
@@ -561,10 +566,31 @@ export const getAllCategories = () => {
   };
 };
 
-export const createProduct = () => {
-  return async function(dispatch) {
+export const createPurchase = (payload) => {
+  return async function (dispatch) {
     try {
-      
-    } catch(error){console.log(error.message);}
-  }
-}
+      let json = await axios.post(
+        `https://api-gamertech.onrender.com/purchase/new`,
+        payload
+      );
+
+      const purchase = json.data;
+
+      dispatch({
+        type: CREATE_PURCHASE,
+        payload: purchase,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const createProduct = () => {
+  return async function (dispatch) {
+    try {
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};

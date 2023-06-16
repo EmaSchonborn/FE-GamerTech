@@ -25,6 +25,7 @@ import {
   GET_PURCHASES,
   GET_PURCHASES_BY_ID,
   GET_ALL_CATEGORIES,
+  CREATE_PURCHASE
 } from "../Redux/actions";
 
 const initialState = {
@@ -190,6 +191,10 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         categories: action.payload
       }
+    case CREATE_PURCHASE:
+      return {
+        ...state,
+        };
     default:
       return { ...state };
   }

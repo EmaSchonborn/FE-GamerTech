@@ -84,6 +84,7 @@ const Checkout = ({ onClick, cartItems }) => {
                                     price={p.product.price}
                                     imageUrl={p.product.imageUrl}
                                     quantity={p.quantity}
+                                    
                                   />
                                 );
                               }

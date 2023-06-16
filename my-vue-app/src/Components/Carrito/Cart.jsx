@@ -89,6 +89,10 @@ const Cart = () => {
     return null;
   };
 
+  console.log(cartByUserId);
+
+  let pagoExitoso=localStorage.getItem('pagoExitoso')
+
   if (isActive === "false") {
     console.log("isActive");
     signOut(auth)
@@ -99,7 +103,8 @@ const Cart = () => {
       })
       .catch((error) => console.log(error));
   } else {
-    return (
+    return (<>
+      {pagoExitoso==='false'||pagoExitoso===null?
       <InternalProvider
         context={{ preferenceId, isLoading, orderData, setOrderData }}
       >
@@ -110,6 +115,7 @@ const Cart = () => {
         </main>
         {/* <Footer /> */}
       </InternalProvider>
+      : null}</>
     );
   }
 };

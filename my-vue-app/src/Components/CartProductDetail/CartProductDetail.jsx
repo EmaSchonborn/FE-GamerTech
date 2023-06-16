@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductById} from "../../Redux/actions";
-import { deleteItem } from "../../Redux/actions";
+import { deleteItem, modifyProducts } from "../../Redux/actions";
 
 const CartProductDetail = () => {
   const navigate = useNavigate()
@@ -19,8 +19,9 @@ const CartProductDetail = () => {
   
   const data = {userId: parseInt(id),
                 itemId:parseInt(params.id)}   
-                console.log(data)  
+                console.log(data.itemId)  
     const handleClick = (e) => { 
+      dispatch(modifyProducts({ id: data.itemId.id, stock: i++ }));
       dispatch(deleteItem(data))
       alert("Quitado Correctamente!")
       navigate("/shoppingCart")
@@ -81,3 +82,4 @@ const CartProductDetail = () => {
 };
 
 export default CartProductDetail;
+
