@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getProductById, sumarCarrito } from "../Redux/actions";
+import { getProductById, sumarCarrito, modifyProducts, getCartByUserId } from "../Redux/actions";
 import { getAuth, signOut } from "firebase/auth";
 import Reviews from "./Reviews/Reviews";
+import Swal from "sweetalert2";
+
 
 export default function ProductDetail() {
   const navigate = useNavigate();
@@ -18,17 +20,19 @@ export default function ProductDetail() {
   const id = localStorage.getItem("id");
   useEffect(() => {
     params.id ? dispatch(getProductById(params.id)) : null;
+    dispatch(getCartByUserId(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
+
   const productoDetail = useSelector((state) => state.productDetail);
-  console.log(productoDetail);
+  const carrito = useSelector((state) => state.cartByUserId);
+
   const [quantity, setQuantity] = useState(1);
   const data = {
     userId: parseInt(id),
     productId: { id: parseInt(params.id), quantity: quantity },
   };
-  // const data = { userId: parseInt(id), productId:parseInt(params.id)};
-  //const carrito = useSelector((state) => state.cartByUserId);
+
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   };
@@ -39,7 +43,7 @@ export default function ProductDetail() {
     }
   };
 
-  let pagoExitoso=localStorage.getItem('pagoExitoso')
+  let pagoExitoso = localStorage.getItem("pagoExitoso");
   const handleClick = () => {
     if (verified.user?.isActive === false) {
       signOut(auth)
@@ -50,16 +54,45 @@ export default function ProductDetail() {
         })
         .catch((error) => console.log(error));
     } else {
-      if(pagoExitoso==='true'){
-        localStorage.setItem('pagoExitoso', false)
+      if (pagoExitoso === "true") {
+        localStorage.setItem("pagoExitoso", false);
       }
-      dispatch(sumarCarrito(data));
+
+      const existingProduct = carrito.productsId?.find(
+        (product) => product.id === parseInt(params.id)
+      );
+
+      if (existingProduct) {
+        const newQuantity = existingProduct.quantity + quantity;
+        dispatch(modifyProducts({ id: parseInt(params.id), quantity: newQuantity }));
+      } else if (productoDetail.stock >= quantity){
+        dispatch(sumarCarrito(data));
+      
+
+      dispatch(
+        modifyProducts({
+          id: parseInt(params.id),
+          stock: productoDetail.stock - quantity,
+        })
+      );
+
       console.log(data);
-      alert("Agregado Correctamente!");
-      navigate("/home");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '¡Agregado correctamente!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate("/home");} else {Swal.fire({
+        position: 'top-end',
+        icon: 'warning',
+        title: '¡No hay Stock suficiente!',
+        showConfirmButton: false,
+        timer: 1500
+      })}
     }
   };
-  // console.log(carrito);
 
   if (loading) {
     setLoading(false);
@@ -73,8 +106,7 @@ export default function ProductDetail() {
           {productoDetail?.name !== undefined ? (
             <h1 className="px-4 py-2 text-base text-white font-medium bg-[#0061FB] p-1 text-center rounded-sm ">
               {" "}
-              {productoDetail.name.charAt(0).toUpperCase() +
-                productoDetail.name.slice(1)}
+              {productoDetail.name.charAt(0).toUpperCase() + productoDetail.name.slice(1)}
             </h1>
           ) : (
             setTimeout(0)
@@ -86,11 +118,12 @@ export default function ProductDetail() {
           ) : (
             setTimeout(0)
           )}
-        {productoDetail?.stock > 1 ? (
-           <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
-           Unidades disponibles: {productoDetail.stock}
-           </h1>) : (
-           <h1 className="text-base font-medium text-black">Sin Stock!</h1>
+          {productoDetail?.stock >= 1 ? (
+            <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
+              Unidades disponibles: {productoDetail.stock}
+            </h1>
+          ) : (
+            <h1 className="text-base font-medium text-black">Sin Stock!</h1>
           )}
           {productoDetail?.price !== undefined ? (
             <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
@@ -100,11 +133,7 @@ export default function ProductDetail() {
             setTimeout(0)
           )}
           {productoDetail?.imageUrl !== undefined ? (
-            <img
-              src={productoDetail.imageUrl}
-              alt="Loading.."
-              className="px-10"
-            />
+            <img src={productoDetail.imageUrl} alt="Loading.." className="px-10" />
           ) : (
             setTimeout(0)
           )}
@@ -155,3 +184,73 @@ export default function ProductDetail() {
   );
 }
 
+
+
+// import { useEffect, useState } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { Link, useNavigate, useParams } from "react-router-dom";
+// import { getProductById, sumarCarrito, modifyProducts } from "../Redux/actions";
+// import { getAuth, signOut } from "firebase/auth";
+// import Reviews from "./Reviews/Reviews";
+
+// export default function ProductDetail() {
+//   const navigate = useNavigate();
+//   const [loading, setLoading] = useState(true);
+//   const auth = getAuth();
+
+//   let dispatch = useDispatch();
+//   let params = useParams();
+
+//   const verified = useSelector((state) => state.userVerified);
+
+//   const id = localStorage.getItem("id");
+//   useEffect(() => {
+//     params.id ? dispatch(getProductById(params.id)) : null;
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [params.id, dispatch]);
+//   const productoDetail = useSelector((state) => state.productDetail);
+//   console.log(productoDetail);
+//   const [quantity, setQuantity] = useState(1);
+//   const data = {
+//     userId: parseInt(id),
+//     productId: { id: parseInt(params.id), quantity: quantity },
+//   };
+//   // const data = { userId: parseInt(id), productId:parseInt(params.id)};
+//   //const carrito = useSelector((state) => state.cartByUserId);
+//   const handleIncrement = () => {
+//     setQuantity(quantity + 1);
+//   };
+
+//   const handleDecrement = () => {
+//     if (quantity > 1) {
+//       setQuantity(quantity - 1);
+//     }
+//   };
+
+//   let pagoExitoso=localStorage.getItem('pagoExitoso')
+//   const handleClick = () => {
+//     if (verified.user?.isActive === false) {
+//       signOut(auth)
+//         .then(() => {
+//           console.log("sign out successful");
+//           localStorage.clear();
+//           navigate("/banned-user");
+//         })
+//         .catch((error) => console.log(error));
+//     } else {
+//       if(pagoExitoso==='true'){
+//         localStorage.setItem('pagoExitoso', false)
+//       }
+//       dispatch(sumarCarrito(data));
+//       dispatch(modifyProducts({ id: parseInt(params.id), stock: productoDetail.stock - quantity }));
+//       console.log(data);
+//       alert("Agregado Correctamente!");
+//       navigate("/home");
+//     }
+//   };
+//   // console.log(carrito);
+
+//   if (loading) {
+//     setLoading(false);
+//     return <div>Cargando...</div>; // Indicador de carga
+//   }

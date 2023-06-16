@@ -18,7 +18,7 @@ export default function CardHome(props) {
       <p className="px-4 py-2 text-base font-medium text-[#484848]">
         $ {price}
       </p>
-      {stock > 1 ? (
+      {stock >= 1 ? (
            <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
            Unidades disponibles: {stock}
            </h1>) : (
