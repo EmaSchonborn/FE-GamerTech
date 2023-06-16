@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import axios from "axios";
 export const GET_USERS = "GET_USERS";
 export const GET_USERS_BY_NAME = "GET_USERS_BY_NAME";
@@ -54,7 +53,6 @@ export function getProductById(id) {
         `https://api-gamertech.onrender.com/product/${id}`
       );
       const product = json.data;
-      console.log(product);
       const filteredProducts = product.isActive
         ? product
         : console.log("No hay Stock o no existe el producto!");
