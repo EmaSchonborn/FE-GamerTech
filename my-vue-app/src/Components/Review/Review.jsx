@@ -33,6 +33,7 @@ export  default function Review() {
       productId: productoDetail.id,
       userId: userId,
     };
+    if(data.mensaje !== "" && data.rate){
     dispatch(sendReview(data));
     console.log("Mensaje enviado:", mensaje);
     console.log("Valoración:", rate);
@@ -40,6 +41,8 @@ export  default function Review() {
     navigate(`/product/${params.id}`)
     setMensaje("");
     setRate(0);
+    } else if(!data.mensaje) { alert("Debes dejar un comentario!")}
+    else {alert("Debes seleccionar un puntaje!")}
   };
 
   useEffect(() => {

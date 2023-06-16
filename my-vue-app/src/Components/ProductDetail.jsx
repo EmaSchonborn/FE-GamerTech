@@ -21,7 +21,7 @@ export default function ProductDetail() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id, dispatch]);
   const productoDetail = useSelector((state) => state.productDetail);
-  // console.log(productoDetail);
+  console.log(productoDetail);
   const [quantity, setQuantity] = useState(1);
   const data = {
     userId: parseInt(id),
@@ -39,6 +39,7 @@ export default function ProductDetail() {
     }
   };
 
+  let pagoExitoso=localStorage.getItem('pagoExitoso')
   const handleClick = () => {
     if (verified.user?.isActive === false) {
       signOut(auth)
@@ -49,6 +50,9 @@ export default function ProductDetail() {
         })
         .catch((error) => console.log(error));
     } else {
+      if(pagoExitoso==='true'){
+        localStorage.setItem('pagoExitoso', false)
+      }
       dispatch(sumarCarrito(data));
       console.log(data);
       alert("Agregado Correctamente!");
@@ -173,6 +177,7 @@ export default function ProductDetail() {
             setTimeout(0)
           )}
 
+
       <div className="p-6">
         <div>
           <span className="text-xs font-medium text-blue-600 uppercase dark:text-blue-400">
@@ -191,6 +196,18 @@ export default function ProductDetail() {
               {productoDetail.name.charAt(0).toUpperCase() +
                 productoDetail.name.slice(1)}
           </a>
+=======
+        {productoDetail?.stock > 1 ? (
+           <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
+           Unidades disponibles: {productoDetail.stock}
+           </h1>) : (
+           <h1 className="text-base font-medium text-black">Sin Stock!</h1>
+          )}
+          {productoDetail?.price !== undefined ? (
+            <h1 className="px-4 py-2 text-base font-medium text-[#484848]">
+              $ {productoDetail.price}
+            </h1>
+
           ) : (
             setTimeout(0)
           )}
@@ -273,28 +290,3 @@ export default function ProductDetail() {
      </div> */
 }
 
-// const handleClicker = (e) => {
-//   if (verified.user?.isActive === false) {
-//     signOut(auth)
-//       .then(() => {
-//         console.log("sign out successful");
-//         localStorage.clear();
-//         navigate("/banned-user");
-//       })
-//       .catch((error) => console.log(error));
-//   } else {
-//     dispatch(getCartByUserId(userId));
-//     const existingProduct = cartByUserId.find((item) => item.product.id === data.id);
-
-//     if (existingProduct) {
-//       const newQuantity = existingProduct.quantity + data.quantity;
-//       dispatch(modifyCartByUserId(userId, data.id, newQuantity));
-//     } else {
-//       dispatch(sumarCarrito(data));
-//     }
-
-//     console.log(data);
-//     alert("Agregado Correctamente!");
-//     navigate("/home");
-//   }
-// };

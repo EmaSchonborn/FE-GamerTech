@@ -15,12 +15,16 @@ initMercadoPago("TEST-1b219c6f-dc51-44fd-ad18-6c48f228ef56");
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userId = localStorage.getItem("id");
   const isActive = localStorage.getItem("vrfd");
   const auth = getAuth();
-  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userId) {
+      alert("Debes iniciar sesión o crearte una cuenta para ver tu carrito");
+      navigate("/login");
+    }
     dispatch(getCartByUserId(userId));
   }, [dispatch]);
 
@@ -85,6 +89,10 @@ const Cart = () => {
     return null;
   };
 
+  console.log(cartByUserId);
+
+  let pagoExitoso=localStorage.getItem('pagoExitoso')
+
   if (isActive === "false") {
     console.log("isActive");
     signOut(auth)
@@ -95,7 +103,8 @@ const Cart = () => {
       })
       .catch((error) => console.log(error));
   } else {
-    return (
+    return (<>
+      {pagoExitoso==='false'||pagoExitoso===null?
       <InternalProvider
         context={{ preferenceId, isLoading, orderData, setOrderData }}
       >
@@ -106,6 +115,7 @@ const Cart = () => {
         </main>
         {/* <Footer /> */}
       </InternalProvider>
+      : null}</>
     );
   }
 };

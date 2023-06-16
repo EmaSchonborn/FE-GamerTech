@@ -19,7 +19,23 @@ export default function Home() {
     diferenciaTiempo = marcaTiempoActual - marcaTiempoLogin;
     minutosTranscurridos = diferenciaTiempo / 60000;
   }
+
   console.log(userId);
+
+  if (minutosTranscurridos && minutosTranscurridos < 30) {
+    console.log("Aún no han pasado 30 minutos");
+  }
+  if (minutosTranscurridos && minutosTranscurridos >= 30) {
+    localStorage.setItem("isAuthenticated", false);
+    localStorage.setItem("marcaTiempoLogin", Date.now());
+    alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
+    navigate("/login");
+  }
+  // if (isAuthenticated === "false") {
+  //   alert("Tu sesión ha caducado. Por favor vuelve a iniciar sesión");
+  //   navigate("/login");
+  // }
+
 
   useEffect(() => {
     if (minutosTranscurridos && minutosTranscurridos >= 30) {
