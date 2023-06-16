@@ -148,6 +148,7 @@ export default function ProductDetail() {
                 </a>
               ) : null}
             </div>
+            <p className="text-base font-bold text-gray-900">Stock {productoDetail.stock}</p>
           </div>
         </div>
       </div>
