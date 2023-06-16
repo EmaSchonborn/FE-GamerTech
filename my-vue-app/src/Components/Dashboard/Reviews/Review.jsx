@@ -13,7 +13,8 @@ export default function Review(props) {
       reviewId: `${reviewId}`,
     };
 
-    dispatch(deleteReview(deleteData));
+    dispatch(deleteReview(deleteData))
+    // .then(window.location.reload());
   };
 
   return (

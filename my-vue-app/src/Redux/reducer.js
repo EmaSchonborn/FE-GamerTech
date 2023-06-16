@@ -24,6 +24,7 @@ import {
   DELETE_REVIEW,
   GET_PURCHASES,
   GET_PURCHASES_BY_ID,
+  GET_ALL_CATEGORIES,
 } from "../Redux/actions";
 
 const initialState = {
@@ -43,6 +44,7 @@ const initialState = {
   messages: [],
   purchases: [],
   userPurchases: [],
+  categories: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -183,6 +185,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         userPurchases: action.payload,
       };
+    case GET_ALL_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
+      }
     default:
       return { ...state };
   }

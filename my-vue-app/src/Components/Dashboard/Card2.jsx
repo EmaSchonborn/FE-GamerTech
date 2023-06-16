@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getProducts, modifyProducts } from "../../Redux/actions";
+import { getAllCategories, getProducts, modifyProducts } from "../../Redux/actions";
 import Form from "../Form";
 
 export default function Card2(props) {
-  const { id, name, description, price, imageUrl, isActive, stock } = props;
+  const { id, name, description, price, category, imageUrl, isActive, stock } = props;
 
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({
@@ -15,6 +15,7 @@ export default function Card2(props) {
     imageUrl,
     isActive,
     stock,
+    category
   });
 
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Card2(props) {
       imageUrl: data.imageUrl,
       stock: data.stock,
       isActive: !data.isActive,
+      category: data.category
     }
     dispatch(modifyProducts(updatedProductData))
       .then(() => {
@@ -42,6 +44,7 @@ export default function Card2(props) {
   
   const handleEditProduct = () => {
     setIsEditing(true);
+    dispatch(getAllCategories());
     setData((prevData) => ({
       ...prevData,
       id,
@@ -51,6 +54,7 @@ export default function Card2(props) {
       imageUrl,
       isActive,
       stock,
+      category
     }));
   };
 
@@ -63,6 +67,7 @@ export default function Card2(props) {
       imageUrl: updatedData.imageUrl,
       stock: updatedData.stock,
       isActive: data.isActive,
+      category: updatedData.category
     };
     dispatch(getProducts());
 
@@ -97,7 +102,7 @@ export default function Card2(props) {
       </td>
       <td className="relative py-10 w-1/5 text-left">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-          {price}
+          U$S {price}
         </div>
       </td>
       <td className="relative py-10 w-1/5">

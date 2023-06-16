@@ -24,11 +24,13 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const DELETE_REVIEW = "DELETE_REVIEW";
 export const GET_PURCHASES = "GET_PURCHASES";
 export const GET_PURCHASES_BY_ID = "GET_PURCHASES_BY_ID";
+export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
+export const CREATE_PRODUCT = "CREATE_PRODUCT";
 
 export function getProducts() {
   return async function (dispatch) {
     const apiData = await axios.get(
-      "https://api-gamertech.onrender.com/product"
+      "https://api-gamertech-prueba.onrender.com/product"
     );
     const products = apiData.data;
     const sortProducts = products.sort((a, b) => (a.id > b.id ? 1 : -1));
@@ -172,7 +174,7 @@ export function createUser(payload) {
             `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
             cart
           );
-          localStorage.setItem('cart', JSON.stringify(null));
+          localStorage.setItem("cart", JSON.stringify(null));
           dispatch({
             type: SUMAR_CARRITO,
             payload: newCart.data,
@@ -238,7 +240,7 @@ export function verifyUser(Email, Password) {
             `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
             cart
           );
-          localStorage.setItem('cart', JSON.stringify(null));
+          localStorage.setItem("cart", JSON.stringify(null));
           dispatch({
             type: SUMAR_CARRITO,
             payload: newCart.data,
@@ -289,7 +291,7 @@ export function loginWithGoogle(payload) {
             `https://api-gamertech.onrender.com/cart/addcartfromlocalstorage`,
             cart
           );
-          localStorage.setItem('cart', JSON.stringify(null));
+          localStorage.setItem("cart", JSON.stringify(null));
           dispatch({
             type: SUMAR_CARRITO,
             payload: newCart.data,
@@ -369,7 +371,7 @@ export function modifyProducts(payload) {
   return async function () {
     try {
       const response = await axios.post(
-        "https://api-gamertech.onrender.com/product/modifyproduct",
+        "https://api-gamertech-prueba.onrender.com/product/modifyproduct",
         payload
       );
       const { product, msg } = response.data;
@@ -532,3 +534,37 @@ export const getAllPurchasesById = (id) => {
     }
   };
 };
+
+export const getAllCategories = () => {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(
+        "https://api-gamertech-prueba.onrender.com/product/getcategories/all"
+      );
+
+      const categories = json.data;
+      const filteredCategories = [
+        ...new Set(categories.map((item) => item.category)),
+      ];
+
+      const uniqueCategories = filteredCategories.filter((category, index) => {
+        return filteredCategories.indexOf(category) === index;
+      });
+
+      dispatch({
+        type: GET_ALL_CATEGORIES,
+        payload: uniqueCategories,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+};
+
+export const createProduct = () => {
+  return async function(dispatch) {
+    try {
+      
+    } catch(error){console.log(error.message);}
+  }
+}
