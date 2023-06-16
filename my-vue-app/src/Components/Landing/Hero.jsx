@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -21,20 +21,45 @@ export const Hero = () => {
     backgroundImage: `url(${images[currentImage]})`,
   };
 
+  const handlerClick = () => {
+    // Lógica para manejar el clic del botón
+    console.log("Botón 'Salir' clicado");
+  };
+
   return (
     <div className="hero min-h-screen" style={heroStyle}>
-      <div className="bg-opacity-0 bg-hero bg-no-repeat bg-cover bg-center bg-fixed"></div>
-      <div className="hero-content text-center text-neutral-content">
-        <div className="max-w-md">
-          <h1 className="mb-5 text-5xl font-bold text-white">
-            Todo lo que buscas en un solo lugar.
-          </h1>
-          <p className="mb-5"></p>
-          <Link to="/register">
-          <button className="btn btn-primary bg-[#E60011] border-none rounded-sm">
-            Registrarse
-          </button>
-          </Link>
+      <div className="bg-hero bg-no-repeat bg-cover bg-center bg-fixed"></div>
+      <div className="hero-content flex items-center justify-center text-center text-neutral-content">
+        <div className="bg-black bg-opacity-70 p-4 rounded-lg">
+          <div className="bg-red-500 text-white p-4 mb-3">
+            <p className="font-bold">
+              ¡Lo sentimos, pero tu cuenta ha sido suspendida temporalmente!
+            </p>
+            <p>
+              Ponte en contacto con nuestro equipo de soporte para obtener más
+              información.
+            </p>
+            <p>
+              Actualmente, no tienes acceso para utilizar las funcionalidades de
+              GamerTech.
+            </p>
+          </div>
+          <p>Contáctanos: soporte@gamertech.com.ar</p>
+          <div className="flex justify-center items-center mt-5">
+            <Link to="/">
+              <button
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
+                onClick={handlerClick}
+              >
+                Salir
+              </button>
+            </Link>
+            <Link to="/home">
+              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4">
+                Ver productos
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

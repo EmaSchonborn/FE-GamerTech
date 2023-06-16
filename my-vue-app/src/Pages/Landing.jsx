@@ -11,8 +11,12 @@ export const Landing = () => {
     <div className='font-D-DIN'>
       <Header />
       <Hero />
+      <div id='categorias'>
       <Categories />
+      </div>
+      <div id='ofertas'>
       <Ofertas />
+      </div>
       <Marcas />
       <Footer />
     </div>
