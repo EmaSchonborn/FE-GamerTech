@@ -30,33 +30,21 @@ export const Hero = () => {
     <div className="hero min-h-screen" style={heroStyle}>
       <div className="bg-hero bg-no-repeat bg-cover bg-center bg-fixed"></div>
       <div className="hero-content flex items-center justify-center text-center text-neutral-content">
-        <div className="bg-black bg-opacity-70 p-4 rounded-lg">
-          <div className="bg-red-500 text-white p-4 mb-3">
-            <p className="font-bold">
-              ¡Lo sentimos, pero tu cuenta ha sido suspendida temporalmente!
+        <div className="bg-gray-950/50 bg-opacity-70 p-4 rounded-lg">
+          <div className=" text-white p-4 mb-3">
+            <p className="font-bold text-4xl">
+              Bienvenidos a GamerTech
             </p>
-            <p>
+            {/* <p>
               Ponte en contacto con nuestro equipo de soporte para obtener más
               información.
-            </p>
-            <p>
-              Actualmente, no tienes acceso para utilizar las funcionalidades de
-              GamerTech.
-            </p>
+            </p> */}
           </div>
-          <p>Contáctanos: soporte@gamertech.com.ar</p>
+          
           <div className="flex justify-center items-center mt-5">
-            <Link to="/">
-              <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4"
-                onClick={handlerClick}
-              >
-                Salir
-              </button>
-            </Link>
-            <Link to="/home">
+            <Link to="/login">
               <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-4">
-                Ver productos
+                Registrarse
               </button>
             </Link>
           </div>

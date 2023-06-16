@@ -43,7 +43,8 @@ const Checkout = ({ onClick, cartItems }) => {
  
  
   return (
-    <section className={shoppingCartClass}>
+    <section className="flex items-center justify-center">
+    <div className={shoppingCartClass}>
       <div className="container" id="container">
         <div className="block-heading">
           <h2>Carrito</h2>
@@ -59,7 +60,7 @@ const Checkout = ({ onClick, cartItems }) => {
                 <div className="product">
                   <div className="info">
                     <div className="product-details">
-                      <div className="row justify-content-md-center">
+                      <div className="flex flex-col items-center justify-center">
                         {/* <div className="col-md-3">
                           <img
                             className="img-fluid mx-auto d-block image"
@@ -138,6 +139,7 @@ const Checkout = ({ onClick, cartItems }) => {
           </div>
         </div>
       </div>
+    </div>
     </section>
   );
 };
