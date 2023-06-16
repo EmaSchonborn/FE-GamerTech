@@ -140,9 +140,11 @@ export function getUserById(id) {
       const user = json.data;
       const msg = "Usuario encontrado!";
 
+      console.log(msg)
+
       return dispatch({
         type: GET_USER_BY_ID,
-        payload: { user, msg },
+        payload: user,
       });
     } catch (e) {
       console.log(e.message);
@@ -287,8 +289,8 @@ export function verifyUser(Email, Password) {
 
 export function loginWithGoogle(payload) {
   let body = {
-    data: payload.userProfile,
     uid: payload.uid,
+    data: payload.userProfile,
   };
   return async function (dispatch) {
     try {
