@@ -3,6 +3,7 @@ import styles from './ProfileInformation.module.css'
 import {uploadFile} from '../../firebase.config'
 import {useDispatch} from 'react-redux'
 import { modifyUsers } from "../../Redux/actions";
+import Swal from "sweetalert2";
 
 const ProfileInformation = ({input, userVerified}) => {
   const [username, setUsername] = React.useState('')
@@ -20,7 +21,6 @@ const ProfileInformation = ({input, userVerified}) => {
     setChange(!change)
   }
 
-  
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -28,39 +28,60 @@ const ProfileInformation = ({input, userVerified}) => {
         const result = await uploadFile(file)
         if(!result) throw new Error('Error al subir la imagen')
         dispatch(modifyUsers({
-          'id' : userVerified.user.id,
-          'name' : userVerified.user.name,
-          'email' : userVerified.user.email,
-          'password' : userVerified.user.password,
-          'isActive' : userVerified.user.isActive,
-          'isAdmin' : userVerified.user.isAdmin,
+          'id' : userVerified.id,
+          'name' : userVerified.name,
+          'email' : userVerified.email,
+          'password' : userVerified.password,
+          'isActive' : userVerified.isActive,
+          'isAdmin' : userVerified.isAdmin,
           'imageUrl' : result
         }))
         setFile(null)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: '¡Imagen subida correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }else if(!file){
           dispatch(modifyUsers({
-          'id' : userVerified.user.id,
+          'id' : userVerified.id,
           'name' : username,
-          'email' : userVerified.user.email,
-          'password' : userVerified.user.password,
-          'isActive' : userVerified.user.isActive,
-          'isAdmin' : userVerified.user.isAdmin,
-          'imageUrl' : userVerified.user.imageUrl
+          'email' : userVerified.email,
+          'password' : userVerified.password,
+          'isActive' : userVerified.isActive,
+          'isAdmin' : userVerified.isAdmin,
+          'imageUrl' : userVerified.imageUrl
         }))
         setChange(!change)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: 'Cambio de nombre correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }else{
         const result = await uploadFile(file)
         if(!result) throw new Error('Error al subir la imagen')
         dispatch(modifyUsers({
           'id' : userVerified.user.id,
           'name' : username,
-          'email' : userVerified.user.email,
-          'password' : userVerified.user.password,
-          'isActive' : userVerified.user.isActive,
-          'isAdmin' : userVerified.user.isAdmin,
+          'email' : userVerified.email,
+          'password' : userVerified.password,
+          'isActive' : userVerified.isActive,
+          'isAdmin' : userVerified.isAdmin,
           'imageUrl' : result
         }))
         setFile(null)
+        Swal.fire({
+          position: 'mid-end',
+          icon: 'success',
+          title: '¡Imagen y cambio de nombre subida correctamente!',
+          showConfirmButton: false,
+          timer: 1500
+        })
       }
     } catch (error) {
       alert('Error al subir la imagen')
