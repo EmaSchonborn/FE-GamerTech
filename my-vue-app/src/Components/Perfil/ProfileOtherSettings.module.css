@@ -23,12 +23,24 @@
 }
 
 .titulo {
+    position: relative;
     cursor: pointer;
-    color: #3366cc;
+    margin: 0 0 1px;
+    padding: 22px 30px;
+    background-color: #fafafa;
+    font-size: 20px;
     margin-bottom: 10px;
     padding-left: 20px;
+    line-height: 1;
 }
 
 .contenido {
     margin-left: 20px;
+}
+
+.setting{
+    overflow: hidden;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    background-color: #fff;
 }
