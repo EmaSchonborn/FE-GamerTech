@@ -10,11 +10,11 @@ export default function CardHome(props) {
         <p className="mt-1 text-sm text-gray-800">{description}</p>
       </div>
       <div className="relative">
-        <img
-          className="w-full h-52 object-cover"
-          src={imageUrl}
-          alt="NIKE AIR"
-        />
+      <img
+  className="w-full h-52 object-contain object-center"
+  src={imageUrl}
+  alt="NIKE AIR"
+/>
       </div>
       <div className="flex items-center justify-between px-4 py-2 bg-nintendo">
         <h1 className="text-lg font-bold text-white">${price}</h1>
