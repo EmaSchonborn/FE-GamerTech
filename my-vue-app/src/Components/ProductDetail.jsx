@@ -76,9 +76,8 @@ export default function ProductDetail() {
         })
       );
 
-      console.log(data);
       Swal.fire({
-        position: 'top-end',
+        position: 'top-center',
         icon: 'success',
         title: '¡Agregado correctamente!',
         showConfirmButton: false,

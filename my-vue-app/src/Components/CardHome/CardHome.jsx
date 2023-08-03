@@ -4,32 +4,33 @@ export default function CardHome(props) {
   // eslint-disable-next-line react/prop-types
   let { id, name, description, price, imageUrl, stock } = props;
 
-
   return (
-    <div className="max-w-xs overflow-hidden bg-slate-50 rounded-md shadow-lg">
-      <div className="px-4 py-2">
+    <div className="max-w-xs overflow-hidden bg-slate-50 rounded-md shadow-lg flex flex-col">
+      <div className="px-4 py-2 flex-1">
         <h1 className="text-xl font-bold text-gray-900 uppercase">{name}</h1>
         <p className="mt-1 text-sm text-gray-800">{description}</p>
-        <p className="text-lg font-bold text-black">Unidades Disponibles: {stock}</p>
+        <p className="text-lg font-bold text-black">
+          Unidades Disponibles: {stock}
+        </p>
       </div>
       <div className="relative">
-      <img
-  className="w-full h-52 object-contain object-center"
-  src={imageUrl}
-  alt="NIKE AIR"
-  />
+        <img
+          className="w-full h-52 object-contain object-center"
+          src={imageUrl}
+          alt="NIKE AIR"
+        />
       </div>
       <div className="flex items-center justify-between px-4 py-2 bg-nintendo">
         <h1 className="text-lg font-bold text-white">${price}</h1>
-        
-        <Link className="flex justify-center" to={`/product/${id}`}>
+
+        <Link className="flex justify-center self-end" to={`/product/${id}`}>
           <button className="px-2 py-1 text-xs font-semibold text-gray-900 uppercase transition-colors duration-300 transform bg-white rounded hover:bg-gray-200 focus:bg-gray-400 focus:outline-none">
             Detalle
           </button>
         </Link>
       </div>
-      </div>
-      )
+    </div>
+  );
 }
 
 {

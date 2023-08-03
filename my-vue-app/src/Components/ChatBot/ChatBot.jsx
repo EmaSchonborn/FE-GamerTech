@@ -8,7 +8,6 @@ import { addMessage } from "../../Redux/actions";
 const ChatBot = () => {
   const dispatch = useDispatch();
   const messages = useSelector((state) => state.messages);
-
   const [chatBotOpen, setChatBotOpen] = useState(false);
 
   const inputRef = useRef(null);
@@ -40,7 +39,7 @@ const ChatBot = () => {
   return (
     <div className="relative mr-10">
       {chatBotOpen && (
-        <div className="fixed w-96 bottom-10 right-10">
+        <div className={`fixed w-96 ${location.pathname === "/" ? "bottom-32" : "bottom-10"} right-10`}>
           <div
             className="bg-gray-400 flex items-center justify-end mr-1 cursor-pointer"
             onClick={handleMinimizeClick}

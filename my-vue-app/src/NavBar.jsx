@@ -1,8 +1,9 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import {auth} from './firebase.config'
+import { auth } from "./firebase.config";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
   const [click, setClick] = useState(false);
@@ -12,6 +13,17 @@ const NavBar = () => {
 
   const handleClick = () => {
     setClick(!click);
+  };
+
+  const handleLogin = () => {
+    Swal.fire({
+      position: "top-center",
+      icon: "warning",
+      title: "¡Primero debes iniciar sesión!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+    setTimeout(1000);
   };
 
   const userSignOut = () => {
@@ -37,8 +49,8 @@ const NavBar = () => {
     location.pathname === "/login";
 
   const hideDashBoardButton =
-  location.pathname === "/home" ||
-  location.pathname === "/perfil" ||
+    location.pathname === "/home" ||
+    location.pathname === "/perfil" ||
     location.pathname === "/register" ||
     location.pathname === "/login" ||
     location.pathname === "/controlPanel";
@@ -124,8 +136,8 @@ const NavBar = () => {
                   <img
                     width="30"
                     height="30"
-                    src={verified.user?.imageUrl}
-                    alt="user--v1"
+                    src={verified.user?.imageUrl ? verified.user?.imageUrl : "https://img1.freepng.es/20180319/gze/kisspng-united-states-computer-icons-desktop-wallpaper-cli-free-high-quality-person-icon-5ab04a53d2f737.2615386815215028038641.jpg" }
+                    alt=""
                   />
                 </button>
               </div>
@@ -137,16 +149,27 @@ const NavBar = () => {
                   aria-labelledby="user-menu-button"
                   tabIndex="-1"
                 >
-                  <Link
-                    to="/perfil"
-                    className="block px-4 py-2 text-sm text-gray-700"
-                    role="menuitem"
-                    tabIndex="-1"
-                    id="user-menu-item-0"
-                    onClick={handleClick}
-                  >
-                    Perfil
-                  </Link>
+                  {user ? (
+                    <Link
+                      to="/perfil"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      role="menuitem"
+                      tabIndex="-1"
+                      id="user-menu-item-0"
+                      onClick={handleClick}
+                    >
+                      Perfil
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/login"
+                      className="block px-4 py-2 text-sm text-gray-700"
+                      onClick={handleLogin}
+                    >
+                      Perfil
+                    </Link>
+                  )}
+
                   {/* <Link
                     href="#"
                     className="block px-4 py-2 text-sm text-gray-700"
@@ -168,8 +191,7 @@ const NavBar = () => {
                         <button onClick={userSignOut}>Desloguearse</button>
                       </>
                     ) : (
-                      <Link to="/login" 
-                      >Login</Link>
+                      <Link to="/login">Login</Link>
                     )}
                   </div>
                 </div>
